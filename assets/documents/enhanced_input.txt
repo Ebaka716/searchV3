@@ -1,0 +1,39 @@
+I need to create a natural language prompt entry for my business. This entry needs to solve several levels of interactivity.
+There are two modes of behavior controlled by the Mode menu; Search and Research. Switching between the two will result in the user being presented different interfaces
+Ability to add context to the input controlled by the Contextual menu
+Ability to switch to voice mode
+Ability to click a button to submit the input
+
+This element will be used throughout my application on different views and width, so being responsive is important.
+
+Visuals
+The attached images are a representation of the overall look of the component. There are visuals for different states, tooltips and menus.
+
+The pink labels are for identification and would not be part of the coded component.
+
+
+Mode menu requirements
+A Tab list component where a user can switch between two modes of Search and Research.
+Each tab should have a Tooltip associated with it as shown in the image file
+Use an icon for search and prompt me to provide an icon for Research
+The tooltip content should be as shown under the pink identification label called Mode menu in the image file
+Selecting a tab will change the placeholder content as shown under the Search state and Research state in the image file
+When content is input and then the user enters either by the keyboard or selecting the submit icon the content area of the application will change to either the Search or Research view mode (this will be scoped later)
+
+
+Contextual menu requirements
+A button component which opens a Dropdown Menu component on selection
+The button should have a tooltip
+The menu should have a divider and the options ordered as shown under the pink identification label called Contextual menu shown in the image file
+Choose the icons which best match the label
+For prototype purposes, the only actionable menu option can be Upload a file. Create the correct interactions to select a file from the users computer and then add the file name to a context badge
+
+
+Context added to input
+A Badge component with an @ icon and ability to delete.
+The badge should contain the full attribute’s name
+Selecting x should remove the context attribute
+
+
+Long content entering
+The input area should be 100% width of its container. When the user enters content which exceeds this width, the input space would grow and push the overall container up. The component should not visually move down.

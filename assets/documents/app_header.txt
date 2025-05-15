@@ -1,0 +1,16 @@
+I need to create a header component with 2 variants, a Full_header and a Short_header. The short header is simply only the top portion of the Full_header. I should be able to indicate which variant I want and the code injects the correct view.
+
+The header must be responsive.
+
+Product company
+When a user clicks this element the application should display the Home view state.
+
+Testing menu
+When a user clicks the Log out menu option the application should display the Testing menu. There will be options in this list to point to testing alternatives which will be defined at a later time.
+
+Visuals
+The attached images are a representation of the overall look of the component.
+
+The pink labels are for identification and would not be part of the coded component.
+
+The Discovery input component will be used in the Full_header, so use that and do not recreate something. What is there now is for placement purposes only.

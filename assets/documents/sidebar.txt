@@ -1,0 +1,58 @@
+I need to create a sidebar panel for all search and research views. This would be a single consistent element, consistent for all of these views.
+
+Expand/Collapse
+Use the components icon button and capabilities for expanding and collapsing the sidebar. This element should be the top sidebar option, therefor be inside the container.
+
+Sidebar groups
+I need a menu space where the user can start a new topic sequence at any time. This action would pause the current workflow and bring the user to the start page of the view.
+
+Create 3 groups in the sidebar space as pictured in the image. The order should be; Actions, History, Projects, Documents, Settings
+
+Actions
+
+New search
+Click will go to the search start view
+New research project
+Click will go to the research start view
+
+History
+This section should be React Server Components to be fully dynamic with the first user input being used as the title. Create whatever system you need to successfully store this information and retrieve it for display.
+
+Interaction: Click of an option in the list would treat the title as a new input and set the application to the correct search scenario flow.
+
+Grouped by calendar event startdate. Groupings should be:
+Today
+Yesterday
+Last 7 days (this would exclude today and yesterday)
+Last month (this would exclude today, yesterday, 7 days)
+
+Storage of data: History should be retained only for 15 days
+
+Projects
+To start, just use the labels as indicated in the image.
+
+Interaction: Click of an option in the list would set the application to the correct research scenario flow.
+
+Documents
+Use the collapsable attribute
+
+Interaction. Click on any option would load the information in a Dialog. This information will be stored in individual files.
+
+Settings
+Use the collapsable attribute
+
+Dark mode. This would be a switch control. Toggling the element would change the application’s style to dark mode or light mode.
+UX Team. This would load the information in a Dialog. This information will be stored in an individual file.
+
+SidebarFooter
+I need a footer component with the information and menu options as shown in the image.
+
+Icon for Upgrade to Pro option
+Use the sparkle icon which is also used in the enhanced NLP input.
+
+Interaction. None of the menu options will change the application view. For now this menu is for display purposes only.
+
+Visuals
+The attached images are a representation of the overall look of the component.
+
+The pink labels are for identification and would not be part of the coded component.

@@ -1,0 +1,84 @@
+I need to create a smart suggestion panel which will react to our canned prototype search scenarios. The panel will have a default state for display before entry begins and then once focus shifts to the input the suggestion panel will indicate our 3 zones of content type; Answer, Wayfinding, Conversation.
+
+Default view
+The default view will have 3 cards in one row as shown in the visual.
+
+Search scenarios
+As indicated in the search view requirements, there will be three search paths based on intent type. Each path has a Short, Medium, Long input string. 
+
+Symbol
+Short: aapl
+Medium: aapl dividends
+Long: aapl dividends received for 2024 and 2025
+
+Term
+Short: RMD
+Medium: RMD schedule
+Long: RMD scheduled payments next year
+
+Question
+Short: How do I
+Medium: How do I open
+Long: How do I open a brokerage account
+
+
+3 content zones
+There are 3 zones for Answer, Wayfinding, Conversation and there are logic rules for how these display based on both the intent type path and the input length.
+
+Symbol
+Short
+Answer: Show 4 possible ticker symbols (aapl, aapu, aply, aapd)
+Wayfinding: Show 6 possible links to webpage content
+Conversation: Show 6 possible small conversational button links to typical questions
+Medium
+Answer: Show the aapl dividends component
+Wayfinding: Show 4 possible links to webpage content
+Conversation: Show 4 possible small conversational button links to typical questions
+Long
+Answer: Show a paragraph of text as a link saying you can find this information by selecting the option
+Wayfinding: Show 2 possible links to webpage content
+Conversation: Show 2 possible small conversational button links to typical questions
+
+Term
+Short
+Answer: Show content block with definition of what is an RMD
+A Required Minimum Distribution (RMD) is the annual amount you must withdraw from your retirement accounts, such as traditional IRAs and employer-sponsored plans like 401(k)s, once you reach a specific age, typically 73. The RMD ensures that you don't let your retirement savings grow indefinitely tax-free, and instead, you start receiving distributions while you're alive. 
+Wayfinding: Show 6 possible links to webpage content
+Conversation: Show 6 possible small conversational button links to typical questions
+Medium
+Answer: Show content block with a different definition of what is the schedule
+For the 2024 tax year, Required Minimum Distributions (RMDs) for retirement accounts generally start at age 73. The first RMD for the 2024 tax year must be taken by April 1, 2025, and the second RMD by December 31, 2025. While the RMD age is 73 for those who reached age 72 after December 31, 2022, and age 73 before January 1, 2033, it will gradually increase to 75 for those who reach age 74 after December 31, 2032. 
+Wayfinding: Show 4 possible links to webpage content
+Conversation: Show 4 possible small conversational button links to typical questions
+Long
+Answer: Show content block with different definition for next year
+For 2025, if you reached age 73 in 2024, you must take your first Required Minimum Distribution (RMD) by April 1, 2025, and your second RMD by December 31, 2025. All subsequent RMDs are due by December 31 of each year. First RMD Deadline: The SECURE 2.0 Act of 2022 raised the RMD age to 73, effective January 1, 2023. If you reached age 73 in 2024, your first RMD is due by April 1, 2025. Subsequent RMDs: All subsequent RMDs must be taken by December 31 of each year. 
+Wayfinding: Show 2 possible links to webpage content
+Conversation: Show 2 possible small conversational button links to typical questions
+
+Question
+Short
+Answer: None. (This section should collapse)
+Wayfinding: Show 6 possible links to webpage content
+Conversation: Show 6 possible small conversational button links to typical questions
+Medium
+Answer: This content should be about opening an account
+Company offers a variety of financial tools and services, including retirement accounts, brokerage accounts with $0 commissions, health savings accounts, and 529 college savings plans. Whether you're just starting or are an experienced investor, the platform provides personalized advice, planning tools, and flexible account options to help you reach your financial goals.
+Wayfinding: Show 4 possible links to webpage content
+Conversation: Show 4 possible small conversational button links to typical questions
+Long
+Answer: Show a list of all the account types
+Retirement & IRAs; Planning & advice, Brokerage account, Health savings accounts (HSAs), Cash management, 529 college savings plans
+Wayfinding: Show 2 possible links to webpage content
+Conversation: Show 2 possible small conversational button links to typical questions
+
+Typo suggestion area
+When the user inputs an incorrect search term from the list below, indicate the error by showing a section of content above the 3 content zones.
+
+Typo correction indication
+Symbol: 
+Correct term in intent: aapl
+Incorrect terms to indicate: appl, apll, apple
+Term: 
+Correct term in intent: RMD
+Incorrect terms to indicate: MRD, DRM, RRMD

@@ -1,0 +1,16 @@
+I need to create a component with two elements, one which is a icon button which looks like a traditional search input and another that is an icon button. Each work differently, and independently.
+
+Search button
+When the user clicks the element, the system will open a panel which we call SmartSuggest panel. This panel will be positioned at the bottom of the Full_header and expand full width.
+
+Research button
+When the user clicks the element, the system will open the Research view in the main Content area.
+
+Visuals
+The attached images are a representation of the overall look of the component.
+
+The pink labels are for identification and would not be part of the coded component. The pink arrows and supporting text would not be part of the coded component.
+
+Icons
+For the search button, use your stock magnify icon
+For the research button, please ask me for the sparkle image
