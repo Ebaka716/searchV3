@@ -1,0 +1,7 @@
+I need to recreate a generic financial product company home page modeled after this screenshot. I would like to include this type of information and layout.
+
+This page would fall into the content space of the view structure.
+
+IMPORTANT.
+The final output can not mention Fidelity at all. In no content or imagery should there be and reference to this company. Use the term Product Company if needed.
+Do not use the example image green color. Use the same blue that you have in the Product Company name in the Enhanced NLP Input component.
