@@ -1,13 +1,10 @@
-// TypeScript type definitions for SpeechRecognition API (fallback to any if not available)
-type _SpeechRecognition = typeof window extends { webkitSpeechRecognition: infer T } ? T : any;
-type _SpeechRecognitionEvent = typeof window extends { webkitSpeechRecognitionEvent: infer T } ? T : any;
-
 import { useRef, useState } from "react";
 
 type SpeechRecognitionResultCallback = (transcript: string) => void;
 
 export function useSpeechRecognition(onResult: SpeechRecognitionResultCallback) {
   const [listening, setListening] = useState(false);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
 
   const isSupported = typeof window !== "undefined" && (
@@ -16,12 +13,14 @@ export function useSpeechRecognition(onResult: SpeechRecognitionResultCallback) 
 
   const startListening = () => {
     if (!isSupported) return;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
     recognition.lang = "en-US";
     recognition.interimResults = false;
     recognition.maxAlternatives = 1;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recognition.onresult = (event: any) => {
       const transcript = event.results[0][0].transcript;
       onResult(transcript);
