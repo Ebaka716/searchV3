@@ -1,5 +1,4 @@
 import * as React from "react";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -9,14 +8,13 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Search, Mic, Sparkles, AtSign, ArrowRight, FlaskConical } from "lucide-react";
+import { Search, Mic, AtSign, ArrowRight, FlaskConical } from "lucide-react";
 
 export interface EnhancedInputProps {
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onSend: () => void;
   onVoice: () => void;
-  onSmartSuggest: () => void;
   mode?: 'search' | 'research';
   onModeChange?: (mode: 'search' | 'research') => void;
 }
@@ -26,7 +24,6 @@ export function EnhancedInput({
   onChange,
   onSend,
   onVoice,
-  onSmartSuggest,
   mode = 'search',
   onModeChange,
 }: EnhancedInputProps) {
@@ -48,7 +45,7 @@ export function EnhancedInput({
       <textarea
         ref={textareaRef}
         value={value}
-        onChange={onChange as any}
+        onChange={onChange}
         placeholder="What would you like to know..."
         className="w-full border-none outline-none focus:ring-0 focus-visible:ring-0 shadow-none bg-transparent px-2 resize-none overflow-hidden text-base min-h-[40px] max-h-[180px] font-sans text-sm font-normal"
         aria-label="Enhanced input"

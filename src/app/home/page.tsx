@@ -1,25 +1,7 @@
 "use client";
 import MainLayout from "@/components/layouts/MainLayout";
-import { useState } from "react";
-import { useRouter } from "next/navigation";
-import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 export default function HomePage() {
-  const [query, setQuery] = useState("");
-  const router = useRouter();
-
-  const handleSearch = () => {
-    if (query.trim()) {
-      router.push(`/search?query=${encodeURIComponent(query.trim())}`);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      handleSearch();
-    }
-  };
-
   return (
     <MainLayout headerVariant="full">
       <main className="w-full flex flex-col items-center bg-zinc-50">
@@ -27,7 +9,7 @@ export default function HomePage() {
         <section className="w-full max-w-5xl bg-white rounded-b-xl shadow p-8 flex flex-col md:flex-row gap-8 mt-0">
           <div className="flex-1 flex flex-col justify-center">
             <h2 className="text-2xl md:text-3xl font-bold mb-2">Plan Your Financial Future</h2>
-            <p className="mb-4 text-zinc-700">Explore strategies for retirement, investing, and building wealth in today's market environment.</p>
+            <p className="mb-4 text-zinc-700">Explore strategies for retirement, investing, and building wealth in today&apos;s market environment.</p>
             <button className="bg-black text-white px-6 py-2 rounded font-semibold w-fit">Get Started</button>
           </div>
           <div className="flex-1 flex items-center justify-center">

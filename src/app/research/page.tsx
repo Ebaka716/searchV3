@@ -39,7 +39,6 @@ export default function ResearchPage() {
             onChange={e => setValue(e.target.value)}
             onSend={() => alert("Send: " + value)}
             onVoice={() => alert("Voice input")}
-            onSmartSuggest={() => alert("Smart Suggest")}
             mode={mode}
             onModeChange={handleModeChange}
           />

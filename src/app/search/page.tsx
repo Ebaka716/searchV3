@@ -2,26 +2,26 @@
 import MainLayout from "@/components/layouts/MainLayout";
 import AppSidebar from "@/components/sidebar/AppSidebar";
 import { EnhancedInput } from "@/components/input/EnhancedInput";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { demoSearches } from "@/data/demoSearches";
+import { demoSearches, DemoSearch } from "@/data/demoSearches";
 import { TickerAnswerTemplate } from "@/components/templates/TickerAnswerTemplate";
 import { TermAnswerTemplate } from "@/components/templates/TermAnswerTemplate";
 import { QuestionAnswerTemplate } from "@/components/templates/QuestionAnswerTemplate";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 
-export default function SearchPage() {
+function SearchPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
   const [loading, setLoading] = useState(false);
-  const [result, setResult] = useState<any>(null);
+  const [result, setResult] = useState<DemoSearch | null>(null);
   const [dialogue, setDialogue] = useState<{
     id: number;
     query: string;
     loading: boolean;
-    result: any;
+    result: DemoSearch | null;
   }[]>([]);
   const [dialogueId, setDialogueId] = useState(1);
 
@@ -118,11 +118,11 @@ export default function SearchPage() {
         {query && (
           <div className="w-full max-w-2xl min-h-[120px] flex flex-col items-center justify-center mt-8">
             {loading ? (
-              <LoadingSpinner text={`Searching for "${query}"…`} />
+              <LoadingSpinner text={`Searching for &quot;${query}&quot;…`} />
             ) : result ? (
               answerTemplate
             ) : (
-              <div className="text-zinc-500">No results found for "{query}"</div>
+              <div className="text-zinc-500">No results found for &quot;${query}&quot;</div>
             )}
           </div>
         )}
@@ -135,13 +135,20 @@ export default function SearchPage() {
             onChange={e => setValue(e.target.value)}
             onSend={handleSend}
             onVoice={() => alert("Voice input")}
-            onSmartSuggest={() => alert("Smart Suggest")}
             mode={mode}
             onModeChange={handleModeChange}
           />
         </div>
       </div>
     </MainLayout>
+  );
+}
+
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div className="w-full flex justify-center pt-16"><LoadingSpinner text="Loading search..." /></div>}>
+      <SearchPageClient />
+    </Suspense>
   );
 }
 

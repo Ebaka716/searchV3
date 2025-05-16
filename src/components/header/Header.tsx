@@ -1,10 +1,11 @@
 'use client';
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
-import { Menu, User, LogOut, ChevronDown, Briefcase, BookOpen, Layers, CreditCard } from "lucide-react";
+import { User, ChevronDown, Briefcase, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
 import HeaderInput from "@/components/header/HeaderInput";
+import Link from "next/link";
 
 export type HeaderProps = {
   variant: "full" | "short";
@@ -17,7 +18,7 @@ export type HeaderProps = {
 
 const navLinks = [
   { key: "accounts", label: "Accounts", icon: <CreditCard className="w-4 h-4 mr-1" /> },
-  { key: "planning", label: "Planning", icon: <Layers className="w-4 h-4 mr-1" /> },
+  { key: "planning", label: "Planning" },
 ];
 
 const researchDropdown = [
@@ -46,10 +47,10 @@ export function Header({
   // Top row: logo/company (left), actions (right)
   const topRow = (
     <div className="flex w-full items-center justify-between gap-2 px-4 py-2">
-      <a href="/" className="flex items-center gap-2 font-bold text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
+      <Link href="/" className="flex items-center gap-2 font-bold text-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-ring">
         <Briefcase className="w-6 h-6" />
         <span>Product company</span>
-      </a>
+      </Link>
       <div className="flex items-center gap-2">
         <Button variant="ghost" className="flex items-center gap-1">
           <User className="w-4 h-4" /> Profile

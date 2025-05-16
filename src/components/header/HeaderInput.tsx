@@ -2,6 +2,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export type HeaderInputProps = {
   onSmartSuggestOpen: () => void;
@@ -54,7 +55,7 @@ export function HeaderInput({ onSmartSuggestOpen, onOpenResearch }: HeaderInputP
         aria-label="Open Research View"
         className="p-2 rounded-md hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        <img src="/sparkle.svg" alt="Sparkle" className="w-5 h-5" />
+        <Image src="/sparkle.svg" alt="Sparkle" width={20} height={20} />
       </button>
     </div>
   );
