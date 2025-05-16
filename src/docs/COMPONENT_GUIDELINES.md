@@ -12,10 +12,16 @@
 - Props: `onSmartSuggestOpen`, `onOpenResearch`
 - Usage: Used in the Header (full variant) and can be reused elsewhere.
 
+## LoadingSpinner Component
+- Location: `src/components/common/LoadingSpinner.tsx`
+- Usage: Shows a loading spinner and optional text. Used for async loading states (e.g., search results, dialogue flow).
+- Props: `text` (optional string)
+
 ## Search Page
 - Location: `src/app/search/page.tsx`
 - Uses the `short` Header variant at the top
-- Layout: (currently) only header, but designed to support sidebar and main content
+- Layout: header, sidebar, main content
+- Dialogue flow: When a user submits a query from EnhancedInput, it is added to a dialogue array and rendered above the input. Each entry shows loading, then a matched template or 'no results'. Newest entries appear at the top.
 
 ## General
 - All components use shadcn/ui and lucide-react for styling and icons

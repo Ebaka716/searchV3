@@ -14,4 +14,12 @@ _This document tracks the current work focus, recent changes, next steps, and im
 
 - Sidebar updated: Actions section now has 'New Search' and 'New Research Project' as top-level items with unique icons; History section is grouped by date; all buttons are centered when collapsed; profile and settings order swapped; profile menu uses shadcn/ui DropdownMenu.
 
+- LoadingSpinner component created for modular loading states (used in search and dialogue flow)
+- Search page now supports a dialogue array: queries from EnhancedInput are added to a dialogue list, each with loading and result states, rendered above the input (newest at top)
+
 - (Add your current work focus, recent changes, and next steps here) 
+
+## Next Steps
+- Implement scroll/snap-to-top behavior for new dialogue entries in the dialogue flow.
+- Ensure the initial query (from URL or first input) appears in the dialogue flow.
+- Add persistent dialogue history so that previous sessions/queries are retained across reloads or navigation. 

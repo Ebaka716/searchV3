@@ -14,4 +14,7 @@ _This document tracks what works, what's left to build, current status, known is
 
 - Sidebar re-implemented: Actions section now has 'New Search' and 'New Research Project' as top-level items with unique icons; History section is grouped by date; all buttons are centered when collapsed; profile and settings order swapped; profile menu uses shadcn/ui DropdownMenu.
 
+- LoadingSpinner component created for modular loading states (used in search and dialogue flow)
+- Search page now supports a dialogue array: queries from EnhancedInput are added to a dialogue list, each with loading and result states, rendered above the input (newest at top)
+
 - (Add your current status, known issues, and progress here) 

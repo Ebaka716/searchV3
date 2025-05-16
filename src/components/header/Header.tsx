@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Menu, User, LogOut, ChevronDown, Briefcase, BookOpen, Layers, CreditCard } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
@@ -10,7 +11,6 @@ export type HeaderProps = {
   onLogout: () => void;
   onNavSelect?: (navKey: string) => void;
   onSmartSuggestOpen?: () => void;
-  onOpenResearch?: () => void;
   selectedTestOption?: string;
   onSelectTestOption?: (option: string) => void;
 };
@@ -37,11 +37,11 @@ export function Header({
   onLogout,
   onNavSelect,
   onSmartSuggestOpen,
-  onOpenResearch,
   selectedTestOption,
   onSelectTestOption,
 }: HeaderProps) {
   const [testingMenuOpen, setTestingMenuOpen] = useState(false);
+  const router = useRouter();
 
   // Top row: logo/company (left), actions (right)
   const topRow = (
@@ -137,7 +137,7 @@ export function Header({
       <div className="min-w-[300px] max-w-xs w-full">
         <HeaderInput
           onSmartSuggestOpen={onSmartSuggestOpen ?? (() => {})}
-          onOpenResearch={onOpenResearch ?? (() => {})}
+          onOpenResearch={() => router.push("/research")}
         />
       </div>
     </div>
