@@ -9,12 +9,12 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Mic, AtSign, ArrowRight, FlaskConical } from "lucide-react";
+import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
 
 export interface EnhancedInputProps {
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void;
   onSend: () => void;
-  onVoice: () => void;
   mode?: 'search' | 'research';
   onModeChange?: (mode: 'search' | 'research') => void;
 }
@@ -23,12 +23,27 @@ export function EnhancedInput({
   value,
   onChange,
   onSend,
-  onVoice,
   mode = 'search',
   onModeChange,
 }: EnhancedInputProps) {
   const [isFocused, setIsFocused] = React.useState(false);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
+
+  const { listening, isSupported, startListening, stopListening } = useSpeechRecognition((transcript) => {
+    onChange({ target: { value: transcript } } as React.ChangeEvent<HTMLTextAreaElement>);
+  });
+
+  const handleVoiceClick = () => {
+    if (!isSupported) {
+      alert("Voice input is not supported in this browser.");
+      return;
+    }
+    if (listening) {
+      stopListening();
+    } else {
+      startListening();
+    }
+  };
 
   React.useEffect(() => {
     if (textareaRef.current) {
@@ -88,7 +103,13 @@ export function EnhancedInput({
               <DropdownMenuItem>Add from Google Drive</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
-          <Button variant="outline" size="icon" className="p-2" onClick={onVoice} aria-label="Voice input">
+          <Button
+            variant={listening ? "default" : "outline"}
+            size="icon"
+            className={`p-2 ${listening ? "bg-green-500 text-white animate-pulse" : ""}`}
+            onClick={handleVoiceClick}
+            aria-label="Voice input"
+          >
             <Mic className="w-5 h-5" />
           </Button>
           <Button

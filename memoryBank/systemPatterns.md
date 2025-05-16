@@ -9,5 +9,7 @@ _This document describes the system architecture, key technical decisions, and d
 - Clean PR workflow, collaborative dev
 - LoadingSpinner component for modular, reusable loading states
 - Dialogue array pattern for conversational flows: EnhancedInput adds queries to a dialogue list, each with loading/result state, rendered above input (newest at top)
+- Suspense is now used for client hooks like useSearchParams in app pages, per Next.js requirements
+- All lint/type issues resolved and dashboard page removed
 
 - (Add your system architecture and design patterns here) 

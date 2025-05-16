@@ -22,4 +22,8 @@ _This document tracks the current work focus, recent changes, next steps, and im
 ## Next Steps
 - Implement scroll/snap-to-top behavior for new dialogue entries in the dialogue flow.
 - Ensure the initial query (from URL or first input) appears in the dialogue flow.
-- Add persistent dialogue history so that previous sessions/queries are retained across reloads or navigation. 
+- Add persistent dialogue history so that previous sessions/queries are retained across reloads or navigation.
+
+- All lint, type, and Next.js Suspense issues resolved (Search page uses Suspense for useSearchParams)
+- Dashboard page removed as unused
+- Local dev and build are clean 

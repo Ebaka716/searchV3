@@ -17,4 +17,8 @@ _This document tracks what works, what's left to build, current status, known is
 - LoadingSpinner component created for modular loading states (used in search and dialogue flow)
 - Search page now supports a dialogue array: queries from EnhancedInput are added to a dialogue list, each with loading and result states, rendered above the input (newest at top)
 
+- All lint, type, and Next.js Suspense issues resolved (Search page uses Suspense for useSearchParams)
+- Dashboard page removed as unused
+- Local dev and build are clean
+
 - (Add your current status, known issues, and progress here) 

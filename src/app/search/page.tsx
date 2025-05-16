@@ -134,7 +134,6 @@ function SearchPageClient() {
             value={value}
             onChange={e => setValue(e.target.value)}
             onSend={handleSend}
-            onVoice={() => alert("Voice input")}
             mode={mode}
             onModeChange={handleModeChange}
           />

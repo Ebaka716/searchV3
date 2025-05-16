@@ -22,6 +22,8 @@
 - Uses the `short` Header variant at the top
 - Layout: header, sidebar, main content
 - Dialogue flow: When a user submits a query from EnhancedInput, it is added to a dialogue array and rendered above the input. Each entry shows loading, then a matched template or 'no results'. Newest entries appear at the top.
+- Now uses a Suspense boundary to support useSearchParams per Next.js requirements.
+- All lint and type issues resolved as of latest update.
 
 ## General
 - All components use shadcn/ui and lucide-react for styling and icons
