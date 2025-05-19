@@ -10,6 +10,12 @@ import {
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Search, Mic, AtSign, ArrowRight, FlaskConical } from "lucide-react";
 import { useSpeechRecognition } from "@/hooks/useSpeechRecognition";
+import {
+  Tooltip,
+  TooltipTrigger,
+  TooltipContent,
+} from "@/components/ui/tooltip";
+import clsx from "clsx";
 
 export interface EnhancedInputProps {
   value: string;
@@ -78,13 +84,59 @@ export function EnhancedInput({
       {/* Bottom row: Tabs toggle and buttons */}
       <div className="flex items-center justify-between gap-2 mt-1">
         <Tabs value={mode} onValueChange={v => onModeChange?.(v as 'search' | 'research')}>
-          <TabsList className="h-8 p-1 bg-muted rounded-lg">
-            <TabsTrigger value="search" className="flex items-center gap-1 px-2 py-1 text-xs">
-              <Search className="w-4 h-4" />
-            </TabsTrigger>
-            <TabsTrigger value="research" className="flex items-center gap-1 px-2 py-1 text-xs">
-              <FlaskConical className="w-4 h-4" />
-            </TabsTrigger>
+          <TabsList className="h-9 p-1 bg-zinc-100 rounded-full flex gap-1 border border-zinc-200">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <TabsTrigger
+                  value="search"
+                  className={clsx(
+                    "flex items-center gap-1 px-4 py-1.5 text-xs rounded-full font-medium transition-colors border",
+                    mode === "search"
+                      ? "bg-black text-white border-black shadow"
+                      : "bg-transparent text-black border-zinc-200 hover:bg-zinc-200"
+                  )}
+                >
+                  <Search className="w-4 h-4" />
+                </TabsTrigger>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="w-64">
+                <div>
+                  <div className="font-bold">Search</div>
+                  <div>Answers to your financial questions</div>
+                  <div className="mt-2 text-xs text-green-700">
+                    <span className="font-semibold">Upgrade to abc</span>
+                    <br />
+                    More personalized advisement blah blah
+                  </div>
+                </div>
+              </TooltipContent>
+            </Tooltip>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <TabsTrigger
+                  value="research"
+                  className={clsx(
+                    "flex items-center gap-1 px-4 py-1.5 text-xs rounded-full font-medium transition-colors border",
+                    mode === "research"
+                      ? "bg-black text-white border-black shadow"
+                      : "bg-transparent text-black border-zinc-200 hover:bg-zinc-200"
+                  )}
+                >
+                  <FlaskConical className="w-4 h-4" />
+                </TabsTrigger>
+              </TooltipTrigger>
+              <TooltipContent side="bottom" className="w-64">
+                <div>
+                  <div className="font-bold">Research</div>
+                  <div>Advanced analysis on any topic and your data</div>
+                  <div className="mt-2 text-xs text-green-700">
+                    <span className="font-semibold">Upgrade to xyz</span>
+                    <br />
+                    Do more, get more, learn more
+                  </div>
+                </div>
+              </TooltipContent>
+            </Tooltip>
           </TabsList>
         </Tabs>
         <div className="flex gap-2">
