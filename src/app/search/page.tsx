@@ -114,29 +114,31 @@ function SearchPageClient() {
 
   return (
     <MainLayout headerVariant="short" leftSidebar={<AppSidebar />}>
-      <div className="flex flex-col items-center pt-16">
-        {query && (
-          <div className="w-full max-w-2xl min-h-[120px] flex flex-col items-center justify-center mt-8">
-            {loading ? (
-              <LoadingSpinner text={`Searching for &quot;${query}&quot;…`} />
-            ) : result ? (
-              answerTemplate
-            ) : (
-              <div className="text-zinc-500">No results found for &quot;${query}&quot;</div>
+      <div className="flex flex-col items-center h-full min-h-0 flex-1">
+        <div className="flex flex-col flex-1 w-full items-center justify-between max-w-2xl mx-auto">
+          <div className="flex-1 w-full flex flex-col items-center pt-16">
+            {query && (
+              <div className="w-full max-w-2xl min-h-[120px] flex flex-col items-center justify-center mt-8">
+                {loading ? (
+                  <LoadingSpinner text={`Searching for &quot;${query}&quot;…`} />
+                ) : result ? (
+                  answerTemplate
+                ) : (
+                  <div className="text-zinc-500">No results found for &quot;${query}&quot;</div>
+                )}
+              </div>
             )}
+            {renderDialogue()}
           </div>
-        )}
-        {renderDialogue()}
-      </div>
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 w-full flex flex-col items-center pointer-events-none">
-        <div className="pointer-events-auto w-full max-w-2xl flex flex-col gap-2 items-center">
-          <EnhancedInput
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            onSend={handleSend}
-            mode={mode}
-            onModeChange={handleModeChange}
-          />
+          <div className="w-full flex flex-col gap-2 items-center mb-8 max-w-2xl mx-auto px-4">
+            <EnhancedInput
+              value={value}
+              onChange={e => setValue(e.target.value)}
+              onSend={handleSend}
+              mode={mode}
+              onModeChange={handleModeChange}
+            />
+          </div>
         </div>
       </div>
     </MainLayout>

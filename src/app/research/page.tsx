@@ -20,21 +20,22 @@ function ResearchCanvas() {
 function ResearchRightPanel({ width, value, setValue, mode, handleModeChange }: { width: number, value: string, setValue: (v: string) => void, mode: 'search' | 'research', handleModeChange: (m: 'search' | 'research') => void }) {
   return (
     <aside
-      className="h-full border-l bg-white flex flex-col p-4 transition-all duration-500"
+      className="h-full border-l bg-white flex flex-col p-0 transition-all duration-500 relative"
       style={{ width }}
     >
-      {/* Placeholder for dialogue/conversation */}
-      <div className="flex-1 flex flex-col items-center justify-end">
-        <div className="w-full max-w-2xl flex flex-col gap-2 items-center mb-8 mx-2">
+      <div className="flex flex-col h-full flex-1">
+        <div className="flex-1 w-full flex flex-col items-center pt-4">
           {/* Dialogue area could go here */}
         </div>
-        <EnhancedInput
-          value={value}
-          onChange={e => setValue(e.target.value)}
-          onSend={() => alert("Send: " + value)}
-          mode={mode}
-          onModeChange={handleModeChange}
-        />
+        <div className="w-full flex flex-col gap-2 items-center mb-8 max-w-2xl mx-auto px-4">
+          <EnhancedInput
+            value={value}
+            onChange={e => setValue(e.target.value)}
+            onSend={() => alert("Send: " + value)}
+            mode={mode}
+            onModeChange={handleModeChange}
+          />
+        </div>
       </div>
     </aside>
   );
