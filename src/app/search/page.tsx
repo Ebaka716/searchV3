@@ -9,14 +9,12 @@ import { TickerAnswerTemplate } from "@/components/templates/TickerAnswerTemplat
 import { TermAnswerTemplate } from "@/components/templates/TermAnswerTemplate";
 import { QuestionAnswerTemplate } from "@/components/templates/QuestionAnswerTemplate";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
-import { GeneralResultTemplate } from "@/components/templates/GeneralResultTemplate";
 
 function SearchPageClient() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
-  const [loading, setLoading] = useState(false);
   const [result, setResult] = useState<DemoSearch | null>(null);
   const [dialogue, setDialogue] = useState<{
     id: number;
@@ -32,8 +30,6 @@ function SearchPageClient() {
 
   useEffect(() => {
     if (query) {
-      setLoading(true);
-      setResult(null);
       // Simulate async search
       const timeout = setTimeout(() => {
         // Find a match in demoSearches (by query or alias)
@@ -42,7 +38,6 @@ function SearchPageClient() {
           item.aliases.some(alias => alias.toLowerCase() === query.toLowerCase())
         );
         setResult(match || null);
-        setLoading(false);
       }, 900);
       return () => clearTimeout(timeout);
     }
@@ -90,42 +85,6 @@ function SearchPageClient() {
       ));
     }, 900);
   };
-
-  // Render dialogue entries
-  const renderDialogue = () => (
-    <div className="w-full max-w-2xl flex flex-col-reverse gap-4 mt-8 border rounded-lg bg-white overflow-y-auto" style={{ height: 350 }}>
-      {dialogue.map(entry => (
-        <div key={entry.id} className="w-full flex flex-col items-center">
-          <div className="w-full text-left font-medium text-zinc-800 mb-1">{entry.query}</div>
-          {entry.loading ? (
-            <LoadingSpinner text="Searching..." />
-          ) : entry.result ? (
-            entry.result.type === 'ticker' ? (
-              <TickerAnswerTemplate query={entry.result.query} answer={entry.result.answer} size={entry.result.size} />
-            ) : entry.result.type === 'term' ? (
-              <TermAnswerTemplate query={entry.result.query} answer={entry.result.answer} size={entry.result.size} />
-            ) : entry.result.type === 'question' ? (
-              <QuestionAnswerTemplate query={entry.result.query} answer={entry.result.answer} size={entry.result.size} />
-            ) : null
-          ) : (
-            <div className="text-zinc-500">No results found</div>
-          )}
-        </div>
-      ))}
-    </div>
-  );
-
-  // Choose template based on result type
-  let answerTemplate = null;
-  if (result) {
-    if (result.type === 'ticker') {
-      answerTemplate = <TickerAnswerTemplate query={result.query} answer={result.answer} size={result.size} />;
-    } else if (result.type === 'term') {
-      answerTemplate = <TermAnswerTemplate query={result.query} answer={result.answer} size={result.size} />;
-    } else if (result.type === 'question') {
-      answerTemplate = <QuestionAnswerTemplate query={result.query} answer={result.answer} size={result.size} />;
-    }
-  }
 
   return (
     <MainLayout headerVariant="short" leftSidebar={<AppSidebar />}>
