@@ -4,7 +4,6 @@ import AppSidebar from "@/components/sidebar/AppSidebar";
 import { EnhancedInput } from "@/components/input/EnhancedInput";
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { demoSearches } from "@/data/demoSearches";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 function SearchPageClient() {
