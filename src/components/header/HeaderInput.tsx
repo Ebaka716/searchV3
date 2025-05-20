@@ -3,6 +3,7 @@ import { Search } from "lucide-react";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
 
 export type HeaderInputProps = {
   onSmartSuggestOpen: () => void;
@@ -49,14 +50,16 @@ export function HeaderInput({ onSmartSuggestOpen, onOpenResearch }: HeaderInputP
           onKeyDown={handleKeyDown}
         />
       </div>
-      <button
+      <Button
+        variant="outline"
+        size="icon"
         type="button"
         onClick={onOpenResearch ? onOpenResearch : () => router.push('/research')}
         aria-label="Open Research View"
-        className="p-2 rounded-md hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring bg-white hover:bg-zinc-100 text-foreground"
       >
         <Image src="/sparkle.svg" alt="Sparkle" width={20} height={20} />
-      </button>
+      </Button>
     </div>
   );
 }
