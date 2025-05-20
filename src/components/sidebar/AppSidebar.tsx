@@ -11,14 +11,14 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 
-export default function AppSidebar() {
+export default function AppSidebar({ headerHeight = 0 }: { headerHeight?: number }) {
   const [collapsed, setCollapsed] = useState(true);
   const router = useRouter();
 
   return (
     <aside
-      className={`bg-white border-r h-full transition-all duration-300 flex flex-col ${collapsed ? 'w-16' : 'w-56'} min-w-[4rem]`}
-      style={{ minHeight: 0 }}
+      className={`fixed left-0 z-40 bg-white border-r transition-all duration-300 flex flex-col ${collapsed ? 'w-16' : 'w-56'} min-w-[4rem]`}
+      style={{ top: headerHeight, height: `calc(100vh - ${headerHeight}px)` }}
     >
       <div className="flex items-center justify-end p-2" style={{ minHeight: '40px' }}>
         <Button

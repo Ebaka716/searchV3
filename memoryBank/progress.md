@@ -30,4 +30,20 @@ _This document tracks what works, what's left to build, current status, known is
 
 - EnhancedInput now allows file uploads as context chips, integrated with dropdown, with modular removable chips and improved toggle UI. File upload bug with dropdown fixed by using a persistent hidden input.
 
+# Progress Log
+
+## [2024-04-29] Chat Layout Refactor & Cleanup
+- Refactored the Search page to use a modern chat layout:
+  - The main content area (pink) is static, with a green center column for the chat/results feed.
+  - The green area is scrollable and fills the main content width (now 784px, up from 672px).
+  - The EnhancedInput is fixed to the bottom center of the green area, always visible and never scrolling away.
+  - The input bar expands to the full width of the green area and sits above the scrolling content on a higher z-index.
+  - Horizontal padding was added to the green area for visual comfort.
+- Used a React ref and effect to dynamically position the input bar so it always matches the green area's width and position, even on resize.
+- Cleaned up all unused variables, imports, and props to resolve ESLint errors and ensure a clean build locally and on Vercel.
+- Successfully tested the production build locally and pushed all changes to GitHub.
+- The layout now matches modern chat/search UIs (Perplexity, Claude, Cursor, etc.).
+
+---
+
 // (Add your current status, known issues, and progress here) 

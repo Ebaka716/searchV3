@@ -42,4 +42,13 @@
 ## General
 - All components use shadcn/ui and lucide-react for styling and icons
 - All interactive elements are accessible and keyboard-friendly
-- Layouts are responsive and modular 
+- Layouts are responsive and modular
+
+## Chat Layout Pattern (2024-04)
+- The main chat/results area is a green scrollable column (max-w-[784px]) centered in the main content (pink) area.
+- The EnhancedInput is fixed to the bottom center of the green area, always visible and never scrolling away.
+- The input bar expands to the full width of the green area and sits above the scrolling content on a higher z-index.
+- Dynamic positioning: Uses a React ref and effect to measure the green area's position and width, ensuring the input is always perfectly aligned and sized, even on window resize.
+- Horizontal padding is applied to the green area for visual comfort.
+- Only the green area scrolls; the input bar and pink background remain static.
+- This pattern matches modern chat/search UIs (Perplexity, Claude, Cursor, etc.) and ensures a clean, accessible, and user-friendly experience. 

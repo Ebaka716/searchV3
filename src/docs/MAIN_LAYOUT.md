@@ -22,3 +22,9 @@ MainLayout is the root layout component for all major pages. It provides a consi
 
 ## Notes
 - Research page now uses a central canvas with a resizable right panel for EnhancedInput/dialogue, with the canvas taking 70% of the width on load and the right panel 30%. 
+
+## Notes (April 2024)
+- The chat layout now uses a green scrollable center column (max-w-[784px]) with a floating input bar fixed to the bottom center.
+- The input bar is dynamically positioned and sized to match the green area, using a React ref and effect.
+- This ensures the input is always visible, accessible, and perfectly aligned with the chat feed, regardless of window size.
+- The pattern is inspired by modern chat/search UIs (Perplexity, Claude, Cursor, etc.). 
