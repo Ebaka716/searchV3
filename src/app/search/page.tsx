@@ -4,7 +4,7 @@ import AppSidebar from "@/components/sidebar/AppSidebar";
 import { EnhancedInput } from "@/components/input/EnhancedInput";
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { demoSearches, DemoSearch } from "@/data/demoSearches";
+import { demoSearches } from "@/data/demoSearches";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 function SearchPageClient() {
@@ -22,11 +22,7 @@ function SearchPageClient() {
     if (query) {
       // Simulate async search
       const timeout = setTimeout(() => {
-        // Find a match in demoSearches (by query or alias)
-        const match = demoSearches.find(item =>
-          item.query.toLowerCase() === query.toLowerCase() ||
-          item.aliases.some(alias => alias.toLowerCase() === query.toLowerCase())
-        );
+        // (No-op: match logic removed for clean build)
       }, 900);
       return () => clearTimeout(timeout);
     }
@@ -60,10 +56,7 @@ function SearchPageClient() {
     const id = dialogueId;
     setDialogueId(id + 1);
     setTimeout(() => {
-      const match = demoSearches.find(item =>
-        item.query.toLowerCase() === trimmed.toLowerCase() ||
-        item.aliases.some(alias => alias.toLowerCase() === trimmed.toLowerCase())
-      );
+      // (No-op: match logic removed for clean build)
     }, 900);
   };
 
