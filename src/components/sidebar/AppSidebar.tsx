@@ -38,7 +38,7 @@ const initialAgents: AgentData[] = [
   { id: "agent6", name: "Benefits Center", isActive: false, description: "Benefit plan administration for employers" },
 ];
 
-interface AppSidebarProps {
+export interface AppSidebarProps {
   headerHeight?: number;
 }
 
