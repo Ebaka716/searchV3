@@ -16,6 +16,7 @@ import {
   TooltipContent,
 } from "@/components/ui/tooltip";
 import clsx from "clsx";
+import ContextChip, { FileType } from "@/components/common/ContextChip";
 
 export interface EnhancedInputProps {
   value: string;
@@ -35,6 +36,12 @@ export function EnhancedInput({
   const [isFocused, setIsFocused] = React.useState(false);
   const textareaRef = React.useRef<HTMLTextAreaElement>(null);
 
+  // Internal state for context files
+  const [contextFiles, setContextFiles] = React.useState<{ fileName: string; fileType: FileType }[]>([]);
+
+  // Dropdown menu open state
+  const [dropdownOpen, setDropdownOpen] = React.useState(false);
+
   const { listening, isSupported, startListening, stopListening } = useSpeechRecognition((transcript) => {
     onChange({ target: { value: transcript } } as React.ChangeEvent<HTMLTextAreaElement>);
   });
@@ -51,6 +58,38 @@ export function EnhancedInput({
     }
   };
 
+  // File type inference helper
+  function inferFileType(fileName: string): FileType {
+    const ext = fileName.split('.').pop()?.toLowerCase();
+    if (ext === 'pdf') return 'pdf';
+    if (ext === 'doc' || ext === 'docx') return 'docx';
+    if (ext === 'txt') return 'txt';
+    if (["jpg", "jpeg", "png", "gif", "bmp", "svg", "webp"].includes(ext || '')) return 'image';
+    return 'other';
+  }
+
+  // Handle file upload
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setContextFiles(prev => [
+        ...prev,
+        { fileName: file.name, fileType: inferFileType(file.name) }
+      ]);
+      setDropdownOpen(false); // Close dropdown after upload
+    }
+    // Reset input value so the same file can be uploaded again if needed
+    e.target.value = '';
+  };
+
+  // Remove context file
+  const handleRemoveContextFile = (idx: number) => {
+    setContextFiles(prev => prev.filter((_, i) => i !== idx));
+  };
+
+  // File input ref for triggering from dropdown
+  const fileInputRef = React.useRef<HTMLInputElement>(null);
+
   React.useEffect(() => {
     if (textareaRef.current) {
       textareaRef.current.style.height = 'auto';
@@ -62,6 +101,19 @@ export function EnhancedInput({
     <div
       className={`w-full max-w-2xl rounded-xl border bg-white shadow-sm px-4 py-3 flex flex-col gap-2 transition-colors ${isFocused ? 'border-black' : 'border-zinc-200'}`}
     >
+      {/* Context chips row */}
+      {contextFiles.length > 0 && (
+        <div className="flex flex-wrap mb-1">
+          {contextFiles.map((file, idx) => (
+            <ContextChip
+              key={file.fileName + idx}
+              fileName={file.fileName}
+              fileType={file.fileType}
+              onRemove={() => handleRemoveContextFile(idx)}
+            />
+          ))}
+        </div>
+      )}
       {/* Top row: Auto-growing textarea */}
       <textarea
         ref={textareaRef}
@@ -81,6 +133,13 @@ export function EnhancedInput({
           }
         }}
       />
+      {/* Persistent hidden file input for dropdown trigger */}
+      <input
+        ref={fileInputRef}
+        type="file"
+        className="hidden"
+        onChange={handleFileUpload}
+      />
       {/* Bottom row: Tabs toggle and buttons */}
       <div className="flex items-center justify-between gap-2 mt-1">
         <Tabs value={mode} onValueChange={v => onModeChange?.(v as 'search' | 'research')}>
@@ -90,10 +149,10 @@ export function EnhancedInput({
                 <TabsTrigger
                   value="search"
                   className={clsx(
-                    "flex items-center gap-1 px-4 py-1.5 text-xs rounded-full font-medium transition-colors border",
+                    "flex items-center gap-1 px-4 py-1.5 text-xs rounded-full font-medium transition-colors",
                     mode === "search"
-                      ? "bg-black text-white border-black shadow"
-                      : "bg-transparent text-black border-zinc-200 hover:bg-zinc-200"
+                      ? "bg-black text-white shadow"
+                      : "bg-transparent text-black hover:bg-zinc-200"
                   )}
                 >
                   <Search className="w-4 h-4" />
@@ -116,10 +175,10 @@ export function EnhancedInput({
                 <TabsTrigger
                   value="research"
                   className={clsx(
-                    "flex items-center gap-1 px-4 py-1.5 text-xs rounded-full font-medium transition-colors border",
+                    "flex items-center gap-1 px-4 py-1.5 text-xs rounded-full font-medium transition-colors",
                     mode === "research"
-                      ? "bg-black text-white border-black shadow"
-                      : "bg-transparent text-black border-zinc-200 hover:bg-zinc-200"
+                      ? "bg-black text-white shadow"
+                      : "bg-transparent text-black hover:bg-zinc-200"
                   )}
                 >
                   <FlaskConical className="w-4 h-4" />
@@ -140,14 +199,19 @@ export function EnhancedInput({
           </TabsList>
         </Tabs>
         <div className="flex gap-2">
-          <DropdownMenu>
+          <DropdownMenu
+            open={dropdownOpen}
+            onOpenChange={setDropdownOpen}
+          >
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="icon" className="p-2" aria-label="Open context menu">
                 <AtSign className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem>Upload a file</DropdownMenuItem>
+              <DropdownMenuItem onSelect={e => { e.preventDefault(); fileInputRef.current?.click(); }}>
+                Upload a file
+              </DropdownMenuItem>
               <DropdownMenuItem>Take a screenshot</DropdownMenuItem>
               <DropdownMenuItem>Set source URL</DropdownMenuItem>
               <DropdownMenuSeparator />
