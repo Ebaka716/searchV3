@@ -97,7 +97,7 @@ export function EnhancedInput({
   // Handle service selection
   const handleSelectService = (serviceName: string) => {
     if (!selectedServices.find(s => s.fileName === serviceName)) {
-      setSelectedServices(prev => [...prev, { fileName: serviceName, fileType: 'other' }]);
+      setSelectedServices(prev => [...prev, { fileName: serviceName, fileType: 'service' }]);
     }
     setDropdownOpen(false); // Close dropdown after selection
   };
@@ -134,7 +134,7 @@ export function EnhancedInput({
             <ContextChip
               key={`service-${service.fileName}-${idx}`}
               fileName={service.fileName}
-              fileType={service.fileType} // will be 'other'
+              fileType={service.fileType} // will be 'service'
               onRemove={() => handleRemoveService(service.fileName)}
             />
           ))}
