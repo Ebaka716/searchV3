@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight, Plus, FilePlus, Settings } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -12,6 +13,7 @@ import {
 
 export default function AppSidebar() {
   const [collapsed, setCollapsed] = useState(true);
+  const router = useRouter();
 
   return (
     <aside
@@ -34,8 +36,8 @@ export default function AppSidebar() {
       <nav className="flex-1 flex flex-col gap-2 p-2">
         {/* Actions Section */}
         {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1">Actions</div>}
-        <SidebarNavItem icon={<Plus size={20} />} label="New Search" collapsed={collapsed} />
-        <SidebarNavItem icon={<FilePlus size={20} />} label="New Research Project" collapsed={collapsed} />
+        <SidebarNavItem icon={<Plus size={20} />} label="New Search" collapsed={collapsed} onClick={() => router.push('/search')} />
+        <SidebarNavItem icon={<FilePlus size={20} />} label="New Research Project" collapsed={collapsed} onClick={() => router.push('/research')} />
         {/* History Section */}
         {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1 mt-2">History</div>}
         <div className={collapsed ? 'hidden' : 'flex flex-col gap-1 pl-2 mt-2 mb-2'}>
@@ -109,11 +111,12 @@ export default function AppSidebar() {
   );
 }
 
-function SidebarNavItem({ icon, label, collapsed, className }: { icon?: React.ReactNode; label: string; collapsed: boolean; className?: string }) {
+function SidebarNavItem({ icon, label, collapsed, className, onClick }: { icon?: React.ReactNode; label: string; collapsed: boolean; className?: string; onClick?: () => void }) {
   return (
     <Button
       variant="ghost"
       className={`w-full flex items-center gap-3 justify-start ${collapsed ? 'justify-center' : 'justify-start'}`}
+      onClick={onClick}
     >
       {icon}
       {!collapsed && <span className={`text-sm ${className ?? ''}`}>{label}</span>}
