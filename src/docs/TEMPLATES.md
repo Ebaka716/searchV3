@@ -3,6 +3,8 @@
 ## Overview
 Templates are modular components for rendering different types of search/research results. Each template is responsible for displaying a specific answer type in a consistent, styled format.
 
+**Note:** The demoSearches data now only includes one example per type (ticker, term, question), each with small/medium/large context, to simplify template testing and variant switching.
+
 ---
 
 ## TickerAnswerTemplate

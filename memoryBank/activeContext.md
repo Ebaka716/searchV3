@@ -17,7 +17,9 @@ _This document tracks the current work focus, recent changes, next steps, and im
 - LoadingSpinner component created for modular loading states (used in search and dialogue flow)
 - Search page now supports a dialogue array: queries from EnhancedInput are added to a dialogue list, each with loading and result states, rendered above the input (newest at top)
 
-- (Add your current work focus, recent changes, and next steps here) 
+- Research page: right panel (canvas area) is now resizable by dragging from the left, with smooth transition and min/max width. EnhancedInput spacing improved with padding. Layout is more fluid and user-friendly.
+
+- Demo search data (demoSearches) now only includes one example per type (ticker, term), each with small/medium/large context. Placeholder left for question type. This is to simplify template testing and variant switching.
 
 ## Next Steps
 - Implement scroll/snap-to-top behavior for new dialogue entries in the dialogue flow.

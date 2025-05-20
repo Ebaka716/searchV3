@@ -21,4 +21,8 @@ _This document tracks what works, what's left to build, current status, known is
 - Dashboard page removed as unused
 - Local dev and build are clean
 
-- (Add your current status, known issues, and progress here) 
+- Research page: right panel (canvas area) is now resizable by dragging from the left, with smooth transition and min/max width. EnhancedInput spacing improved with padding. Layout is more fluid and user-friendly.
+
+- Demo search data simplified: Only one example per type (ticker, term), each with small/medium/large context. Placeholder left for question type. This reduces clutter and makes template testing/variant switching easier.
+
+// (Add your current status, known issues, and progress here) 
