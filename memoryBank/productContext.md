@@ -10,7 +10,6 @@ _This document explains why this project exists, the problems it solves, and use
 - Dialogue flow: queries from EnhancedInput are added to a dialogue list above the input, each with loading/result state for responsive, conversational UX
 - LoadingSpinner component for consistent, modular loading feedback
 
-- (Add your product context and user experience goals here)
-
+- Research page: right panel (canvas area) is now resizable by dragging from the left, with smooth transition and min/max width. EnhancedInput spacing improved with padding. Layout is more fluid and user-friendly.
 - Product is now fully lint/type clean, uses Suspense for client hooks, and dashboard page was removed as unused
 - Local dev/build are clean 

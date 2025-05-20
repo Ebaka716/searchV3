@@ -23,6 +23,7 @@ EnhancedInput is a modular, multi-mode input component designed for conversation
 - **Responsiveness**: Adapts to container width, with min/max height for textarea.
 - **Integration**: Used in both Search and Research pages, and can be dropped into any modular layout.
 - **Dialogue flow**: When used in Search, submitted queries are added to a dialogue array for conversational UX.
+- **Now supports uploading files as context chips, integrated with the dropdown menu (@ button). Chips are modular, removable, and display file type icons. UI for toggles is cleaner (no internal border). File upload bug with dropdown fixed by using a persistent hidden input.**
 
 ## Usage Example
 ```tsx

@@ -12,4 +12,5 @@ _This document describes the system architecture, key technical decisions, and d
 - Suspense is now used for client hooks like useSearchParams in app pages, per Next.js requirements
 - All lint/type issues resolved and dashboard page removed
 
+- Research page: right panel (canvas area) is now resizable by dragging from the left, with smooth transition and min/max width. EnhancedInput spacing improved with padding. Layout is more fluid and user-friendly.
 - (Add your system architecture and design patterns here) 

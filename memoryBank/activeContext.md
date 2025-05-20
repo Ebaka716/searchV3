@@ -23,6 +23,10 @@ _This document tracks the current work focus, recent changes, next steps, and im
 
 - Demo search data (demoSearches) now only includes one example per type (ticker, term), each with small/medium/large context. Placeholder left for question type. This is to simplify template testing and variant switching.
 
+- EnhancedInput now supports context chips for uploaded files. Chips are modular, removable, and display file type icons. File upload is integrated with the dropdown menu using a persistent hidden input to avoid event issues. UI for search/research toggles was polished (no internal border).
+
+- Sidebar 'New Search' and 'New Research Project' buttons now reset the app to the base search and research pages, providing a clean state for new sessions.
+
 ## Next Steps
 - Implement scroll/snap-to-top behavior for new dialogue entries in the dialogue flow.
 - Ensure the initial query (from URL or first input) appears in the dialogue flow.
