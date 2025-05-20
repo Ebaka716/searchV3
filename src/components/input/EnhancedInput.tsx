@@ -98,9 +98,7 @@ export function EnhancedInput({
   }, [value]);
 
   return (
-    <div
-      className={`w-full max-w-2xl rounded-xl border bg-white shadow-sm px-4 py-3 flex flex-col gap-2 transition-colors ${isFocused ? 'border-black' : 'border-zinc-200'}`}
-    >
+    <div className="w-full max-w-none rounded-xl border bg-white shadow-sm px-4 py-3 flex flex-col gap-2 transition-colors border-zinc-200">
       {/* Context chips row */}
       {contextFiles.length > 0 && (
         <div className="flex flex-wrap mb-1">
