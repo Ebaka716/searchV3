@@ -55,7 +55,7 @@ export function Header({
         <Button variant="ghost" className="flex items-center gap-1">
           <User className="w-4 h-4" /> Profile
         </Button>
-        <Button variant="outline">Open an account</Button>
+        <Button variant="ghost">Open an account</Button>
         {/* Testing Menu for Log out */}
         <DropdownMenu open={testingMenuOpen} onOpenChange={setTestingMenuOpen}>
           <DropdownMenuTrigger asChild>

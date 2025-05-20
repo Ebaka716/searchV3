@@ -5,7 +5,7 @@
 - **Actions Section**: Contains 'New Search' (Plus icon) and 'New Research Project' (FilePlus icon) as top-level items.
 - **History Section**: Grouped by Today, Yesterday, etc. (currently static, designed for future dynamic grouping).
 - **Button Alignment**: All sidebar buttons are centered when the sidebar is collapsed for a clean look.
-- **Footer**: Settings button appears above the profile dropdown. The profile menu uses shadcn/ui DropdownMenu and Avatar components, matching modern UI standards.
+- **Footer**: This should use the SideBarFooter attribute supplied with the component.
 - **Profile Menu**: Shows avatar, name, and email when expanded; only avatar when collapsed. Menu includes Upgrade, Account, Billing, Notifications, and Log out options.
 
 ## Usage
