@@ -34,7 +34,7 @@ export default function MainLayout({
         <Header variant={headerVariant} onLogout={() => {}} />
       </div>
       <div id="maincontentarea" className="flex flex-1 h-full min-h-0" style={{ marginTop: 52 }}>{/* 64px header height */}
-        {leftSidebar && React.cloneElement(leftSidebar as React.ReactElement, { headerHeight })}
+        {leftSidebar}
         <main className="flex-1 min-h-0 bg-white">{children}</main>
         {rightSidebar}
       </div>
