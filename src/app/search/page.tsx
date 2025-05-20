@@ -5,9 +5,6 @@ import { EnhancedInput } from "@/components/input/EnhancedInput";
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { demoSearches, DemoSearch } from "@/data/demoSearches";
-import { TickerAnswerTemplate } from "@/components/templates/TickerAnswerTemplate";
-import { TermAnswerTemplate } from "@/components/templates/TermAnswerTemplate";
-import { QuestionAnswerTemplate } from "@/components/templates/QuestionAnswerTemplate";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 function SearchPageClient() {
@@ -15,13 +12,6 @@ function SearchPageClient() {
   const searchParams = useSearchParams();
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
-  const [result, setResult] = useState<DemoSearch | null>(null);
-  const [dialogue, setDialogue] = useState<{
-    id: number;
-    query: string;
-    loading: boolean;
-    result: DemoSearch | null;
-  }[]>([]);
   const [dialogueId, setDialogueId] = useState(1);
   const greenRef = useRef<HTMLDivElement>(null);
   const [inputStyle, setInputStyle] = useState<{ left: number; width: number } | null>(null);
@@ -37,7 +27,6 @@ function SearchPageClient() {
           item.query.toLowerCase() === query.toLowerCase() ||
           item.aliases.some(alias => alias.toLowerCase() === query.toLowerCase())
         );
-        setResult(match || null);
       }, 900);
       return () => clearTimeout(timeout);
     }
@@ -70,19 +59,11 @@ function SearchPageClient() {
     if (!trimmed) return;
     const id = dialogueId;
     setDialogueId(id + 1);
-    setDialogue(prev => [
-      { id, query: trimmed, loading: true, result: null },
-      ...prev
-    ]);
-    setValue("");
     setTimeout(() => {
       const match = demoSearches.find(item =>
         item.query.toLowerCase() === trimmed.toLowerCase() ||
         item.aliases.some(alias => alias.toLowerCase() === trimmed.toLowerCase())
       );
-      setDialogue(prev => prev.map(d =>
-        d.id === id ? { ...d, loading: false, result: match || null } : d
-      ));
     }, 900);
   };
 

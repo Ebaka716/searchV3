@@ -3,7 +3,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { SparkleIcon } from "@/components/icons/SparkleIcon";
 
 interface GeneralResultTemplateProps {
-  _type: 'ticker' | 'term' | 'question';
   title: string;
   preamble?: string;
   thinking?: React.ReactNode;
@@ -11,7 +10,6 @@ interface GeneralResultTemplateProps {
 }
 
 export const GeneralResultTemplate: React.FC<GeneralResultTemplateProps> = ({
-  _type,
   title,
   preamble,
   thinking,
