@@ -38,7 +38,11 @@ const initialAgents: AgentData[] = [
   { id: "agent6", name: "Benefits Center", isActive: false, description: "Benefit plan administration for employers" },
 ];
 
-export default function AppSidebar({ headerHeight = 0 }: { headerHeight?: number }) {
+interface AppSidebarProps {
+  headerHeight?: number;
+}
+
+export default function AppSidebar({ headerHeight = 0 }: AppSidebarProps) {
   const [collapsed, setCollapsed] = useState(true);
   const [isServiceAgentsDialogOpen, setIsServiceAgentsDialogOpen] = useState(false);
   const [agents, setAgents] = useState<AgentData[]>(initialAgents);
