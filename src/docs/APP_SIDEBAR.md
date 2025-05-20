@@ -16,4 +16,5 @@ AppSidebar is the main left sidebar for navigation and actions. It includes sect
 - Modular and can be extended with new sections or actions.
 
 ## Accessibility
-- All sidebar buttons and menus are keyboard-accessible and have ARIA labels. 
+- All sidebar buttons and menus are keyboard-accessible and have ARIA labels.
+- The 'New Search' and 'New Research Project' buttons reset the app to the base search and research pages, starting a new session with a clean state. 
