@@ -25,4 +25,6 @@ _This document tracks what works, what's left to build, current status, known is
 
 - Demo search data simplified: Only one example per type (ticker, term), each with small/medium/large context. Placeholder left for question type. This reduces clutter and makes template testing/variant switching easier.
 
+- Research page layout updated: Canvas is now central (70% width on load), EnhancedInput/dialogue is a resizable right panel (30% width on load), matching a modern productivity tool layout.
+
 // (Add your current status, known issues, and progress here) 

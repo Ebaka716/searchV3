@@ -18,4 +18,7 @@ MainLayout is the root layout component for all major pages. It provides a consi
 
 ## Extensibility
 - Designed for easy extension and variant switching.
-- All layout areas are flexible and responsive. 
+- All layout areas are flexible and responsive.
+
+## Notes
+- Research page now uses a central canvas with a resizable right panel for EnhancedInput/dialogue, with the canvas taking 70% of the width on load and the right panel 30%. 
