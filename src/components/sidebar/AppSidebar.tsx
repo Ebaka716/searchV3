@@ -10,10 +10,49 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
+import { ServiceAgentCard } from "./ServiceAgentCard";
+
+// Define a type for service agent data
+interface AgentData {
+  id: string;
+  name: string;
+  isActive: boolean;
+  description?: string;
+  // Add other properties like description, etc.
+}
+
+const initialAgents: AgentData[] = [
+  { id: "agent1", name: "Workplace Investing", isActive: true, description: "401(k), 403(b), HSAs, stock plans, employee benefits" },
+  { id: "agent2", name: "Charitable", isActive: false, description: "Donor-advised funds, charitable giving" },
+  { id: "agent3", name: "Health Care Solutions", isActive: true, description: "HSAs, health insurance, wellness programs" },
+  { id: "agent4", name: "Stock Plan Services", isActive: true, description: "Equity compensation administration (RSUs, ESPPs, stock options)" },
+  { id: "agent5", name: "Auto Go", isActive: false, description: "Digital investment management (robo-advisor)" },
+  { id: "agent6", name: "Benefits Center", isActive: false, description: "Benefit plan administration for employers" },
+];
 
 export default function AppSidebar() {
   const [collapsed, setCollapsed] = useState(true);
+  const [isServiceAgentsDialogOpen, setIsServiceAgentsDialogOpen] = useState(false);
+  const [agents, setAgents] = useState<AgentData[]>(initialAgents);
   const router = useRouter();
+
+  const handleAgentToggle = (agentId: string, newIsActive: boolean) => {
+    setAgents(currentAgents => 
+      currentAgents.map(agent => 
+        agent.id === agentId ? { ...agent, isActive: newIsActive } : agent
+      )
+    );
+  };
 
   return (
     <aside
@@ -91,6 +130,10 @@ export default function AppSidebar() {
               <span className="flex items-center gap-2">✨ Upgrade to Pro</span>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
+            <DropdownMenuItem onSelect={() => setIsServiceAgentsDialogOpen(true)}>
+              <span className="flex items-center gap-2">My Service Agents</span>
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
             <DropdownMenuItem>
               <span className="flex items-center gap-2">⚙️ Account</span>
             </DropdownMenuItem>
@@ -107,6 +150,30 @@ export default function AppSidebar() {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      {/* Service Agents Alert Dialog */}
+      <AlertDialog open={isServiceAgentsDialogOpen} onOpenChange={setIsServiceAgentsDialogOpen}>
+        <AlertDialogContent className="max-w-3xl">
+          <AlertDialogHeader>
+            <AlertDialogTitle>Product Company Service Agents</AlertDialogTitle>
+          </AlertDialogHeader>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 py-4">
+            {agents.map(agent => (
+              <ServiceAgentCard 
+                key={agent.id}
+                id={agent.id}
+                agentName={agent.name}
+                isActive={agent.isActive}
+                description={agent.description}
+                onToggleActive={(newIsActive) => handleAgentToggle(agent.id, newIsActive)}
+                className="py-2 gap-0"
+              />
+            ))}
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel>Close</AlertDialogCancel>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </aside>
   );
 }
