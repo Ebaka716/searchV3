@@ -3,6 +3,8 @@ import { Search } from "lucide-react";
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { findDemoSearchMatch } from "@/data/demoSearches";
 
 export type HeaderInputProps = {
   onSmartSuggestOpen: () => void;
@@ -15,6 +17,15 @@ export function HeaderInput({ onSmartSuggestOpen, onOpenResearch }: HeaderInputP
 
   const handleSearch = () => {
     if (value.trim()) {
+      // Try to match the input to a demo search
+      const match = findDemoSearchMatch(value.trim());
+      if (match && match.type === 'ticker' && match.query.toLowerCase().includes('aapl')) {
+        // Route to /search with the matched query
+        router.push(`/search?query=${encodeURIComponent(match.query)}`);
+        setValue("");
+        return;
+      }
+      // Fallback: route to /search with the entered value
       router.push(`/search?query=${encodeURIComponent(value.trim())}`);
       setValue("");
     }
@@ -49,14 +60,16 @@ export function HeaderInput({ onSmartSuggestOpen, onOpenResearch }: HeaderInputP
           onKeyDown={handleKeyDown}
         />
       </div>
-      <button
+      <Button
+        variant="outline"
+        size="icon"
         type="button"
         onClick={onOpenResearch ? onOpenResearch : () => router.push('/research')}
         aria-label="Open Research View"
-        className="p-2 rounded-md hover:bg-accent focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        className="p-2 rounded-md focus:outline-none focus-visible:ring-2 focus-visible:ring-ring bg-white hover:bg-zinc-100 text-foreground"
       >
         <Image src="/sparkle.svg" alt="Sparkle" width={20} height={20} />
-      </button>
+      </Button>
     </div>
   );
 }

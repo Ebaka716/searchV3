@@ -1,3 +1,23 @@
+/**
+ * EnhancedInput.tsx
+ *
+ * This component provides the main user input for the search page.
+ *
+ * Responsibilities:
+ * - Accepts user input and uses findDemoSearchMatch to determine if a template should be loaded.
+ * - Clears the input after processing a query param or template load.
+ * - Interacts with DialogueArea to trigger template loading and state updates.
+ * - Ensures consistent, robust input handling for both direct user entry and query param-driven flows.
+ *
+ * Usage:
+ *   - Used in the search page below the dialogue area.
+ *   - Shares matching logic with HeaderInput for consistency.
+ *
+ * See also:
+ *   - src/data/demoSearches.ts
+ *   - src/components/dialogue/DialogueArea.tsx
+ *   - src/app/search/page.tsx
+ */
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {
@@ -26,6 +46,11 @@ export interface EnhancedInputProps {
   onModeChange?: (mode: 'search' | 'research') => void;
 }
 
+interface ServiceContextForChip {
+  fileName: string; // Service name will go here
+  fileType: FileType; // Using 'other' for services
+}
+
 export function EnhancedInput({
   value,
   onChange,
@@ -38,6 +63,8 @@ export function EnhancedInput({
 
   // Internal state for context files
   const [contextFiles, setContextFiles] = React.useState<{ fileName: string; fileType: FileType }[]>([]);
+  // New state for selected services
+  const [selectedServices, setSelectedServices] = React.useState<ServiceContextForChip[]>([]);
 
   // Dropdown menu open state
   const [dropdownOpen, setDropdownOpen] = React.useState(false);
@@ -87,6 +114,19 @@ export function EnhancedInput({
     setContextFiles(prev => prev.filter((_, i) => i !== idx));
   };
 
+  // Handle service selection
+  const handleSelectService = (serviceName: string) => {
+    if (!selectedServices.find(s => s.fileName === serviceName)) {
+      setSelectedServices(prev => [...prev, { fileName: serviceName, fileType: 'service' }]);
+    }
+    setDropdownOpen(false); // Close dropdown after selection
+  };
+
+  // Remove service context
+  const handleRemoveService = (serviceName: string) => {
+    setSelectedServices(prev => prev.filter(s => s.fileName !== serviceName));
+  };
+
   // File input ref for triggering from dropdown
   const fileInputRef = React.useRef<HTMLInputElement>(null);
 
@@ -98,18 +138,24 @@ export function EnhancedInput({
   }, [value]);
 
   return (
-    <div
-      className={`w-full max-w-2xl rounded-xl border bg-white shadow-sm px-4 py-3 flex flex-col gap-2 transition-colors ${isFocused ? 'border-black' : 'border-zinc-200'}`}
-    >
+    <div className="w-full max-w-none rounded-xl border bg-white shadow-sm px-4 py-3 flex flex-col gap-2 transition-colors border-zinc-200">
       {/* Context chips row */}
-      {contextFiles.length > 0 && (
-        <div className="flex flex-wrap mb-1">
+      {(contextFiles.length > 0 || selectedServices.length > 0) && (
+        <div className="flex flex-wrap gap-2 mb-1">
           {contextFiles.map((file, idx) => (
             <ContextChip
-              key={file.fileName + idx}
+              key={`file-${file.fileName}-${idx}`}
               fileName={file.fileName}
               fileType={file.fileType}
               onRemove={() => handleRemoveContextFile(idx)}
+            />
+          ))}
+          {selectedServices.map((service, idx) => (
+            <ContextChip
+              key={`service-${service.fileName}-${idx}`}
+              fileName={service.fileName}
+              fileType={service.fileType} // will be 'service'
+              onRemove={() => handleRemoveService(service.fileName)}
             />
           ))}
         </div>
@@ -199,21 +245,44 @@ export function EnhancedInput({
           </TabsList>
         </Tabs>
         <div className="flex gap-2">
+          {/* Sources Button and Menu */}
           <DropdownMenu
             open={dropdownOpen}
             onOpenChange={setDropdownOpen}
           >
             <DropdownMenuTrigger asChild>
-              <Button variant="outline" size="icon" className="p-2" aria-label="Open context menu">
+              {/* Trigger for Available Sources Menu */}
+              <Button variant="outline" size="icon" className="p-2" aria-label="Open available sources menu">
                 <AtSign className="w-5 h-5" />
               </Button>
             </DropdownMenuTrigger>
+            {/* Available Sources Menu Content */}
             <DropdownMenuContent align="end" className="w-56">
               <DropdownMenuItem onSelect={e => { e.preventDefault(); fileInputRef.current?.click(); }}>
                 Upload a file
               </DropdownMenuItem>
               <DropdownMenuItem>Take a screenshot</DropdownMenuItem>
               <DropdownMenuItem>Set source URL</DropdownMenuItem>
+              {/* New section for specific services - moved up */}
+              <DropdownMenuSeparator />
+              <DropdownMenuItem 
+                onSelect={() => handleSelectService("NetBenefits")}
+                disabled={!!selectedServices.find(s => s.fileName === "NetBenefits")}
+              >
+                NetBenefits
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => handleSelectService("HealthCare")}
+                disabled={!!selectedServices.find(s => s.fileName === "HealthCare")}
+              >
+                HealthCare
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => handleSelectService("Stock Plan Services")}
+                disabled={!!selectedServices.find(s => s.fileName === "Stock Plan Services")}
+              >
+                Stock Plan Services
+              </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem>Add from Excel</DropdownMenuItem>
               <DropdownMenuItem>Add from Google Drive</DropdownMenuItem>

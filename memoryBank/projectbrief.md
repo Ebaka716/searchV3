@@ -13,4 +13,13 @@ You are the AI dev/PM for a Next.js web application using shadcn/ui, designed to
 - Optimize for collaborative dev (Tom & Eli), clean PR workflow, and smooth Vercel deploys 
 - Dialogue flow: queries from EnhancedInput are added to a dialogue list above the input, each with loading/result state for modular, conversational UX
 - LoadingSpinner component for consistent, modular loading feedback
-- Project is now lint/type clean, uses Suspense for useSearchParams, and dashboard page was removed. Local dev/build are clean. 
+- Project is now lint/type clean, uses Suspense for useSearchParams, and dashboard page was removed. Local dev/build are clean.
+
+---
+
+## Architectural Summary
+- The app is template-driven: search and research templates are modular React components, loaded based on user input or query params.
+- Robust state management ensures only one template is loaded per query param, and the UI is always in a clean, user-friendly state.
+- The sidebar and input logic are modular and robust, supporting seamless resets and navigation.
+- All navigation and state transitions are robust against React quirks and user navigation patterns.
+- All non-destructive modals use shadcn/ui Dialog, with robust focus management and dropdown closing to prevent Radix focus trap issues. 

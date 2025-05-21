@@ -6,6 +6,13 @@ import { Button } from "@/components/ui/button";
 import { DropdownMenu, DropdownMenuTrigger, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuRadioGroup, DropdownMenuRadioItem } from "@/components/ui/dropdown-menu";
 import HeaderInput from "@/components/header/HeaderInput";
 import Link from "next/link";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 
 export type HeaderProps = {
   variant: "full" | "short";
@@ -42,7 +49,21 @@ export function Header({
   onSelectTestOption,
 }: HeaderProps) {
   const [testingMenuOpen, setTestingMenuOpen] = useState(false);
+  const [showTextStrings, setShowTextStrings] = useState(false);
   const router = useRouter();
+  const logoutButtonRef = React.useRef<HTMLButtonElement>(null);
+
+  // Focus the Log out button when the modal closes
+  React.useEffect(() => {
+    if (!showTextStrings && logoutButtonRef.current) {
+      logoutButtonRef.current.focus();
+    }
+  }, [showTextStrings]);
+
+  const handleLogout = () => {
+    setShowTextStrings(false);
+    onLogout();
+  };
 
   // Top row: logo/company (left), actions (right)
   const topRow = (
@@ -55,11 +76,12 @@ export function Header({
         <Button variant="ghost" className="flex items-center gap-1">
           <User className="w-4 h-4" /> Profile
         </Button>
-        <Button variant="outline">Open an account</Button>
+        <Button variant="ghost">Open an account</Button>
         {/* Testing Menu for Log out */}
         <DropdownMenu open={testingMenuOpen} onOpenChange={setTestingMenuOpen}>
           <DropdownMenuTrigger asChild>
             <Button
+              ref={logoutButtonRef}
               variant="ghost"
               className="flex items-center gap-1"
               onClick={() => setTestingMenuOpen((open) => !open)}
@@ -70,8 +92,15 @@ export function Header({
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Testing menu</DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem onClick={onLogout} className="text-destructive">
+            <DropdownMenuItem onClick={handleLogout} className="text-destructive">
               Log out
+            </DropdownMenuItem>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem onClick={() => {
+              setTestingMenuOpen(false);
+              setShowTextStrings(true);
+            }}>
+              Show Text Strings
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuRadioGroup
@@ -148,6 +177,49 @@ export function Header({
     <header className="w-full border-b bg-background">
       {topRow}
       {variant === "full" && bottomRow}
+      {showTextStrings && (
+        <Dialog open={showTextStrings} onOpenChange={setShowTextStrings}>
+          <DialogContent>
+            <DialogHeader>
+              <DialogTitle>Working AAPL Text Strings</DialogTitle>
+              <DialogDescription>
+                Here are the working AAPL text strings for each template size:
+              </DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div>
+                <div className="font-semibold">AAPL Small Template:</div>
+                <ul className="list-disc pl-6">
+                  <li>AAPL</li>
+                  <li>aapl</li>
+                  <li>apple</li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold">AAPL Medium Template:</div>
+                <ul className="list-disc pl-6">
+                  <li>Apple stock price</li>
+                  <li>apple price</li>
+                  <li>aapl price</li>
+                  <li>apple stock</li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold">AAPL Large Template:</div>
+                <ul className="list-disc pl-6">
+                  <li>What was Apple&apos;s closing price last year?</li>
+                  <li>apple closing price last year</li>
+                  <li>aapl last year close</li>
+                  <li>apple stock last year</li>
+                </ul>
+              </div>
+            </div>
+            <Button variant="outline" onClick={() => setShowTextStrings(false)}>
+              Close
+            </Button>
+          </DialogContent>
+        </Dialog>
+      )}
     </header>
   );
 }

@@ -1,10 +1,16 @@
-# EnhancedInput Component
+# EnhancedInput Component Documentation
 
 ## Location
 - `src/components/input/EnhancedInput.tsx`
 
 ## Overview
-EnhancedInput is a modular, multi-mode input component designed for conversational search and research flows. It supports text entry, voice input (via Web Speech API), contextual actions, and mode switching (search/research).
+EnhancedInput is a modular, multi-mode input component designed for conversational search and research flows. It supports text entry, voice input (via Web Speech API), contextual actions, and mode switching (search/research). Used in both Search and Research pages, and can be dropped into any modular layout.
+
+## Responsibilities
+- Accepts user input and uses `findDemoSearchMatch` to determine if a template should be loaded.
+- Clears the input after processing a query param or template load.
+- Interacts with `DialogueArea` to trigger template loading and state updates.
+- Ensures consistent, robust input handling for both direct user entry and query param-driven flows.
 
 ## Props
 - `value: string` — The current input value (controlled).
@@ -36,7 +42,16 @@ EnhancedInput is a modular, multi-mode input component designed for conversation
 />
 ```
 
+## Extension Notes
+- To add new context sources, extend the dropdown menu logic.
+- For new input modes, add to the Tabs and update the mode handling logic.
+- Contextual menu can be extended for more actions.
+- All UI uses shadcn/ui and lucide-react for consistency.
+
 ## Notes
 - Voice input requires a supported browser (Chrome, Edge). Shows an alert if unsupported.
-- Contextual menu can be extended for more actions.
-- All UI uses shadcn/ui and lucide-react for consistency. 
+
+## See Also
+- `src/data/demoSearches.ts`
+- `src/components/dialogue/DialogueArea.tsx`
+- `src/app/search/page.tsx` 

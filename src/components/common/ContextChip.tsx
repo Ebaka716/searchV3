@@ -1,7 +1,7 @@
 import React from "react";
-import { X, FileText, File, FileImage } from "lucide-react";
+import { X, FileText, File, FileImage, Bot } from "lucide-react";
 
-export type FileType = "pdf" | "docx" | "txt" | "image" | "other";
+export type FileType = "pdf" | "docx" | "txt" | "image" | "service" | "other";
 
 function getFileIcon(type: FileType) {
   switch (type) {
@@ -13,6 +13,8 @@ function getFileIcon(type: FileType) {
       return <FileText className="w-4 h-4" />;
     case "image":
       return <FileImage className="w-4 h-4" />;
+    case "service":
+      return <Bot className="w-4 h-4" />;
     default:
       return <File className="w-4 h-4" />;
   }
