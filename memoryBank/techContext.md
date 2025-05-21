@@ -6,6 +6,7 @@ _This document lists the technologies used, development setup, technical constra
 - Vercel for deployment, GitHub for version control
 - Modular folder/component structure
 - Use shadcn/ui for all UI unless a new pattern is required
+- - shadcn/ui Dialog is now used for all non-destructive modals, replacing AlertDialog. Radix focus trap issues are handled by closing dropdowns before opening modals.
 - Document all new patterns in /docs and inline
 - LoadingSpinner component for modular loading states
 - Dialogue array logic for conversational flows (EnhancedInput → dialogue list)

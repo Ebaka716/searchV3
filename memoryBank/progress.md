@@ -27,6 +27,7 @@ _This document tracks what works, what's left to build, current status, known is
 - Minimalist UI: Only the input and dialogue area are visible on the search page, with all template and clear buttons removed for clarity.
 - Modular sidebar and navigation: Sidebar logic is modular, and navigation always uses query params to ensure robust resets and template loading.
 - Documentation: All architectural and feature documentation is now maintained in structured memory bank files, not in a generic README.
+- **Dialog/Modal Accessibility**: All non-destructive modals (header, sidebar) now use shadcn/ui Dialog. Focus is restored to the trigger after closing, and dropdown menus are closed before opening modals to prevent Radix focus trap/overlay issues. Build is clean and all changes are committed and pushed.
 
 ## Outstanding Issues
 - Some linter errors about missing modules remain (see project for details).

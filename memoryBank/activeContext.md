@@ -20,6 +20,7 @@ _This document tracks the current work focus, recent changes, next steps, and im
 ---
 
 ## Recent Major Changes
+- **Dialog/Modal Accessibility**: All non-destructive modals (e.g., Text Strings in header, Service Agents in sidebar) now use shadcn/ui Dialog instead of AlertDialog. Focus management ensures that after closing a modal, focus returns to the triggering button for robust accessibility and keyboard navigation. Dropdown menus are closed before opening modals to prevent Radix focus trap/overlay issues.
 - **Robust template loading**: Only one template is loaded per query param, using ref-based guards to prevent double-mount issues.
 - **Reset logic**: The `reset` query param (with a timestamp) is used to force a state reset, ensuring the "New Search" button always works, even if already on `/search`.
 - **Minimalist UI**: Only the input and dialogue area are visible on the search page, with all template and clear buttons removed for clarity.

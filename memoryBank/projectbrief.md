@@ -21,4 +21,5 @@ You are the AI dev/PM for a Next.js web application using shadcn/ui, designed to
 - The app is template-driven: search and research templates are modular React components, loaded based on user input or query params.
 - Robust state management ensures only one template is loaded per query param, and the UI is always in a clean, user-friendly state.
 - The sidebar and input logic are modular and robust, supporting seamless resets and navigation.
-- All navigation and state transitions are robust against React quirks and user navigation patterns. 
+- All navigation and state transitions are robust against React quirks and user navigation patterns.
+- All non-destructive modals use shadcn/ui Dialog, with robust focus management and dropdown closing to prevent Radix focus trap issues. 

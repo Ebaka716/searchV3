@@ -15,6 +15,7 @@ _This document explains why this project exists, the problems it solves, and use
 - The app ensures only one template is loaded per query param, and resets are always clean, preventing confusion or duplicate results.
 - The sidebar and input logic are designed for clarity and reliability, supporting both new and returning users.
 - Minimalist UI: Only the input and dialogue area are visible on the search page, keeping the experience focused and intuitive.
+- All modals are now accessible: focus returns to the trigger after closing, Dialog is used for non-destructive modals, and dropdowns are closed before opening modals to prevent focus trap issues or UI lockups.
 
 - Product is now fully lint/type clean, uses Suspense for client hooks, and dashboard page was removed as unused
 - Local dev/build are clean 

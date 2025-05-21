@@ -20,5 +20,6 @@ _This document describes the system architecture, key technical decisions, and d
 - **Reset Logic**: The `reset` query param (with a timestamp) is used to force a state reset, ensuring the "New Search" button always works, even if already on `/search`.
 - **Minimalist UI**: Only the input and dialogue area are visible on the search page, with all template and clear buttons removed for clarity.
 - **Sidebar/Navigation**: Sidebar logic is modular, and navigation always uses query params to ensure robust resets and template loading.
+- **Dialog/Modal Accessibility**: All non-destructive modals use shadcn/ui Dialog. Focus is restored to the trigger after closing, and dropdown menus are closed before opening modals to prevent Radix focus trap/overlay issues.
 
 - (Add your system architecture and design patterns here) 
