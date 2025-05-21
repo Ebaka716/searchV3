@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from "react";
-import { useSearchParams } from "next/navigation";
+import { useSearchParams, useRouter } from "next/navigation";
 import { EnhancedInput } from "@/components/input/EnhancedInput";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import AaplSmallTemplate from "../templates/AaplSmallTemplate";
@@ -38,6 +38,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
   const searchParams = useSearchParams();
   const hasHandledQueryParamRef = useRef(false);
   const [readyForInput, setReadyForInput] = useState(false);
+  const router = useRouter();
 
   const getNextDialogueId = () => dialogueIdRef.current++;
 
@@ -161,6 +162,16 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
     }
   }, [dialogue, headerHeight]);
 
+  // Add a handler that updates mode and navigates
+  const handleModeChange = (newMode: 'search' | 'research') => {
+    setMode(newMode);
+    if (newMode === 'research') {
+      router.push('/research');
+    } else {
+      router.push('/search');
+    }
+  };
+
   return (
     <div className="w-full h-full flex flex-col flex-1 bg-green-50 relative" style={{ minHeight: '100vh' }}>
       {/* Scrollable content area */}
@@ -175,6 +186,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
           bottom: 0,
           scrollbarWidth: 'none',
           msOverflowStyle: 'none',
+          scrollbarGutter: 'stable',
         }}
       >
         <div className="max-w-[784px] mx-auto w-full px-8">
@@ -236,7 +248,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
               onChange={e => setValue(e.target.value)}
               onSend={handleSend}
               mode={mode}
-              onModeChange={setMode}
+              onModeChange={handleModeChange}
             />
           </div>
         </div>

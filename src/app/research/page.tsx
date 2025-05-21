@@ -48,12 +48,8 @@ export default function ResearchPage() {
   // Resizable right panel state
   const minWidth = 320; // px
   const maxWidth = 800; // px
-  const [rightPanelWidth, setRightPanelWidth] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return Math.max(minWidth, Math.min(maxWidth, window.innerWidth * 0.3));
-    }
-    return 480;
-  });
+  // Initialize to 480 for SSR/client match, update on mount
+  const [rightPanelWidth, setRightPanelWidth] = useState(480);
   const dragging = useRef(false);
   const animationFrame = useRef<number | null>(null);
 
@@ -79,6 +75,11 @@ export default function ResearchPage() {
     };
   }, []);
 
+  // Set initial width on mount (client only)
+  React.useEffect(() => {
+    setRightPanelWidth(Math.max(minWidth, Math.min(maxWidth, window.innerWidth * 0.3)));
+  }, []);
+
   const handleDragStart = (e: React.MouseEvent) => {
     e.preventDefault();
     dragging.current = true;
@@ -92,10 +93,6 @@ export default function ResearchPage() {
       router.push('/search');
     }
   };
-
-  React.useEffect(() => {
-    setRightPanelWidth(Math.max(minWidth, Math.min(maxWidth, window.innerWidth * 0.3)));
-  }, []);
 
   return (
     <div className="h-screen flex flex-col">

@@ -1,1 +1,4 @@
 /* Global styles placeholder for shadcn/ui and custom styles */ 
+html {
+  overflow-y: scroll;
+} 

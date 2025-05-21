@@ -8,8 +8,12 @@ import DialogueArea from "@/components/dialogue/DialogueArea";
 function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
   return (
     <MainLayout headerVariant="short" leftSidebar={<AppSidebar />}>
-      <div className="flex flex-col items-center h-full min-h-0 flex-1 bg-pink-50">
-        <div id="mainscrollingarea" className="w-full h-full flex flex-col flex-1 bg-green-50 relative mt-2" style={{ minHeight: '100vh' }}>
+      <div className="flex flex-col items-center h-screen w-full bg-pink-50 overflow-hidden">
+        <div
+          id="mainscrollingarea"
+          className="w-full flex flex-col flex-1 bg-green-50 relative"
+          style={{ height: `calc(100vh - ${headerHeight}px)` }}
+        >
           <DialogueArea key={0} headerHeight={headerHeight} />
         </div>
       </div>
