@@ -172,16 +172,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       <div
         ref={scrollAreaRef}
         className="overflow-y-auto h-full w-full pb-32"
-        style={{
-          position: 'absolute',
-          top: headerHeight,
-          left: 0,
-          right: 0,
-          bottom: 0,
-          scrollbarWidth: 'none',
-          msOverflowStyle: 'none',
-          scrollbarGutter: 'stable',
-        }}
+        style={{}}
       >
         <div className="max-w-[784px] mx-auto w-full px-8">
           <div style={{ height: 24 }} />
@@ -230,11 +221,6 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
             ))
           )}
         </div>
-        <style jsx>{`
-          .scrollbar-none::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
       </div>
       {/* Fixed input bar at the bottom, centered and sized to green area */}
       {readyForInput && (
