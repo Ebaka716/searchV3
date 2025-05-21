@@ -13,4 +13,11 @@ _This document lists the technologies used, development setup, technical constra
 - All lint/type issues resolved and dashboard page removed
 - Local dev and build are clean
 
+---
+
+## Technical Patterns
+- Template-driven architecture: templates are modular React components, loaded via shared matching logic.
+- Query and reset param handling: ensures robust state transitions and clean resets.
+- Ref-based guards: prevent double-mount/double-processing issues in React Strict Mode.
+
 - (Add your technologies, setup, and constraints here) 

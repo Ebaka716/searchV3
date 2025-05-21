@@ -1,3 +1,22 @@
+/**
+ * demoSearches.ts
+ *
+ * This file defines the array of demo search templates used throughout the conversational search app.
+ *
+ * - Each entry represents a search template (e.g., AAPL small/medium/large) and includes metadata for matching user input or query params.
+ * - The `findDemoSearchMatch` utility uses this array to match user input or query params to the correct template.
+ * - To add a new template, create a new React component and register it here with the appropriate matching fields.
+ * - This array drives all template loading logic in the search page and input components.
+ *
+ * Example usage:
+ *   - User types or navigates to `/search?query=AAPL` → `findDemoSearchMatch` finds the matching entry here → correct template is loaded.
+ *
+ * See also:
+ *   - src/components/dialogue/DialogueArea.tsx
+ *   - src/components/input/EnhancedInput.tsx
+ *   - src/app/search/page.tsx
+ */
+
 export type DemoSearch = {
   query: string;
   aliases: string[];
@@ -61,4 +80,12 @@ export const demoSearches: DemoSearch[] = [
   //   size: "small",
   //   answer: "",
   // },
-]; 
+];
+
+export function findDemoSearchMatch(input: string): DemoSearch | undefined {
+  const normalized = input.trim().toLowerCase();
+  return demoSearches.find(entry =>
+    entry.query.toLowerCase() === normalized ||
+    entry.aliases.some(alias => alias.toLowerCase() === normalized)
+  );
+} 

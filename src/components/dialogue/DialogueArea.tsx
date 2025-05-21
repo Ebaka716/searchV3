@@ -1,168 +1,226 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useSearchParams } from "next/navigation";
 import { EnhancedInput } from "@/components/input/EnhancedInput";
+import LoadingSpinner from "@/components/common/LoadingSpinner";
+import AaplSmallTemplate from "../templates/AaplSmallTemplate";
+import AaplMediumTemplate from "../templates/AaplMediumTemplate";
+import AaplLargeTemplate from "../templates/AaplLargeTemplate";
+import { findDemoSearchMatch } from "@/data/demoSearches";
 
 /**
- * DialogueArea component
- * Encapsulates the chat/results area, including scroll logic, add/clear buttons, and EnhancedInput.
- * Handles chat-like UX and scroll-to-header behavior for big template entries.
+ * DialogueArea.tsx
+ *
+ * This component encapsulates the chat-like scroll area for the search page.
+ *
+ * Responsibilities:
+ * - Loads the correct template based on user input or the `query` query param (using findDemoSearchMatch).
+ * - Handles the `reset` query param to force a blank state (used by the sidebar's New Search button).
+ * - Uses refs and effects to keep new dialogue entries visible and to guard against double-processing (e.g., React double-mounts).
+ * - Ensures only one template is loaded per query param, robust against React quirks.
+ *
+ * Usage:
+ *   - Used in the search page as the main dialogue/chat area.
+ *   - Interacts with EnhancedInput and HeaderInput for template loading.
+ *
+ * See also:
+ *   - src/data/demoSearches.ts
+ *   - src/components/input/EnhancedInput.tsx
+ *   - src/app/search/page.tsx
  */
-export default function DialogueArea() {
-  // State for chat dialogue
+export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: number }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
-  const [dialogue, setDialogue] = useState<{ id: number; text: string }[]>([]);
-  const [dialogueId, setDialogueId] = useState(1);
-
-  // Ref for the scrollable area (the green chat/results area)
+  const [dialogue, setDialogue] = useState<{ id: number; type: string; text?: string }[]>([]);
+  const dialogueIdRef = useRef(1);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  // Ref for the last big template header (the heading of the most recent big template entry)
   const lastBigTemplateHeaderRef = useRef<HTMLDivElement>(null);
+  const lastLoadingRef = useRef<HTMLDivElement>(null);
+  const searchParams = useSearchParams();
+  const hasHandledQueryParamRef = useRef(false);
+  const [readyForInput, setReadyForInput] = useState(false);
 
-  // Handle EnhancedInput send (add a normal entry)
+  const getNextDialogueId = () => dialogueIdRef.current++;
+
+  // On mount or when query param changes, trigger template if query is present and dialogue is empty
+  useEffect(() => {
+    if (hasHandledQueryParamRef.current) return;
+    const query = searchParams.get("query") || "";
+    if (query && dialogue.length === 0) {
+      const trimmed = query.trim();
+      const match = findDemoSearchMatch(trimmed);
+      if (
+        match &&
+        match.type === 'ticker' &&
+        (match.query.toLowerCase().includes('aapl') ||
+          match.aliases.some(alias => alias.toLowerCase().includes('aapl')))
+      ) {
+        // Add the correct AAPL template based on size
+        const id = getNextDialogueId();
+        setDialogue(prev => [
+          ...prev,
+          { id, type: 'loading' },
+        ]);
+        setTimeout(() => {
+          setDialogue(prev => prev.map(entry =>
+            entry.id === id
+              ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__` }
+              : entry
+          ));
+          setReadyForInput(true);
+        }, 1200);
+        hasHandledQueryParamRef.current = true;
+        setValue("");
+        return;
+      }
+      // Fallback: add as plain text
+      const id = getNextDialogueId();
+      setDialogue(prev => [
+        ...prev,
+        { id, type: 'text', text: trimmed },
+      ]);
+      hasHandledQueryParamRef.current = true;
+      setValue("");
+      setReadyForInput(true);
+    } else if (!query) {
+      setReadyForInput(true);
+    }
+  }, [searchParams, dialogue.length]);
+
+  // Reset dialogue and input when the 'reset' query param changes
+  useEffect(() => {
+    const resetParam = searchParams.get("reset");
+    if (resetParam) {
+      setDialogue([]);
+      setValue("");
+      setReadyForInput(true);
+      hasHandledQueryParamRef.current = false; // allow query param logic to run again if needed
+    }
+  }, [searchParams.get("reset")]);
+
+  // Handle EnhancedInput send (only user input, never pre-filled)
   const handleSend = () => {
     const trimmed = value.trim();
     if (!trimmed) return;
-    const id = dialogueId;
+    const match = findDemoSearchMatch(trimmed);
+    if (
+      match &&
+      match.type === 'ticker' &&
+      (match.query.toLowerCase().includes('aapl') ||
+        match.aliases.some(alias => alias.toLowerCase().includes('aapl')))
+    ) {
+      const id = getNextDialogueId();
+      setDialogue(prev => [
+        ...prev,
+        { id, type: 'loading' },
+      ]);
+      setTimeout(() => {
+        setDialogue(prev => prev.map(entry =>
+          entry.id === id
+            ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__` }
+            : entry
+        ));
+      }, 1200);
+      setValue("");
+      return;
+    }
+    // Fallback: add as plain text
+    const id = getNextDialogueId();
     setDialogue(prev => [
       ...prev,
-      { id, text: trimmed },
+      { id, type: 'text', text: trimmed },
     ]);
-    setDialogueId(id + 1);
     setValue("");
   };
 
-  // Add Big Template entry
-  const handleAddBigTemplate = () => {
-    setDialogue(prev => [
-      ...prev,
-      { id: dialogueId, text: '__BIG_TEMPLATE__' },
-    ]);
-    setDialogueId(dialogueId + 1);
-  };
-
-  // Clear all dialogue entries
-  const handleClearDialogue = () => setDialogue([]);
-
-  /**
-   * Scroll behavior for chat/results area:
-   * - When a new entry is added, scroll to the bottom (chat-like behavior).
-   * - When a new big template is added, scroll so its header appears just below the fixed main page header.
-   *
-   * This is achieved by:
-   *   - Attaching a ref to the header section of the most recent big template entry.
-   *   - When a new big template is added, set the scroll area's scrollTop to the header's offsetTop minus the header height (64px).
-   *   - This ensures the heading is always fully visible and not hidden behind the fixed header.
-   */
+  // Scroll behavior for chat/results area
   useEffect(() => {
-    // If the last entry is a big template, scroll to its header
-    if (dialogue.length > 0 && dialogue[dialogue.length - 1].text === '__BIG_TEMPLATE__') {
+    if (
+      dialogue.length > 0 &&
+      (
+        dialogue[dialogue.length - 1].type === '__AAPL_LARGE_TEMPLATE__' ||
+        dialogue[dialogue.length - 1].type === '__AAPL_MEDIUM_TEMPLATE__' ||
+        dialogue[dialogue.length - 1].type === '__AAPL_SMALL_TEMPLATE__'
+      )
+    ) {
       if (lastBigTemplateHeaderRef.current && scrollAreaRef.current) {
-        // Get the vertical offset of the header within the scroll area
         const headerOffset = lastBigTemplateHeaderRef.current.offsetTop;
-        // Scroll so the header is just below the fixed main page header (64px)
-        scrollAreaRef.current.scrollTo({ top: headerOffset - 64, behavior: 'smooth' });
+        scrollAreaRef.current.scrollTo({ top: headerOffset - headerHeight, behavior: 'smooth' });
+      }
+    } else if (
+      dialogue.length > 0 &&
+      dialogue[dialogue.length - 1].type === 'loading'
+    ) {
+      if (lastLoadingRef.current && scrollAreaRef.current) {
+        const loadingOffset = lastLoadingRef.current.offsetTop;
+        scrollAreaRef.current.scrollTo({ top: loadingOffset - headerHeight, behavior: 'smooth' });
       }
     } else {
-      // Otherwise, scroll to bottom as usual (for chat-like UX)
       if (scrollAreaRef.current) {
         scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
       }
     }
-  }, [dialogue]);
+  }, [dialogue, headerHeight]);
 
   return (
-    <div className="max-w-[784px] mx-auto w-full h-full flex flex-col flex-1 bg-green-50 relative" style={{ minHeight: '100vh' }}>
-      {/* Add Big Template and Clear Dialogue Buttons */}
+    <div className="w-full h-full flex flex-col flex-1 bg-green-50 relative" style={{ minHeight: '100vh' }}>
+      {/* Scrollable content area */}
       <div
-        className="fixed bottom-36 z-30 max-w-[784px] flex justify-end w-full gap-4"
+        ref={scrollAreaRef}
+        className="overflow-y-auto h-full w-full pb-32"
         style={{
+          position: 'absolute',
+          top: headerHeight,
           left: 0,
-          width: '100%',
-          paddingLeft: 16,
-          paddingRight: 16,
+          right: 0,
+          bottom: 0,
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
         }}
       >
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white rounded px-6 py-3 text-lg font-bold shadow transition mb-2"
-          onClick={handleAddBigTemplate}
-        >
-          Add Big Template
-        </button>
-        <button
-          className="bg-zinc-200 hover:bg-zinc-300 text-zinc-700 rounded px-6 py-3 text-lg font-bold shadow transition mb-2"
-          onClick={handleClearDialogue}
-        >
-          Clear Dialogue
-        </button>
-      </div>
-      {/* Scrollable content area */}
-      <div ref={scrollAreaRef} className="flex-1 overflow-y-auto px-8 pt-16 pb-32" style={{scrollbarWidth: 'none', msOverflowStyle: 'none'}}>
-        {dialogue.length === 0 ? (
-          <div className="text-zinc-400 text-center mt-12">No dialogue yet. Start by entering a query below.</div>
-        ) : (
-          dialogue.map((entry, idx) => (
-            entry.text === '__BIG_TEMPLATE__' ? (
-              <div
-                key={entry.id}
-                className="w-full flex flex-col gap-6 mb-6"
-              >
-                {/* Header Section (inside template)
-                    - Attach a ref to the header of the most recent big template entry
-                    - Used for scroll alignment below the fixed header */}
+        <div className="max-w-[784px] mx-auto w-full px-8">
+          <div style={{ height: 24 }} />
+          {dialogue.length === 0 ? (
+            <div className="text-zinc-400 text-center mt-12">No dialogue yet. Start by entering a query below.</div>
+          ) : (
+            dialogue.map((entry, idx) => (
+              entry.type === 'loading' ? (
                 <div
-                  ref={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
-                  className="w-full p-0 mb-2 flex flex-col gap-2"
+                  key={entry.id}
+                  ref={idx === dialogue.length - 1 ? lastLoadingRef : undefined}
+                  className="flex justify-center py-8"
                 >
-                  <div className="text-2xl font-bold text-zinc-900">Results for your query</div>
-                  <div className="text-zinc-600 text-base">Here are the most relevant results based on your search and context. This preamble explains why you are seeing these results.</div>
-                  {/* Optional thinking section */}
-                  {true && (
-                    <div className="mt-2 text-yellow-700 bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
-                      <span className="font-semibold">Thinking:</span> This is a placeholder for the model&apos;s reasoning or process. (Optional)
-                    </div>
-                  )}
+                  <LoadingSpinner text="Thinking..." />
                 </div>
-                {/* Row 1: 2/3 and 1/3 cards */}
-                <div className="flex w-full gap-6">
-                  <div className="flex-2 basis-2/3 bg-blue-200 border-4 border-blue-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-xl font-extrabold text-blue-900 min-h-[120px]">
-                    Card 1 (2/3)
-                  </div>
-                  <div className="flex-1 basis-1/3 bg-green-200 border-4 border-green-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-lg font-bold text-green-900 min-h-[120px]">
-                    Card 2 (1/3)
-                  </div>
+              ) : entry.type === '__AAPL_SMALL_TEMPLATE__' ? (
+                <AaplSmallTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                />
+              ) : entry.type === '__AAPL_MEDIUM_TEMPLATE__' ? (
+                <AaplMediumTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                />
+              ) : entry.type === '__AAPL_LARGE_TEMPLATE__' ? (
+                <AaplLargeTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                />
+              ) : (
+                <div
+                  key={entry.id}
+                  className={
+                    entry.text === 'This is a BIG CARD!'
+                      ? "p-10 border-4 border-blue-500 bg-blue-100 text-blue-900 rounded-2xl shadow-lg text-2xl font-extrabold flex items-center justify-center mb-4"
+                      : "p-4 border-b last:border-b-0 text-zinc-700 bg-white rounded-lg shadow-sm mb-2"
+                  }
+                >
+                  {entry.text}
                 </div>
-                {/* Row 2: Big card full width */}
-                <div className="w-full bg-purple-200 border-4 border-purple-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-2xl font-extrabold text-purple-900 min-h-[120px]">
-                  Big Card (Full Width)
-                </div>
-                {/* Row 3: Two cards, 1/2 width each */}
-                <div className="flex w-full gap-6">
-                  <div className="flex-1 basis-1/2 bg-yellow-200 border-4 border-yellow-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-lg font-bold text-yellow-900 min-h-[120px]">
-                    Card 3 (1/2)
-                  </div>
-                  <div className="flex-1 basis-1/2 bg-pink-200 border-4 border-pink-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-lg font-bold text-pink-900 min-h-[120px]">
-                    Card 4 (1/2)
-                  </div>
-                </div>
-                {/* Row 4: Big card full width */}
-                <div className="w-full bg-indigo-200 border-4 border-indigo-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-2xl font-extrabold text-indigo-900 min-h-[120px]">
-                  Big Card (Full Width)
-                </div>
-              </div>
-            ) : (
-              <div
-                key={entry.id}
-                className={
-                  entry.text === 'This is a BIG CARD!'
-                    ? "p-10 border-4 border-blue-500 bg-blue-100 text-blue-900 rounded-2xl shadow-lg text-2xl font-extrabold flex items-center justify-center mb-4"
-                    : "p-4 border-b last:border-b-0 text-zinc-700 bg-white rounded-lg shadow-sm mb-2"
-                }
-              >
-                {entry.text}
-              </div>
-            )
-          ))
-        )}
+              )
+            ))
+          )}
+        </div>
         <style jsx>{`
           .scrollbar-none::-webkit-scrollbar {
             display: none;
@@ -170,26 +228,19 @@ export default function DialogueArea() {
         `}</style>
       </div>
       {/* Fixed input bar at the bottom, centered and sized to green area */}
-      <div
-        className="fixed bottom-0 z-30 pointer-events-none max-w-[784px]"
-        style={{
-          left: 0,
-          width: '100%',
-          paddingLeft: 16,
-          paddingRight: 16,
-          paddingBottom: 16,
-        }}
-      >
-        <div className="pointer-events-auto w-full">
-          <EnhancedInput
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            onSend={handleSend}
-            mode={mode}
-            onModeChange={setMode}
-          />
+      {readyForInput && (
+        <div className="fixed bottom-0 left-0 w-full z-30 pointer-events-none pb-4">
+          <div className="pointer-events-auto w-full max-w-[784px] mx-auto px-8">
+            <EnhancedInput
+              value={value}
+              onChange={e => setValue(e.target.value)}
+              onSend={handleSend}
+              mode={mode}
+              onModeChange={setMode}
+            />
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 } 

@@ -1,3 +1,23 @@
+/**
+ * EnhancedInput.tsx
+ *
+ * This component provides the main user input for the search page.
+ *
+ * Responsibilities:
+ * - Accepts user input and uses findDemoSearchMatch to determine if a template should be loaded.
+ * - Clears the input after processing a query param or template load.
+ * - Interacts with DialogueArea to trigger template loading and state updates.
+ * - Ensures consistent, robust input handling for both direct user entry and query param-driven flows.
+ *
+ * Usage:
+ *   - Used in the search page below the dialogue area.
+ *   - Shares matching logic with HeaderInput for consistency.
+ *
+ * See also:
+ *   - src/data/demoSearches.ts
+ *   - src/components/dialogue/DialogueArea.tsx
+ *   - src/app/search/page.tsx
+ */
 import * as React from "react";
 import { Button } from "@/components/ui/button";
 import {

@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { findDemoSearchMatch } from "@/data/demoSearches";
 
 export type HeaderInputProps = {
   onSmartSuggestOpen: () => void;
@@ -16,6 +17,15 @@ export function HeaderInput({ onSmartSuggestOpen, onOpenResearch }: HeaderInputP
 
   const handleSearch = () => {
     if (value.trim()) {
+      // Try to match the input to a demo search
+      const match = findDemoSearchMatch(value.trim());
+      if (match && match.type === 'ticker' && match.query.toLowerCase().includes('aapl')) {
+        // Route to /search with the matched query
+        router.push(`/search?query=${encodeURIComponent(match.query)}`);
+        setValue("");
+        return;
+      }
+      // Fallback: route to /search with the entered value
       router.push(`/search?query=${encodeURIComponent(value.trim())}`);
       setValue("");
     }

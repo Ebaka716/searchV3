@@ -1,3 +1,22 @@
+/**
+ * AppSidebar.tsx
+ *
+ * This component provides the main sidebar navigation for the app.
+ *
+ * Responsibilities:
+ * - Provides quick access to actions (New Search, New Research Project), history, and projects.
+ * - The "New Search" button always navigates to `/search?reset=<timestamp>`, ensuring the search page is reset to a blank state.
+ * - Supports collapse/expand for a compact or detailed view.
+ * - Modular structure for easy extension (actions, history, projects, settings, profile).
+ *
+ * Usage:
+ *   - Used as the main sidebar in the app layout.
+ *   - Interacts with the search page via query params for robust state management.
+ *
+ * See also:
+ *   - src/app/search/page.tsx
+ *   - src/components/dialogue/DialogueArea.tsx
+ */
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
@@ -77,7 +96,7 @@ export default function AppSidebar({ headerHeight = 0 }: AppSidebarProps) {
       <nav className="flex-1 flex flex-col gap-2 p-2">
         {/* Actions Section */}
         {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1">Actions</div>}
-        <SidebarNavItem icon={<Plus size={20} />} label="New Search" collapsed={collapsed} onClick={() => router.push('/search')} />
+        <SidebarNavItem icon={<Plus size={20} />} label="New Search" collapsed={collapsed} onClick={() => router.push(`/search?reset=${Date.now()}`)} />
         <SidebarNavItem icon={<FilePlus size={20} />} label="New Research Project" collapsed={collapsed} onClick={() => router.push('/research')} />
         {/* History Section */}
         {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1 mt-2">History</div>}
