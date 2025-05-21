@@ -16,7 +16,7 @@ const SmallTemplate: React.FC<SmallTemplateProps> = ({
   preamble = "This is a concise summary or answer.",
   thinking = (
     <div className="mt-2 text-yellow-700 bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
-      <span className="font-semibold">Thinking:</span> This is a placeholder for the model's reasoning or process. (Optional)
+      <span className="font-semibold">Thinking:</span> This is a placeholder for the model&apos;s reasoning or process. (Optional)
     </div>
   ),
   cards = [

@@ -18,7 +18,6 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
   const [dialogueId, setDialogueId] = useState(1);
   const greenRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
-  const [inputStyle, setInputStyle] = useState<{ left: number; width: number } | null>(null);
   const lastBigTemplateHeaderRef = useRef<HTMLDivElement>(null);
   const lastLoadingRef = useRef<HTMLDivElement>(null);
 
@@ -33,18 +32,6 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
       return () => clearTimeout(timeout);
     }
   }, [query]);
-
-  useEffect(() => {
-    function updateInputPosition() {
-      if (greenRef.current) {
-        const rect = greenRef.current.getBoundingClientRect();
-        setInputStyle({ left: rect.left, width: rect.width });
-      }
-    }
-    updateInputPosition();
-    window.addEventListener("resize", updateInputPosition);
-    return () => window.removeEventListener("resize", updateInputPosition);
-  }, []);
 
   const handleModeChange = (newMode: 'search' | 'research') => {
     setMode(newMode);

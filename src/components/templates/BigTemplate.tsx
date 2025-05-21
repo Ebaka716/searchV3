@@ -17,7 +17,7 @@ const BigTemplate: React.FC<BigTemplateProps> = ({
   preamble = "Here are the most relevant results based on your search and context. This preamble explains why you are seeing these results.",
   thinking = (
     <div className="mt-2 text-yellow-700 bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
-      <span className="font-semibold">Thinking:</span> This is a placeholder for the model's reasoning or process. (Optional)
+      <span className="font-semibold">Thinking:</span> This is a placeholder for the model&apos;s reasoning or process. (Optional)
     </div>
   ),
   cards = [
