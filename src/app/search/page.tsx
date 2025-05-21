@@ -5,18 +5,22 @@ import { EnhancedInput } from "@/components/input/EnhancedInput";
 import { useState, useEffect, Suspense, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
+import BigTemplate from "@/components/templates/BigTemplate";
+import SmallTemplate from "@/components/templates/SmallTemplate";
+import AaplBigTemplate from "@/components/templates/AaplBigTemplate";
 
 function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
-  const [dialogue, setDialogue] = useState<{ id: number; text: string }[]>([]);
+  const [dialogue, setDialogue] = useState<{ id: number; type: string; text?: string }[]>([]);
   const [dialogueId, setDialogueId] = useState(1);
   const greenRef = useRef<HTMLDivElement>(null);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const [inputStyle, setInputStyle] = useState<{ left: number; width: number } | null>(null);
   const lastBigTemplateHeaderRef = useRef<HTMLDivElement>(null);
+  const lastLoadingRef = useRef<HTMLDivElement>(null);
 
   const query = searchParams.get("query") || "";
 
@@ -58,7 +62,7 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
     const id = dialogueId;
     setDialogue(prev => [
       ...prev,
-      { id, text: trimmed },
+      { id, type: 'text', text: trimmed },
     ]);
     setDialogueId(id + 1);
     setValue("");
@@ -66,11 +70,53 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
 
   // Add Big Template and scroll to bottom
   const handleAddBigTemplate = () => {
+    const loadingId = dialogueId;
     setDialogue(prev => [
       ...prev,
-      { id: dialogueId, text: '__BIG_TEMPLATE__' },
+      { id: loadingId, type: 'loading' },
     ]);
-    setDialogueId(dialogueId + 1);
+    setDialogueId(loadingId + 1);
+    setTimeout(() => {
+      setDialogue(prev => prev.map(entry =>
+        entry.id === loadingId
+          ? { id: loadingId, type: '__BIG_TEMPLATE__' }
+          : entry
+      ));
+    }, 1200);
+  };
+
+  // Add Small Template and scroll to bottom
+  const handleAddSmallTemplate = () => {
+    const loadingId = dialogueId;
+    setDialogue(prev => [
+      ...prev,
+      { id: loadingId, type: 'loading' },
+    ]);
+    setDialogueId(loadingId + 1);
+    setTimeout(() => {
+      setDialogue(prev => prev.map(entry =>
+        entry.id === loadingId
+          ? { id: loadingId, type: '__SMALL_TEMPLATE__' }
+          : entry
+      ));
+    }, 1200);
+  };
+
+  // Add AAPL Big Template and scroll to bottom
+  const handleAddAaplBigTemplate = () => {
+    const loadingId = dialogueId;
+    setDialogue(prev => [
+      ...prev,
+      { id: loadingId, type: 'loading' },
+    ]);
+    setDialogueId(loadingId + 1);
+    setTimeout(() => {
+      setDialogue(prev => prev.map(entry =>
+        entry.id === loadingId
+          ? { id: loadingId, type: '__AAPL_BIG_TEMPLATE__' }
+          : entry
+      ));
+    }, 1200);
   };
 
   /**
@@ -84,42 +130,56 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
    *   - This ensures the heading is always fully visible and not hidden behind the fixed header.
    */
   useEffect(() => {
-    // If the last entry is a big template, scroll to its header
-    if (dialogue.length > 0 && dialogue[dialogue.length - 1].text === '__BIG_TEMPLATE__') {
+    if (
+      dialogue.length > 0 &&
+      (
+        dialogue[dialogue.length - 1].type === '__BIG_TEMPLATE__' ||
+        dialogue[dialogue.length - 1].type === '__AAPL_BIG_TEMPLATE__'
+      )
+    ) {
       if (lastBigTemplateHeaderRef.current && scrollAreaRef.current) {
-        // Get the vertical offset of the header within the scroll area
         const headerOffset = lastBigTemplateHeaderRef.current.offsetTop;
-        // Scroll so the header is just below the fixed main page header (64px)
-        scrollAreaRef.current.scrollTo({ top: headerOffset - 64, behavior: 'smooth' });
+        scrollAreaRef.current.scrollTo({ top: headerOffset - headerHeight, behavior: 'smooth' });
+      }
+    } else if (
+      dialogue.length > 0 &&
+      dialogue[dialogue.length - 1].type === 'loading'
+    ) {
+      if (lastLoadingRef.current && scrollAreaRef.current) {
+        const loadingOffset = lastLoadingRef.current.offsetTop;
+        scrollAreaRef.current.scrollTo({ top: loadingOffset - headerHeight, behavior: 'smooth' });
       }
     } else {
-      // Otherwise, scroll to bottom as usual (for chat-like UX)
       if (scrollAreaRef.current) {
         scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
       }
     }
-  }, [dialogue]);
+  }, [dialogue, headerHeight]);
 
   return (
     <MainLayout headerVariant="short" leftSidebar={<AppSidebar />}>
       <div className="flex flex-col items-center h-full min-h-0 flex-1 bg-pink-50">
-        <div id="mainscrollingarea" ref={greenRef} className="max-w-[784px] mx-auto w-full h-full flex flex-col flex-1 bg-green-50 relative" style={{ minHeight: '100vh', marginTop: 24 }}>
+        <div id="mainscrollingarea" ref={greenRef} className="w-full h-full flex flex-col flex-1 bg-green-50 relative mt-2" style={{ minHeight: '100vh' }}>
           {/* Add Big Card and Clear Dialogue Buttons */}
-          {inputStyle && (
-            <div
-              className="fixed bottom-36 z-30 max-w-[784px] flex justify-end w-full gap-4"
-              style={{
-                left: inputStyle.left,
-                width: inputStyle.width,
-                paddingLeft: 16,
-                paddingRight: 16,
-              }}
-            >
+          <div className="fixed bottom-36 left-0 w-full z-30 flex justify-center pointer-events-none">
+            <div className="pointer-events-auto w-full max-w-[784px] mx-auto flex gap-4 px-8">
               <button
                 className="bg-blue-500 hover:bg-blue-600 text-white rounded px-6 py-3 text-lg font-bold shadow transition mb-2"
                 onClick={handleAddBigTemplate}
               >
                 Add Big Template
+              </button>
+              <button
+                className="bg-emerald-500 hover:bg-emerald-600 text-white rounded px-6 py-3 text-lg font-bold shadow transition mb-2"
+                onClick={handleAddSmallTemplate}
+              >
+                Add Small Template
+              </button>
+              <button
+                className="bg-indigo-500 hover:bg-indigo-600 text-white rounded px-6 py-3 text-lg font-bold shadow transition mb-2"
+                onClick={handleAddAaplBigTemplate}
+              >
+                Add AAPL Big Template
               </button>
               <button
                 className="bg-zinc-200 hover:bg-zinc-300 text-zinc-700 rounded px-6 py-3 text-lg font-bold shadow transition mb-2"
@@ -128,11 +188,11 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
                 Clear Dialogue
               </button>
             </div>
-          )}
+          </div>
           {/* Scrollable content area */}
           <div
             ref={scrollAreaRef}
-            className="overflow-y-auto px-8 pb-32"
+            className="overflow-y-auto h-full w-full pb-32"
             style={{
               position: 'absolute',
               top: headerHeight,
@@ -143,72 +203,50 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
               msOverflowStyle: 'none',
             }}
           >
-            {dialogue.length === 0 ? (
-              <div className="text-zinc-400 text-center mt-12">No dialogue yet. Start by entering a query below.</div>
-            ) : (
-              dialogue.map((entry, idx) => (
-                entry.text === '__BIG_TEMPLATE__' ? (
-                  <div
-                    key={entry.id}
-                    className="w-full flex flex-col gap-6 mb-6"
-                  >
-                    {/* Header Section (inside template)
-                        - Attach a ref to the header of the most recent big template entry
-                        - Used for scroll alignment below the fixed header */}
+            <div className="max-w-[784px] mx-auto w-full px-8">
+              <div style={{ height: 24 }} />
+              {dialogue.length === 0 ? (
+                <div className="text-zinc-400 text-center mt-12">No dialogue yet. Start by entering a query below.</div>
+              ) : (
+                dialogue.map((entry, idx) => (
+                  entry.type === 'loading' ? (
                     <div
-                      ref={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
-                      className="w-full p-0 mb-2 flex flex-col gap-2"
+                      key={entry.id}
+                      ref={idx === dialogue.length - 1 ? lastLoadingRef : undefined}
+                      className="flex justify-center py-8"
                     >
-                      <div className="text-2xl font-bold text-zinc-900">Results for your query</div>
-                      <div className="text-zinc-600 text-base">Here are the most relevant results based on your search and context. This preamble explains why you are seeing these results.</div>
-                      {/* Optional thinking section */}
-                      {true && (
-                        <div className="mt-2 text-yellow-700 bg-yellow-50 border border-yellow-200 rounded p-3 text-sm">
-                          <span className="font-semibold">Thinking:</span> This is a placeholder for the model&apos;s reasoning or process. (Optional)
-                        </div>
-                      )}
+                      <LoadingSpinner text="Thinking..." />
                     </div>
-                    {/* Row 1: 2/3 and 1/3 cards */}
-                    <div className="flex w-full gap-6">
-                      <div className="flex-2 basis-2/3 bg-blue-200 border-4 border-blue-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-xl font-extrabold text-blue-900 min-h-[120px]">
-                        Card 1 (2/3)
-                      </div>
-                      <div className="flex-1 basis-1/3 bg-green-200 border-4 border-green-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-lg font-bold text-green-900 min-h-[120px]">
-                        Card 2 (1/3)
-                      </div>
+                  ) : entry.type === '__BIG_TEMPLATE__' ? (
+                    <BigTemplate
+                      key={entry.id}
+                      headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                    />
+                  ) : entry.type === '__AAPL_BIG_TEMPLATE__' ? (
+                    <AaplBigTemplate
+                      key={entry.id}
+                      headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                    />
+                  ) : entry.type === '__SMALL_TEMPLATE__' ? (
+                    <SmallTemplate
+                      key={entry.id}
+                      headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                    />
+                  ) : (
+                    <div
+                      key={entry.id}
+                      className={
+                        entry.text === 'This is a BIG CARD!'
+                          ? "p-10 border-4 border-blue-500 bg-blue-100 text-blue-900 rounded-2xl shadow-lg text-2xl font-extrabold flex items-center justify-center mb-4"
+                          : "p-4 border-b last:border-b-0 text-zinc-700 bg-white rounded-lg shadow-sm mb-2"
+                      }
+                    >
+                      {entry.text}
                     </div>
-                    {/* Row 2: Big card full width */}
-                    <div className="w-full bg-purple-200 border-4 border-purple-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-2xl font-extrabold text-purple-900 min-h-[120px]">
-                      Big Card (Full Width)
-                    </div>
-                    {/* Row 3: Two cards, 1/2 width each */}
-                    <div className="flex w-full gap-6">
-                      <div className="flex-1 basis-1/2 bg-yellow-200 border-4 border-yellow-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-lg font-bold text-yellow-900 min-h-[120px]">
-                        Card 3 (1/2)
-                      </div>
-                      <div className="flex-1 basis-1/2 bg-pink-200 border-4 border-pink-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-lg font-bold text-pink-900 min-h-[120px]">
-                        Card 4 (1/2)
-                      </div>
-                    </div>
-                    {/* Row 4: Big card full width */}
-                    <div className="w-full bg-indigo-200 border-4 border-indigo-500 rounded-2xl shadow-lg p-10 flex flex-col justify-center items-center text-2xl font-extrabold text-indigo-900 min-h-[120px]">
-                      Big Card (Full Width)
-                    </div>
-                  </div>
-                ) : (
-                  <div
-                    key={entry.id}
-                    className={
-                      entry.text === 'This is a BIG CARD!'
-                        ? "p-10 border-4 border-blue-500 bg-blue-100 text-blue-900 rounded-2xl shadow-lg text-2xl font-extrabold flex items-center justify-center mb-4"
-                        : "p-4 border-b last:border-b-0 text-zinc-700 bg-white rounded-lg shadow-sm mb-2"
-                    }
-                  >
-                    {entry.text}
-                  </div>
-                )
-              ))
-            )}
+                  )
+                ))
+              )}
+            </div>
             <style jsx>{`
               .scrollbar-none::-webkit-scrollbar {
                 display: none;
@@ -216,28 +254,17 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
             `}</style>
           </div>
           {/* Fixed input bar at the bottom, centered and sized to green area */}
-          {inputStyle && (
-            <div
-              className="fixed bottom-0 z-30 pointer-events-none max-w-[784px]"
-              style={{
-                left: inputStyle.left,
-                width: inputStyle.width,
-                paddingLeft: 16,
-                paddingRight: 16,
-                paddingBottom: 16,
-              }}
-            >
-              <div className="pointer-events-auto w-full">
-                <EnhancedInput
-                  value={value}
-                  onChange={e => setValue(e.target.value)}
-                  onSend={handleSend}
-                  mode={mode}
-                  onModeChange={handleModeChange}
-                />
-              </div>
+          <div className="fixed bottom-0 left-0 w-full z-30 pointer-events-none pb-4">
+            <div className="pointer-events-auto w-full max-w-[784px] mx-auto px-8">
+              <EnhancedInput
+                value={value}
+                onChange={e => setValue(e.target.value)}
+                onSend={handleSend}
+                mode={mode}
+                onModeChange={handleModeChange}
+              />
             </div>
-          )}
+          </div>
         </div>
       </div>
     </MainLayout>

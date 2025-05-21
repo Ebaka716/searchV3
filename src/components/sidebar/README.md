@@ -12,6 +12,15 @@
 
 Import and use `<AppSidebar />` in your page layout. The sidebar is fully responsive and supports both expanded and collapsed states.
 
+### Dynamic Alignment Below Header
+
+`AppSidebar` now accepts a `headerHeight` prop (in pixels), which should be set to the height of your main header. When used with `MainLayout`, the header height is measured automatically and passed to the sidebar, ensuring the sidebar always starts immediately below the header, regardless of header size. This is handled by:
+
+- `MainLayout` measures the header height using a ref and passes it as the `headerHeight` prop to `AppSidebar`.
+- `AppSidebar` uses this prop to set its `top` and `height` styles dynamically.
+
+This ensures perfect alignment and a robust layout, even if the header height changes (responsive, dynamic content, etc).
+
 ## Customization
 
 - To add or remove actions, edit the Actions section in `AppSidebar.tsx`.
@@ -20,4 +29,4 @@ Import and use `<AppSidebar />` in your page layout. The sidebar is fully respon
 
 ---
 
-_Last updated: [auto-generated]_ 
+_Last updated: [auto-generated, dynamic sidebar alignment documented]_ 
