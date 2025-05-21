@@ -20,7 +20,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ChevronLeft, ChevronRight, Plus, FilePlus, Settings } from "lucide-react";
+import { PanelLeftIcon, Plus, FilePlus, Settings } from "lucide-react";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -58,11 +58,7 @@ const initialAgents: AgentData[] = [
   { id: "agent6", name: "Benefits Center", isActive: false, description: "Benefit plan administration for employers" },
 ];
 
-export interface AppSidebarProps {
-  headerHeight?: number;
-}
-
-export default function AppSidebar({ headerHeight = 0 }: AppSidebarProps) {
+export default function AppSidebar() {
   const [collapsed, setCollapsed] = useState(true);
   const [isServiceAgentsDialogOpen, setIsServiceAgentsDialogOpen] = useState(false);
   const [agents, setAgents] = useState<AgentData[]>(initialAgents);
@@ -104,9 +100,9 @@ export default function AppSidebar({ headerHeight = 0 }: AppSidebarProps) {
   return (
     <aside
       className={`fixed left-0 z-40 bg-white border-r transition-all duration-300 flex flex-col ${collapsed ? 'w-16' : 'w-56'} min-w-[4rem]`}
-      style={{ top: headerHeight, height: `calc(100vh - ${headerHeight}px)` }}
+      style={{ top: 52, height: 'calc(100vh - 52px)' }}
     >
-      <div className="flex items-center justify-end p-2" style={{ minHeight: '40px' }}>
+      <div className={`flex items-center p-2 ${collapsed ? 'justify-center' : 'justify-end'}`} style={{ minHeight: '40px' }}>
         <Button
           variant="ghost"
           size="icon"
@@ -115,7 +111,7 @@ export default function AppSidebar({ headerHeight = 0 }: AppSidebarProps) {
           className="transition-transform duration-300"
         >
           <span className="flex items-center justify-center w-5 h-5">
-            {collapsed ? <ChevronRight size={20} /> : <ChevronLeft size={20} />}
+            <PanelLeftIcon size={20} />
           </span>
         </Button>
       </div>
@@ -163,7 +159,6 @@ export default function AppSidebar({ headerHeight = 0 }: AppSidebarProps) {
                   <span className="font-medium text-sm truncate">Clark Kent</span>
                   <span className="text-xs text-muted-foreground truncate">clark.kent@example.com</span>
                 </div>
-                <ChevronRight size={18} className="text-muted-foreground" />
               </Button>
             )}
           </DropdownMenuTrigger>
