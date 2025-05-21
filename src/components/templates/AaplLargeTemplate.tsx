@@ -3,12 +3,13 @@ import BigTemplate from "./BigTemplate";
 
 interface AaplLargeTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
+  query: string;
 }
 
-const AaplLargeTemplate: React.FC<AaplLargeTemplateProps> = ({ headerRef }) => (
+const AaplLargeTemplate: React.FC<AaplLargeTemplateProps> = ({ headerRef, query }) => (
   <BigTemplate
     headerRef={headerRef}
-    header={"AAPL Stock (Large)"}
+    header={query}
     preamble={"Apple Inc. (AAPL) closed at $157.65 on December 31st last year. This reflects a strong year for the company, driven by robust iPhone sales and growth in services."}
     cards={[
       "Price: $157.65 (last year close)",

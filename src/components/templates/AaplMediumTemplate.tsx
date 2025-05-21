@@ -3,12 +3,13 @@ import BigTemplate from "./BigTemplate";
 
 interface AaplMediumTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
+  query: string;
 }
 
-const AaplMediumTemplate: React.FC<AaplMediumTemplateProps> = ({ headerRef }) => (
+const AaplMediumTemplate: React.FC<AaplMediumTemplateProps> = ({ headerRef, query }) => (
   <BigTemplate
     headerRef={headerRef}
-    header={"AAPL Stock (Medium)"}
+    header={query}
     preamble={"Apple Inc. (AAPL) is currently trading at $175.23, up 1.2% today. The company remains a leader in consumer electronics and services."}
     cards={[
       "Price: $175.23",

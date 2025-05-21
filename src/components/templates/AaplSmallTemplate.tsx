@@ -3,12 +3,13 @@ import BigTemplate from "./BigTemplate";
 
 interface AaplSmallTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
+  query: string;
 }
 
-const AaplSmallTemplate: React.FC<AaplSmallTemplateProps> = ({ headerRef }) => (
+const AaplSmallTemplate: React.FC<AaplSmallTemplateProps> = ({ headerRef, query }) => (
   <BigTemplate
     headerRef={headerRef}
-    header={"AAPL Stock (Small)"}
+    header={query}
     preamble={"Apple Inc. (AAPL) is trading at $175.23 (+1.2%)"}
     cards={[
       "Price: $175.23",

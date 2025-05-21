@@ -30,7 +30,7 @@ import { findDemoSearchMatch } from "@/data/demoSearches";
 export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: number }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
-  const [dialogue, setDialogue] = useState<{ id: number; type: string; text?: string }[]>([]);
+  const [dialogue, setDialogue] = useState<{ id: number; type: string; text?: string; query?: string }[]>([]);
   const dialogueIdRef = useRef(1);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastBigTemplateHeaderRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         setTimeout(() => {
           setDialogue(prev => prev.map(entry =>
             entry.id === id
-              ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__` }
+              ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
               : entry
           ));
           setReadyForInput(true);
@@ -117,7 +117,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       setTimeout(() => {
         setDialogue(prev => prev.map(entry =>
           entry.id === id
-            ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__` }
+            ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
         ));
       }, 1200);
@@ -135,28 +135,22 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
 
   // Scroll behavior for chat/results area
   useEffect(() => {
-    if (
-      dialogue.length > 0 &&
-      (
-        dialogue[dialogue.length - 1].type === '__AAPL_LARGE_TEMPLATE__' ||
-        dialogue[dialogue.length - 1].type === '__AAPL_MEDIUM_TEMPLATE__' ||
-        dialogue[dialogue.length - 1].type === '__AAPL_SMALL_TEMPLATE__'
-      )
-    ) {
-      if (lastBigTemplateHeaderRef.current && scrollAreaRef.current) {
-        const headerOffset = lastBigTemplateHeaderRef.current.offsetTop;
-        scrollAreaRef.current.scrollTo({ top: headerOffset - headerHeight, behavior: 'smooth' });
-      }
-    } else if (
-      dialogue.length > 0 &&
-      dialogue[dialogue.length - 1].type === 'loading'
-    ) {
-      if (lastLoadingRef.current && scrollAreaRef.current) {
-        const loadingOffset = lastLoadingRef.current.offsetTop;
-        scrollAreaRef.current.scrollTo({ top: loadingOffset - headerHeight, behavior: 'smooth' });
-      }
-    } else {
-      if (scrollAreaRef.current) {
+    if (dialogue.length > 0) {
+      // If loading, scroll loading spinner just into view
+      if (dialogue[dialogue.length - 1].type === 'loading') {
+        if (lastLoadingRef.current && scrollAreaRef.current) {
+          const loadingRect = lastLoadingRef.current.getBoundingClientRect();
+          const scrollRect = scrollAreaRef.current.getBoundingClientRect();
+          const offset = loadingRect.top - scrollRect.top;
+          scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollTop + offset, behavior: 'smooth' });
+        }
+      // If template, scroll header to top
+      } else if (lastBigTemplateHeaderRef.current && scrollAreaRef.current) {
+        const headerRect = lastBigTemplateHeaderRef.current.getBoundingClientRect();
+        const scrollRect = scrollAreaRef.current.getBoundingClientRect();
+        const offset = headerRect.top - scrollRect.top;
+        scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollTop + offset, behavior: 'smooth' });
+      } else if (scrollAreaRef.current) {
         scrollAreaRef.current.scrollTo({ top: scrollAreaRef.current.scrollHeight, behavior: 'smooth' });
       }
     }
@@ -207,16 +201,19 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
                 <AaplSmallTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
                 />
               ) : entry.type === '__AAPL_MEDIUM_TEMPLATE__' ? (
                 <AaplMediumTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
                 />
               ) : entry.type === '__AAPL_LARGE_TEMPLATE__' ? (
                 <AaplLargeTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
                 />
               ) : (
                 <div
