@@ -38,7 +38,7 @@ export default function MainLayout({
         {leftSidebar && React.isValidElement(leftSidebar) &&
           typeof leftSidebar.type === "function" &&
           leftSidebar.type.name === "AppSidebar"
-            ? React.cloneElement(leftSidebar as ReactElement<AppSidebarProps>, { headerHeight })
+            ? headerHeight > 0 && React.cloneElement(leftSidebar as ReactElement<AppSidebarProps>, { headerHeight })
             : leftSidebar}
         <main className="flex-1 min-h-0 bg-white">{children}</main>
         {rightSidebar}
