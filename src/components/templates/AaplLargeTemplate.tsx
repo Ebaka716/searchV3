@@ -21,7 +21,7 @@ const AaplLargeTemplate: React.FC<AaplLargeTemplateProps> = ({ headerRef, query 
     headerRef={headerRef}
     header={query}
     preamble={
-      "Apple Inc. (AAPL) closed at $157.65 on December 31st last year. This reflects a strong year for the company, driven by robust iPhone sales and growth in services."
+      "A quick overview and key insights for Apple Inc. (AAPL) based on your query."
     }
     cards={[
       <TickerOverviewCard key="ticker-overview" />,
