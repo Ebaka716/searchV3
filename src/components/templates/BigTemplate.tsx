@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import TemplateContainer from "./TemplateContainer";
 import CardGrid from "./CardGrid";

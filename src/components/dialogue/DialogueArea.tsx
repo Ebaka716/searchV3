@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { EnhancedInput } from "@/components/input/EnhancedInput";

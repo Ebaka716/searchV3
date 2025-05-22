@@ -7,12 +7,13 @@ export function useSpeechRecognition(onResult: SpeechRecognitionResultCallback) 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
 
-  const isSupported = typeof window !== "undefined" && (
-    "SpeechRecognition" in window || "webkitSpeechRecognition" in window
-  );
+  const isSupported = () =>
+    typeof window !== "undefined" && (
+      "SpeechRecognition" in window || "webkitSpeechRecognition" in window
+    );
 
   const startListening = () => {
-    if (!isSupported) return;
+    if (!isSupported()) return;
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const SpeechRecognition = (window as any).SpeechRecognition || (window as any).webkitSpeechRecognition;
     const recognition = new SpeechRecognition();
@@ -39,5 +40,5 @@ export function useSpeechRecognition(onResult: SpeechRecognitionResultCallback) 
     setListening(false);
   };
 
-  return { listening, isSupported, startListening, stopListening };
+  return { listening, isSupported: isSupported(), startListening, stopListening };
 } 

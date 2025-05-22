@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import ReactApexChart from "react-apexcharts";
 import { Card, CardHeader, CardTitle, CardContent, CardFooter } from "@/components/ui/card";

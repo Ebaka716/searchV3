@@ -1,11 +1,15 @@
+"use client";
 import React from "react";
 import BigTemplate from "./BigTemplate";
 import TickerOverviewCard from "../common/TickerOverviewCard";
 import StackedConversationCard from "../common/StackedConversationCard";
-import CandlestickCard from "../common/CandlestickCard";
+import dynamic from "next/dynamic";
 import DetailedQuoteCard from "../common/DetailedQuoteCard";
 import MarketNewsCard from "../common/MarketNewsCard";
 import ClassicSearchResultsCard from "../common/ClassicSearchResultsCard";
+
+// Dynamically import CandlestickCard with SSR disabled
+const CandlestickCard = dynamic(() => import("../common/CandlestickCard"), { ssr: false });
 
 interface AaplLargeTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
