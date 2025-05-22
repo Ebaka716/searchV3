@@ -5,8 +5,8 @@ import CardGrid from "./CardGrid";
 
 interface BigTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
-  header?: React.ReactNode;
-  preamble?: React.ReactNode;
+  header?: string;
+  preamble?: string;
   thinking?: React.ReactNode;
   cards?: React.ReactNode[];
   cardGridVariant?: "big-template" | "2x2" | "single-row";

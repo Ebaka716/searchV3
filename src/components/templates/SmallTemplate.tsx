@@ -4,8 +4,8 @@ import CardGrid from "./CardGrid";
 
 interface SmallTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
-  header?: React.ReactNode;
-  preamble?: React.ReactNode;
+  header?: string;
+  preamble?: string;
   thinking?: React.ReactNode;
   cards?: React.ReactNode[];
 }
