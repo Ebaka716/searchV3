@@ -171,7 +171,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       {/* Scrollable content area */}
       <div
         ref={scrollAreaRef}
-        className="overflow-y-auto h-full w-full pb-32"
+        className="overflow-y-auto h-full w-full pb-48"
         style={{}}
       >
         <div className="max-w-[984px] mx-auto w-full px-8">
