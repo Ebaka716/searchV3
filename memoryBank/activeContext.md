@@ -2,6 +2,20 @@
 
 _This document tracks the current work focus, recent changes, next steps, and important decisions._
 
+## Recent Major Changes (June 2024)
+- **Sidebar Offset Refactor:** Sidebar now uses a hardcoded 52px top offset for robust SSR and Vercel compatibility. No dynamic headerHeight measurement is used.
+- **Expand/Collapse Button:** The sidebar expand/collapse button now always uses the PanelLeftIcon for both states, with no custom SVG or fill logic. Button is centered when collapsed and right-aligned when expanded.
+- **HeaderHeight Prop Removed:** All logic and props related to dynamic headerHeight have been removed from AppSidebar and MainLayout.
+- **Linter/Build Fixes:** Removed unused imports, props, and type logic. Fixed all linter and build errors related to sidebar and layout.
+- **Build/Deploy Workflow:** Confirmed clean builds locally and on Vercel. Merged dev to main after all fixes.
+- **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates.
+
+## Current Focus & Next Steps
+- Maintain robust, SSR-safe layout patterns for all shared UI (header/sidebar/main).
+- Continue to ensure all UI logic is production-safe and deployable without layout shift or SSR bugs.
+- Continue replacing all placeholder cards in templates with real, styled card components.
+- Ensure all new cards/components use shadcn/ui primitives for consistency and accessibility.
+
 - Project scaffolded with Next.js and shadcn/ui
 - Routing and component folders set up as described
 - All work aligns with modular, variant-driven, and collaborative principles
@@ -27,16 +41,11 @@ _This document tracks the current work focus, recent changes, next steps, and im
 - **Modular sidebar**: Sidebar logic is modular, and navigation always uses query params to ensure robust resets and template loading.
 - **Documentation**: All architectural and feature documentation is now maintained in structured memory bank files, not in a generic README.
 
-## Current Focus & Next Steps
-- Continue refining template-driven logic and robust state management.
-- Ensure all new features and flows are documented in the appropriate memory bank files.
-- Add persistent dialogue history so that previous sessions/queries are retained across reloads or navigation.
-- Maintain clean, user-friendly, and robust navigation and reset flows throughout the app.
-
 ## Next Steps
 - Implement scroll/snap-to-top behavior for new dialogue entries in the dialogue flow.
 - Ensure the initial query (from URL or first input) appears in the dialogue flow.
 - Add persistent dialogue history so that previous sessions/queries are retained across reloads or navigation.
+- Continue replacing all placeholder cards in templates with real, styled card components.
 
 - All lint, type, and Next.js Suspense issues resolved (Search page uses Suspense for useSearchParams)
 - Dashboard page removed as unused

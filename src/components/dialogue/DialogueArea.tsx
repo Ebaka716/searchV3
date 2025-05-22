@@ -174,7 +174,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         className="overflow-y-auto h-full w-full pb-32"
         style={{}}
       >
-        <div className="max-w-[784px] mx-auto w-full px-8">
+        <div className="max-w-[884px] mx-auto w-full px-8">
           <div style={{ height: 24 }} />
           {dialogue.length === 0 ? (
             <div className="text-zinc-400 text-center mt-12">No dialogue yet. Start by entering a query below.</div>
@@ -211,8 +211,8 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
                   key={entry.id}
                   className={
                     entry.text === 'This is a BIG CARD!'
-                      ? "p-10 border-4 border-blue-500 bg-blue-100 text-blue-900 rounded-2xl shadow-lg text-2xl font-extrabold flex items-center justify-center mb-4"
-                      : "p-4 border-b last:border-b-0 text-zinc-700 bg-white rounded-lg shadow-sm mb-2"
+                      ? "p-10 border-4 border-blue-500 bg-blue-100 text-blue-900 rounded-2xl shadow-lg text-2xl font-extrabold flex items-center justify-center mb-8"
+                      : "p-4 border-b last:border-b-0 text-zinc-700 bg-white rounded-lg shadow-sm mb-6"
                   }
                 >
                   {entry.text}
@@ -225,7 +225,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       {/* Fixed input bar at the bottom, centered and sized to green area */}
       {readyForInput && (
         <div className="fixed bottom-0 left-0 w-full z-30 pointer-events-none pb-4">
-          <div className="pointer-events-auto w-full max-w-[784px] mx-auto px-8">
+          <div className="pointer-events-auto w-full max-w-[884px] mx-auto px-8">
             <EnhancedInput
               value={value}
               onChange={e => setValue(e.target.value)}

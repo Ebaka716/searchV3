@@ -1,5 +1,12 @@
 # Component Guidelines
 
+## Update (June 2024)
+- Sidebar offset is a hardcoded 52px (not dynamic) for SSR/production reliability.
+- No headerHeight prop is used or required in AppSidebar or MainLayout.
+- Expand/collapse button always uses PanelLeftIcon for both states.
+- Layout patterns are SSR-safe and production-ready.
+- **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates. All new cards/components use shadcn/ui primitives for consistency and accessibility.
+
 ## Header Component
 - Location: `src/components/header/Header.tsx`
 - Variants: `full` (two-row, nav + search), `short` (single row, minimal)

@@ -149,13 +149,13 @@ export default function AppSidebar() {
               <Button
                 ref={serviceAgentsButtonRef}
                 variant="ghost"
-                className="flex items-center gap-3 w-full px-2 py-2 rounded-md cursor-pointer hover:bg-accent transition"
+                className="flex items-center gap-3 w-full px-2 py-2 rounded-md cursor-pointer hover:bg-accent transition justify-start"
               >
                 <Avatar>
                   <AvatarImage src="/avatars/01.png" alt="Clark Kent" />
                   <AvatarFallback>CK</AvatarFallback>
                 </Avatar>
-                <div className="flex flex-col flex-1 min-w-0">
+                <div className="flex flex-col flex-1 min-w-0 items-start">
                   <span className="font-medium text-sm truncate">Clark Kent</span>
                   <span className="text-xs text-muted-foreground truncate">clark.kent@example.com</span>
                 </div>

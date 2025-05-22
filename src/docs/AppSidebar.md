@@ -37,4 +37,11 @@ AppSidebar is the main left sidebar for navigation and actions. It provides quic
 
 ## See Also
 - `src/app/search/page.tsx`
-- `src/components/dialogue/DialogueArea.tsx` 
+- `src/components/dialogue/DialogueArea.tsx`
+
+## Update (June 2024)
+- Sidebar offset is now a hardcoded 52px (not dynamic) for SSR/production reliability.
+- No headerHeight prop is used or required.
+- Expand/collapse button always uses PanelLeftIcon for both states.
+- Button is centered when collapsed, right-aligned when expanded.
+- Layout is robust and SSR-safe. 

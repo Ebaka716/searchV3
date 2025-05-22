@@ -19,6 +19,7 @@ _This document tracks what works, what's left to build, current status, known is
 - Demo search data simplified: Only one example per type (ticker, term), each with small/medium/large context. Placeholder left for question type. This reduces clutter and makes template testing/variant switching easier.
 - Research page layout updated: Canvas is now central (70% width on load), EnhancedInput/dialogue is a resizable right panel (30% width on load), matching a modern productivity tool layout.
 - EnhancedInput now allows file uploads as context chips, integrated with dropdown, with modular removable chips and improved toggle UI. File upload bug with dropdown fixed by using a persistent hidden input.
+- **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates. All new cards/components use shadcn/ui primitives for consistency and accessibility.
 
 ---
 
@@ -28,6 +29,7 @@ _This document tracks what works, what's left to build, current status, known is
 - Modular sidebar and navigation: Sidebar logic is modular, and navigation always uses query params to ensure robust resets and template loading.
 - Documentation: All architectural and feature documentation is now maintained in structured memory bank files, not in a generic README.
 - **Dialog/Modal Accessibility**: All non-destructive modals (header, sidebar) now use shadcn/ui Dialog. Focus is restored to the trigger after closing, and dropdown menus are closed before opening modals to prevent Radix focus trap/overlay issues. Build is clean and all changes are committed and pushed.
+- **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates. All new cards/components use shadcn/ui primitives for consistency and accessibility.
 
 ## Outstanding Issues
 - Some linter errors about missing modules remain (see project for details).
@@ -46,5 +48,17 @@ _This document tracks what works, what's left to build, current status, known is
 - Cleaned up all unused variables, imports, and props to resolve ESLint errors and ensure a clean build locally and on Vercel.
 - Successfully tested the production build locally and pushed all changes to GitHub.
 - The layout now matches modern chat/search UIs (Perplexity, Claude, Cursor, etc.).
+
+## [2024-06-XX] Sidebar/Layout Refactor & Build Fixes
+- Sidebar offset now uses a hardcoded 52px value for SSR/production reliability.
+- Expand/collapse button always uses PanelLeftIcon, no custom SVG logic.
+- Removed all headerHeight prop logic from AppSidebar and MainLayout.
+- Fixed all linter and build errors (unused imports, types, props).
+- Confirmed clean local and Vercel builds.
+- Merged dev to main after all fixes.
+
+## Current Status
+- App builds and deploys cleanly on Vercel.
+- Layout is robust and SSR-safe.
 
 --- 

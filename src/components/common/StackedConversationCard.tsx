@@ -1,0 +1,30 @@
+import React from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
+import ConversationButton from "./ConversationButton";
+
+const topics = [
+  "Chart+",
+  "Dividends & Earnings",
+  "Sentiment",
+  "Analyst Ratings",
+  "Statistics",
+];
+
+const StackedConversationCard: React.FC = () => {
+  return (
+    <Card className="p-6">
+      <CardHeader className="p-0 mb-2">
+        <CardTitle className="text-lg font-bold text-zinc-900">Research topics</CardTitle>
+      </CardHeader>
+      <CardContent className="p-0">
+        <div className="flex flex-col gap-3 items-start">
+          {topics.map((topic) => (
+            <ConversationButton key={topic}>{topic}</ConversationButton>
+          ))}
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
+export default StackedConversationCard; 

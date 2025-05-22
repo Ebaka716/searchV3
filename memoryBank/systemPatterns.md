@@ -11,6 +11,10 @@ _This document describes the system architecture, key technical decisions, and d
 - Dialogue array pattern for conversational flows: EnhancedInput adds queries to a dialogue list, each with loading/result state, rendered above input (newest at top)
 - Suspense is now used for client hooks like useSearchParams in app pages, per Next.js requirements
 - All lint/type issues resolved and dashboard page removed
+- Sidebar offset is a hardcoded 52px (not dynamic) for SSR/production reliability.
+- No headerHeight prop or dynamic measurement in layout.
+- Expand/collapse button uses PanelLeftIcon for both states.
+- Layout patterns are SSR-safe and production-ready.
 
 ## Key Patterns
 - **Template-Driven Search**: Templates are modular React components, loaded based on user input or query params using a shared matching utility.

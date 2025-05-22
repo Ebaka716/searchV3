@@ -28,3 +28,9 @@ MainLayout is the root layout component for all major pages. It provides a consi
 - The input bar is dynamically positioned and sized to match the green area, using a React ref and effect.
 - This ensures the input is always visible, accessible, and perfectly aligned with the chat feed, regardless of window size.
 - The pattern is inspired by modern chat/search UIs (Perplexity, Claude, Cursor, etc.). 
+
+## Update (June 2024)
+- No dynamic header height measurement; header is assumed to be 52px tall.
+- Sidebar offset is a hardcoded 52px for SSR/production reliability.
+- No headerHeight prop is passed to AppSidebar.
+- Layout is robust and SSR-safe. 

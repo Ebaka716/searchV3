@@ -7,6 +7,23 @@ Templates are modular components for rendering different types of search/researc
 
 ---
 
+## TickerOverviewCard
+- Location: `src/components/common/TickerOverviewCard.tsx`
+- Uses shadcn/ui Card, CardHeader, CardTitle, CardContent, CardFooter, and Button components
+- Compact, grid-friendly, and visually prominent
+- Used as the main card in the AAPL large template and other ticker templates
+
+## StackedConversationCard
+- Location: `src/components/common/StackedConversationCard.tsx`
+- Uses shadcn/ui Card, CardHeader, CardTitle, CardContent, and ConversationButton components
+- Displays a vertical stack of research topic buttons (ConversationButton)
+- Used as a secondary card in the AAPL large template and other research templates
+
+## ConversationButton
+- Location: `src/components/common/ConversationButton.tsx`
+- Reusable, compact, shadcn/ui-based button for all stacked/conversation actions
+- Used in StackedConversationCard and other places where pill-style, content-hugging buttons are needed
+
 ## TickerAnswerTemplate
 - Location: `src/components/templates/TickerAnswerTemplate.tsx`
 - Props: `query: string`, `answer: string`, `size: string`
@@ -26,4 +43,5 @@ Templates are modular components for rendering different types of search/researc
 
 ## Integration
 - Used in the Search page to display results in the dialogue flow.
+- All placeholder cards are being replaced by real, styled components using shadcn/ui primitives for consistency and accessibility.
 - Can be extended for new answer types or result formats. 
