@@ -30,11 +30,6 @@ const AaplLargeTemplate: React.FC<AaplLargeTemplateProps> = ({ headerRef, query 
       <DetailedQuoteCard key="detailed-quote" />,
       <MarketNewsCard key="market-news" />,
       <ClassicSearchResultsCard key="classic-search-results" />,
-      "P/E Ratio: 29.5",
-      "Dividend Yield: 0.55%",
-      "52-Week Range: $150.00 - $199.62",
-      "iPhone Sales: Record high",
-      "Services Growth: +20% YoY",
     ]}
     cardGridVariant="big-template"
   />

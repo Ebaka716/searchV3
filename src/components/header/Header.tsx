@@ -190,7 +190,7 @@ export function Header({
               <div>
                 <div className="font-semibold">AAPL Small Template:</div>
                 <ul className="list-disc pl-6">
-                  <li>What was Apple's closing price last year?</li>
+                  <li>What was Apple&apos;s closing price last year?</li>
                   <li>apple closing price last year</li>
                   <li>aapl last year close</li>
                   <li>apple stock last year</li>
