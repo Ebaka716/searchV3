@@ -174,7 +174,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         className="overflow-y-auto h-full w-full pb-32"
         style={{}}
       >
-        <div className="max-w-[884px] mx-auto w-full px-8">
+        <div className="max-w-[984px] mx-auto w-full px-8">
           <div style={{ height: 24 }} />
           {dialogue.length === 0 ? (
             <div className="text-zinc-400 text-center mt-12">No dialogue yet. Start by entering a query below.</div>
