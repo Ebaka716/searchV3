@@ -14,58 +14,46 @@ function isRealCard(card: React.ReactNode) {
 
 const CardGrid: React.FC<CardGridProps> = ({ variant, cards }) => {
   if (variant === "big-template") {
+    const hasRow1 = isRealCard(cards[0]) || isRealCard(cards[1]);
+    const hasRow2 = isRealCard(cards[2]);
+    const hasRow3 = isRealCard(cards[3]) || isRealCard(cards[4]);
+    const hasRow4 = isRealCard(cards[5]);
     return (
       <>
         {/* Row 1: 2/3 and 1/3 cards */}
-        <div className="flex w-full gap-6">
-          <div className="flex-2 basis-2/3 min-h-[120px]">
-            {isRealCard(cards[0]) ? cards[0] : (
-              <div className="bg-blue-200 border-4 border-blue-500 rounded-2xl p-10 flex flex-col justify-center items-center text-xl font-extrabold text-blue-900 min-h-[120px]">
-                {cards[0]}
-              </div>
-            )}
+        {hasRow1 && (
+          <div className="flex w-full gap-6">
+            <div className="flex-2 basis-2/3 min-h-[120px]">
+              {isRealCard(cards[0]) ? cards[0] : null}
+            </div>
+            <div className="flex-1 basis-1/3 min-h-[120px]">
+              {isRealCard(cards[1]) ? cards[1] : null}
+            </div>
           </div>
-          <div className="flex-1 basis-1/3 min-h-[120px]">
-            {isRealCard(cards[1]) ? cards[1] : (
-              <div className="bg-green-200 border-4 border-green-500 rounded-2xl p-10 flex flex-col justify-center items-center text-lg font-bold text-green-900 min-h-[120px]">
-                {cards[1]}
-              </div>
-            )}
-          </div>
-        </div>
+        )}
         {/* Row 2: Big card full width */}
-        <div className="w-full min-h-[120px]">
-          {isRealCard(cards[2]) ? cards[2] : (
-            <div className="bg-purple-200 border-4 border-purple-500 rounded-2xl p-10 flex flex-col justify-center items-center text-2xl font-extrabold text-purple-900 min-h-[120px]">
-              {cards[2]}
-            </div>
-          )}
-        </div>
+        {hasRow2 && (
+          <div className="w-full min-h-[120px]">
+            {isRealCard(cards[2]) ? cards[2] : null}
+          </div>
+        )}
         {/* Row 3: Two cards, 1/2 width each */}
-        <div className="flex w-full gap-6">
-          <div className="flex-1 basis-1/2 min-h-[120px]">
-            {isRealCard(cards[3]) ? cards[3] : (
-              <div className="bg-yellow-200 border-4 border-yellow-500 rounded-2xl p-10 flex flex-col justify-center items-center text-lg font-bold text-yellow-900 min-h-[120px]">
-                {cards[3]}
-              </div>
-            )}
-          </div>
-          <div className="flex-1 basis-1/2 min-h-[120px]">
-            {isRealCard(cards[4]) ? cards[4] : (
-              <div className="bg-pink-200 border-4 border-pink-500 rounded-2xl p-10 flex flex-col justify-center items-center text-lg font-bold text-pink-900 min-h-[120px]">
-                {cards[4]}
-              </div>
-            )}
-          </div>
-        </div>
-        {/* Row 4: Big card full width */}
-        <div className="w-full min-h-[120px]">
-          {isRealCard(cards[5]) ? cards[5] : (
-            <div className="bg-indigo-200 border-4 border-indigo-500 rounded-2xl p-10 flex flex-col justify-center items-center text-2xl font-extrabold text-indigo-900 min-h-[120px]">
-              {cards[5]}
+        {hasRow3 && (
+          <div className="flex w-full gap-6">
+            <div className="flex-1 basis-1/2 min-h-[120px]">
+              {isRealCard(cards[3]) ? cards[3] : null}
             </div>
-          )}
-        </div>
+            <div className="flex-1 basis-1/2 min-h-[120px]">
+              {isRealCard(cards[4]) ? cards[4] : null}
+            </div>
+          </div>
+        )}
+        {/* Row 4: Big card full width */}
+        {hasRow4 && (
+          <div className="w-full min-h-[120px]">
+            {isRealCard(cards[5]) ? cards[5] : null}
+          </div>
+        )}
       </>
     );
   }

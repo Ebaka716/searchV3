@@ -19,4 +19,5 @@ _This document explains why this project exists, the problems it solves, and use
 
 - Research page: right panel (canvas area) is now resizable by dragging from the left, with smooth transition and min/max width. EnhancedInput spacing improved with padding. Layout is more fluid and user-friendly.
 - Product is now fully lint/type clean, uses Suspense for client hooks, and dashboard page was removed as unused
-- Local dev/build are clean 
+- Local dev/build are clean
+- **DividendsCard:** Provides a robust, interactive, and accessible financial summary for users, with conversational actions and interactive charts. Supports the product's goal of a seamless, user-friendly financial search experience. 

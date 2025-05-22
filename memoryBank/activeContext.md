@@ -9,12 +9,13 @@ _This document tracks the current work focus, recent changes, next steps, and im
 - **Linter/Build Fixes:** Removed unused imports, props, and type logic. Fixed all linter and build errors related to sidebar and layout.
 - **Build/Deploy Workflow:** Confirmed clean builds locally and on Vercel. Merged dev to main after all fixes.
 - **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates.
+- **DividendsCard Integration:** Added a robust, production-quality DividendsCard component to the template system. This card uses shadcn/ui, Recharts, and modular design patterns. It features a stat row with plus-bubble actions, interactive charts (bar, pie, line), and a bottom row of ConversationButton actions for conversational UX. The card is array-driven and replaces placeholder cards in the medium/large templates. All UI is accessible, responsive, and matches the latest design system.
 
 ## Current Focus & Next Steps
 - Maintain robust, SSR-safe layout patterns for all shared UI (header/sidebar/main).
 - Continue to ensure all UI logic is production-safe and deployable without layout shift or SSR bugs.
-- Continue replacing all placeholder cards in templates with real, styled card components.
-- Ensure all new cards/components use shadcn/ui primitives for consistency and accessibility.
+- Continue replacing all placeholder cards in templates with real, styled, interactive card components like DividendsCard.
+- Ensure all new cards/components use shadcn/ui primitives, Recharts for data viz, and ConversationButton for conversational actions.
 
 - Project scaffolded with Next.js and shadcn/ui
 - Routing and component folders set up as described

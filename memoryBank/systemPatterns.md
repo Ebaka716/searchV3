@@ -25,4 +25,5 @@ _This document describes the system architecture, key technical decisions, and d
 - **Dialog/Modal Accessibility**: All non-destructive modals use shadcn/ui Dialog. Focus is restored to the trigger after closing, and dropdown menus are closed before opening modals to prevent Radix focus trap/overlay issues.
 
 - Research page: right panel (canvas area) is now resizable by dragging from the left, with smooth transition and min/max width. EnhancedInput spacing improved with padding. Layout is more fluid and user-friendly.
+- **DividendsCard Pattern:** DividendsCard is a modular, array-driven card component using shadcn/ui and Recharts for robust, interactive financial/stat displays. It features a stat row with plus-bubble actions, interactive bar/pie/line charts, and a bottom row of ConversationButton actions for conversational UX. This pattern is now the standard for all new financial/stat cards.
 - (Add your system architecture and design patterns here) 

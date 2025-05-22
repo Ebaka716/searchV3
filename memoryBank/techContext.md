@@ -13,6 +13,8 @@ _This document lists the technologies used, development setup, technical constra
 - Suspense is now used for useSearchParams in app pages, per Next.js requirements
 - All lint/type issues resolved and dashboard page removed
 - Local dev and build are clean
+- Recharts is now used for all financial/stat charts (bar, pie, line) in cards like DividendsCard.
+- DividendsCard is the reference implementation for shadcn/ui + Recharts + ConversationButton integration.
 
 ---
 

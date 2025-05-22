@@ -20,6 +20,7 @@ _This document tracks what works, what's left to build, current status, known is
 - Research page layout updated: Canvas is now central (70% width on load), EnhancedInput/dialogue is a resizable right panel (30% width on load), matching a modern productivity tool layout.
 - EnhancedInput now allows file uploads as context chips, integrated with dropdown, with modular removable chips and improved toggle UI. File upload bug with dropdown fixed by using a persistent hidden input.
 - **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates. All new cards/components use shadcn/ui primitives for consistency and accessibility.
+- **DividendsCard Complete:** The new DividendsCard is fully implemented and integrated. It uses shadcn/ui, Recharts, and ConversationButton for a robust, interactive, and accessible financial card. The card features a stat row with plus-bubble actions, interactive bar/pie/line charts, and a conversational button row. It replaces placeholder cards in the medium/large templates and is the new model for all future financial/stat cards.
 
 ---
 
