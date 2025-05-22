@@ -10,13 +10,11 @@ const AaplBigTemplate: React.FC<AaplBigTemplateProps> = ({ headerRef }) => (
     headerRef={headerRef}
     header={"AAPL Stock Overview"}
     preamble={"Key financials and highlights for Apple Inc. (AAPL)."}
-    cards={[
-      "Price: $190.12 (as of close)",
-      "Change: +1.23%",
-      "Market Cap: $2.9T",
-      "P/E Ratio: 29.5",
-      "Dividend Yield: 0.55%",
-      "52-Week Range: $150.00 - $199.62",
+    rows={[
+      { type: "thirds", cards: ["Price: $190.12 (as of close)", "Change: +1.23%"] },
+      { type: "full", cards: ["Market Cap: $2.9T"] },
+      { type: "half", cards: ["P/E Ratio: 29.5", "Dividend Yield: 0.55%"] },
+      { type: "full", cards: ["52-Week Range: $150.00 - $199.62"] },
     ]}
   />
 );

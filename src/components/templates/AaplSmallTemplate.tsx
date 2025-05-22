@@ -12,12 +12,10 @@ const AaplSmallTemplate: React.FC<AaplSmallTemplateProps> = ({ headerRef, query 
     headerRef={headerRef}
     header={query}
     preamble={"Apple Inc. (AAPL) is trading at $175.23 (+1.2%)"}
-    cards={[
-      "Price: $175.23",
-      "Change: +1.2%",
-      "Market Cap: $2.8T",
+    rows={[
+      { type: "half", cards: ["Price: $175.23", "Change: +1.2%"] },
+      { type: "full", cards: ["Market Cap: $2.8T"] },
     ]}
-    cardGridVariant="single-row"
   />
 );
 

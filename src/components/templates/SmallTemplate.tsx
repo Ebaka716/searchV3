@@ -31,7 +31,10 @@ const SmallTemplate: React.FC<SmallTemplateProps> = ({
     preamble={preamble}
     thinking={thinking}
   >
-    <CardGrid variant="small-template" cards={cards} />
+    <CardGrid rows={[
+      { type: "full", cards: [cards[0]] },
+      { type: "half", cards: [cards[1], cards[2]] },
+    ]} />
   </TemplateContainer>
 );
 

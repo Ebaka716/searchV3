@@ -4,7 +4,6 @@ import BigTemplate from "./BigTemplate";
 import DividendsCard from "../common/DividendsCard";
 import EarningsCard from "../common/EarningsCard";
 import ClassicSearchResultsCard from "../common/ClassicSearchResultsCard";
-import { Card, CardHeader, CardTitle, CardContent } from "../ui/card";
 
 interface AaplMediumTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
