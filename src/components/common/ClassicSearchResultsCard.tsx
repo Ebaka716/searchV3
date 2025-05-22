@@ -1,7 +1,7 @@
 import React from "react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
-const results = [
+const defaultResults = [
   {
     title: "Apple Q2 2024 Earnings: Key Takeaways",
     description: "A summary of Apple Inc.'s latest quarterly earnings report, including revenue, profit, and product highlights.",
@@ -39,11 +39,23 @@ const results = [
   },
 ];
 
-export function ClassicSearchResultsCard() {
+export interface ClassicSearchResult {
+  title: string;
+  description: string;
+  url: string;
+}
+
+export function ClassicSearchResultsCard({
+  query = "your query",
+  results = defaultResults,
+}: {
+  query?: string;
+  results?: ClassicSearchResult[];
+}) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Classic Search Results</CardTitle>
+        <CardTitle>{`Search results for: ${query}`}</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-6">
