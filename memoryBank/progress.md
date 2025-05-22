@@ -21,6 +21,7 @@ _This document tracks what works, what's left to build, current status, known is
 - EnhancedInput now allows file uploads as context chips, integrated with dropdown, with modular removable chips and improved toggle UI. File upload bug with dropdown fixed by using a persistent hidden input.
 - **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates. All new cards/components use shadcn/ui primitives for consistency and accessibility.
 - **DividendsCard Complete:** The new DividendsCard is fully implemented and integrated. It uses shadcn/ui, Recharts, and ConversationButton for a robust, interactive, and accessible financial card. The card features a stat row with plus-bubble actions, interactive bar/pie/line charts, and a conversational button row. It replaces placeholder cards in the medium/large templates and is the new model for all future financial/stat cards.
+- **Row-Based Card Grid Refactor (June 2024):** Migrated all template layouts to a new row-based card grid system. Each template now declares its card rows declaratively, supporting `full`, `half`, and `thirds` row types for maximum flexibility and maintainability. ClassicSearchResultsCard now accepts a `query` prop for dynamic headings and a `results` prop for custom result sets. All usages now display the current query in the heading. EarningsCard table compressed, all action buttons standardized to ConversationButton, and all builds confirmed clean.
 
 ---
 
@@ -31,6 +32,7 @@ _This document tracks what works, what's left to build, current status, known is
 - Documentation: All architectural and feature documentation is now maintained in structured memory bank files, not in a generic README.
 - **Dialog/Modal Accessibility**: All non-destructive modals (header, sidebar) now use shadcn/ui Dialog. Focus is restored to the trigger after closing, and dropdown menus are closed before opening modals to prevent Radix focus trap/overlay issues. Build is clean and all changes are committed and pushed.
 - **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates. All new cards/components use shadcn/ui primitives for consistency and accessibility.
+- **Row-Based Card Grid Refactor (June 2024):** Migrated all template layouts to a new row-based card grid system. Each template now declares its card rows declaratively, supporting `full`, `half`, and `thirds` row types for maximum flexibility and maintainability. ClassicSearchResultsCard now accepts a `query` prop for dynamic headings and a `results` prop for custom result sets. All usages now display the current query in the heading. EarningsCard table compressed, all action buttons standardized to ConversationButton, and all builds confirmed clean.
 
 ## Outstanding Issues
 - Some linter errors about missing modules remain (see project for details).
@@ -57,6 +59,11 @@ _This document tracks what works, what's left to build, current status, known is
 - Fixed all linter and build errors (unused imports, types, props).
 - Confirmed clean local and Vercel builds.
 - Merged dev to main after all fixes.
+
+## [2024-06-XX] Row-Based Card Grid Refactor & Search Results Improvements
+- Migrated all template layouts to a new row-based card grid system. Each template now declares its card rows declaratively, supporting `full`, `half`, and `thirds` row types for maximum flexibility and maintainability.
+- Refactored ClassicSearchResultsCard to accept a `query` prop for dynamic headings and a `results` prop for custom result sets. All usages now display the current query in the heading.
+- Compressed EarningsCard table, standardized all action buttons to ConversationButton, and confirmed all builds clean.
 
 ## Current Status
 - App builds and deploys cleanly on Vercel.

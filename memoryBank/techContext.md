@@ -15,6 +15,8 @@ _This document lists the technologies used, development setup, technical constra
 - Local dev and build are clean
 - Recharts is now used for all financial/stat charts (bar, pie, line) in cards like DividendsCard.
 - DividendsCard is the reference implementation for shadcn/ui + Recharts + ConversationButton integration.
+- **Row-Based Card Grid (2024):** All templates now use a declarative, row-based card grid system for layout. This is the new standard for all future template work.
+- **Dynamic Search Results Headings:** ClassicSearchResultsCard now accepts a `query` prop for dynamic headings and a `results` prop for custom result sets, supporting tailored search experiences.
 
 ---
 

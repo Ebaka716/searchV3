@@ -28,13 +28,6 @@ export type DemoSearch = {
 export const demoSearches: DemoSearch[] = [
   // Ticker: Apple/AAPL
   {
-    query: "What was Apple's closing price last year?",
-    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year"],
-    type: "ticker",
-    size: "small",
-    answer: "Apple Inc. (AAPL) is trading at $175.23 (+1.2%)",
-  },
-  {
     query: "AAPL",
     aliases: [
       "aapl", "apple", "appl", "aple", "aaple", "aappl", "appel", "applle", "aapll", "applr", "applw", "appl3"
@@ -45,10 +38,55 @@ export const demoSearches: DemoSearch[] = [
   },
   {
     query: "Apple stock price",
-    aliases: ["apple price", "aapl price", "apple stock"],
+    aliases: [
+      "apple dividends and earnings",
+      "aapl dividends and earnings",
+      "dividends & earnings for apple",
+      "dividends & earnings for aapl",
+      "apple earnings and dividends",
+      "aapl earnings and dividends",
+      "dividends and earnings apple",
+      "dividends and earnings aapl",
+      "apple dividends earnings",
+      "aapl dividends earnings",
+      "show me apple dividends and earnings",
+      "show aapl dividends and earnings",
+      "apple earnings dividends",
+      "aapl earnings dividends",
+      "dividends plus earnings apple",
+      "dividends plus earnings aapl",
+      "dividends earnings june 2024 apple",
+      "dividends earnings june 2024 aapl"
+    ],
     type: "ticker",
     size: "medium",
     answer: "Apple Inc. (AAPL) is currently trading at $175.23, up 1.2% today. The company remains a leader in consumer electronics and services.",
+  },
+  {
+    query: "My dividends for Apple last month",
+    aliases: [
+      "my dividends for apple last month",
+      "apple dividends last month",
+      "aapl dividends last month",
+      "dividends from apple last month",
+      "last month apple dividends",
+      "last month aapl dividends",
+      "show me my apple dividends for last month",
+      "show my aapl dividends last month",
+      "apple dividend payments last month",
+      "aapl dividend history last month",
+      "dividends received from apple last month",
+      "dividends paid by aapl last month",
+      "recent apple dividends",
+      "recent aapl dividends",
+      "apple dividends june 2024",
+      "aapl dividends june 2024",
+      "my apple dividend income last month",
+      "my aapl dividend income last month"
+    ],
+    type: "ticker",
+    size: "small",
+    answer: "Here are your dividends from Apple (AAPL) over the last month.",
   },
 
   // Term: RMD

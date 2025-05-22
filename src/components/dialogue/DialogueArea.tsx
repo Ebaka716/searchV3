@@ -100,8 +100,8 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
   }, [searchParams.get("reset")]);
 
   // Handle EnhancedInput send (only user input, never pre-filled)
-  const handleSend = () => {
-    const trimmed = value.trim();
+  const handleSend = (inputValue?: string) => {
+    const trimmed = (inputValue ?? value).trim();
     if (!trimmed) return;
     const match = findDemoSearchMatch(trimmed);
     if (
@@ -166,6 +166,18 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       router.push('/search');
     }
   };
+
+  // Listen for custom event to programmatically add input
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const custom = e as CustomEvent<{ value: string }>;
+      if (custom.detail && typeof custom.detail.value === 'string') {
+        handleSend(custom.detail.value);
+      }
+    };
+    window.addEventListener('add-to-floating-input', handler as EventListener);
+    return () => window.removeEventListener('add-to-floating-input', handler as EventListener);
+  }, [handleSend]);
 
   return (
     <div className="w-full h-full flex flex-col flex-1 relative" style={{ minHeight: '100vh' }}>

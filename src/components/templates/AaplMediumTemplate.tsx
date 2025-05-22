@@ -42,7 +42,7 @@ const AaplMediumTemplate: React.FC<AaplMediumTemplateProps> = ({ headerRef, quer
   <BigTemplate
     headerRef={headerRef}
     header={query}
-    preamble={"Apple Inc. (AAPL) is currently trading at $175.23, up 1.2% today. The company remains a leader in consumer electronics and services."}
+    preamble={"Here's a summary of Apple's (AAPL) recent dividends and earnings: payout history, growth, and key financial highlights for shareholders."}
     rows={[
       { type: "full", cards: [<DividendsCard key="dividends" />] },
       { type: "full", cards: [<EarningsCard key="earnings" />] },
