@@ -22,10 +22,10 @@ function SearchPageClient({ headerHeight = 0 }: { headerHeight?: number }) {
   return (
     <SSRDebugBoundary label="SearchPageClient">
       <MainLayout headerVariant="short" leftSidebar={<AppSidebar />}>
-        <div className="flex flex-col items-center w-full h-full bg-pink-50 overflow-hidden">
+        <div className="flex flex-col items-center w-full h-full overflow-hidden" style={{ background: '#f9f7f5' }}>
           <div
             id="mainscrollingarea"
-            className="w-full flex flex-col flex-1 bg-green-50 relative"
+            className="w-full flex flex-col flex-1 relative"
             style={{ height: `calc(100vh - ${headerHeight}px)` }}
           >
             <DialogueArea key={0} headerHeight={headerHeight} />

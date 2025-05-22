@@ -4,7 +4,7 @@ import MainLayout from "@/components/layouts/MainLayout";
 export default function HomePage() {
   return (
     <MainLayout headerVariant="full">
-      <main className="w-full flex flex-col items-center bg-zinc-50">
+      <main className="w-full flex flex-col items-center" style={{ background: '#f9f7f5' }}>
         {/* Hero Section */}
         <section className="w-full max-w-5xl bg-white rounded-b-xl shadow p-8 flex flex-col md:flex-row gap-8 mt-0">
           <div className="flex-1 flex flex-col justify-center">

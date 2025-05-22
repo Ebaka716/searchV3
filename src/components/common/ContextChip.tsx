@@ -28,7 +28,7 @@ export interface ContextChipProps {
 
 const ContextChip: React.FC<ContextChipProps> = ({ fileName, fileType, onRemove }) => {
   return (
-    <div className="flex items-center bg-black text-white rounded-full px-3 py-1 mr-2 mb-2 gap-2 shadow-sm">
+    <div className="flex items-center bg-black text-white rounded-full px-3 py-1 mr-2 mb-2 gap-2">
       {getFileIcon(fileType)}
       <span className="text-xs font-medium truncate max-w-[120px]">{fileName}</span>
       <button

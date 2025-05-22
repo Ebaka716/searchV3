@@ -168,7 +168,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
   };
 
   return (
-    <div className="w-full h-full flex flex-col flex-1 bg-green-50 relative" style={{ minHeight: '100vh' }}>
+    <div className="w-full h-full flex flex-col flex-1 relative" style={{ minHeight: '100vh' }}>
       {/* Scrollable content area */}
       <div
         ref={scrollAreaRef}

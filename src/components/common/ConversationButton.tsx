@@ -6,7 +6,7 @@ const ConversationButton = React.forwardRef<HTMLButtonElement, React.ComponentPr
     <Button
       ref={ref}
       variant="secondary"
-      className={`bg-teal-600 text-white font-medium rounded-lg rounded-bl-none px-4 py-2 text-sm text-left shadow-sm hover:bg-teal-700 transition inline-flex items-center justify-start ${className ?? ''}`}
+      className={`bg-teal-600 text-white font-medium rounded-lg rounded-bl-none px-4 py-2 text-sm text-left hover:bg-teal-700 transition inline-flex items-center justify-start ${className ?? ''}`}
       {...props}
     >
       {children}
