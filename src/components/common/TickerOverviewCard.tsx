@@ -77,8 +77,8 @@ const TickerOverviewCard: React.FC<TickerOverviewCardProps> = ({
         </CardContent>
       </div>
       <CardFooter className="p-0 pt-4 flex flex-wrap gap-2">
-        <Button onClick={onBuy} className="bg-black text-white font-semibold rounded-lg px-4 py-2 text-sm shadow hover:bg-zinc-800 transition">Buy</Button>
-        <Button onClick={onSell} className="bg-black text-white font-semibold rounded-lg px-4 py-2 text-sm shadow hover:bg-zinc-800 transition">Sell</Button>
+        <Button onClick={onBuy} className="bg-black text-white font-semibold rounded-lg px-4 py-2 text-sm hover:bg-zinc-800 transition">Buy</Button>
+        <Button onClick={onSell} className="bg-black text-white font-semibold rounded-lg px-4 py-2 text-sm hover:bg-zinc-800 transition">Sell</Button>
         <Button onClick={onAdd} variant="outline" className="rounded-lg px-3 py-2 text-sm flex items-center justify-center"><Plus size={16} /></Button>
         <Button onClick={onAlert} variant="outline" className="rounded-lg px-3 py-2 text-sm flex items-center justify-center"><Bell size={16} /></Button>
         <Button onClick={onFilter} variant="outline" className="rounded-lg px-3 py-2 text-sm flex items-center justify-center"><Filter size={16} /></Button>
