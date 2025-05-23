@@ -271,16 +271,19 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
               ) : entry.type === '__CUSTOMER_SERVICE_SMALL_TEMPLATE__' ? (
                 <CustomerServiceSmallTemplate
                   key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}
                 />
               ) : entry.type === '__CUSTOMER_SERVICE_MEDIUM_TEMPLATE__' ? (
                 <CustomerServiceMediumTemplate
                   key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}
                 />
               ) : entry.type === '__CUSTOMER_SERVICE_LARGE_TEMPLATE__' ? (
                 <CustomerServiceLargeTemplate
                   key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}
                 />
               ) : (
