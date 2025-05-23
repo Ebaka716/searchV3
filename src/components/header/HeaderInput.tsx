@@ -58,6 +58,7 @@ export function HeaderInput({ onSmartSuggestOpen, onOpenResearch }: HeaderInputP
           value={value}
           onChange={e => setValue(e.target.value)}
           onKeyDown={handleKeyDown}
+          onFocus={onSmartSuggestOpen}
         />
       </div>
       <Button
