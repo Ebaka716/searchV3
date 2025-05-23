@@ -6,6 +6,9 @@ import LoadingSpinner from "@/components/common/LoadingSpinner";
 import AaplSmallTemplate from "../templates/AaplSmallTemplate";
 import AaplMediumTemplate from "../templates/AaplMediumTemplate";
 import AaplLargeTemplate from "../templates/AaplLargeTemplate";
+import CustomerServiceSmallTemplate from "../templates/CustomerServiceSmallTemplate";
+import CustomerServiceMediumTemplate from "../templates/CustomerServiceMediumTemplate";
+import CustomerServiceLargeTemplate from "../templates/CustomerServiceLargeTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
 
 /**
@@ -74,6 +77,30 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         setValue("");
         return;
       }
+      // Customer Service: Debit Card Delivery
+      if (
+        match &&
+        match.type === 'question' &&
+        (match.query.toLowerCase().includes('debit card') ||
+          match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
+      ) {
+        const id = getNextDialogueId();
+        setDialogue(prev => [
+          ...prev,
+          { id, type: 'loading' },
+        ]);
+        setTimeout(() => {
+          setDialogue(prev => prev.map(entry =>
+            entry.id === id
+              ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+              : entry
+          ));
+          setReadyForInput(true);
+        }, 1200);
+        hasHandledQueryParamRef.current = true;
+        setValue("");
+        return;
+      }
       // Fallback: add as plain text
       const id = getNextDialogueId();
       setDialogue(prev => [
@@ -119,6 +146,28 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         setDialogue(prev => prev.map(entry =>
           entry.id === id
             ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+            : entry
+        ));
+      }, 1200);
+      setValue("");
+      return;
+    }
+    // Customer Service: Debit Card Delivery
+    if (
+      match &&
+      match.type === 'question' &&
+      (match.query.toLowerCase().includes('debit card') ||
+        match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
+    ) {
+      const id = getNextDialogueId();
+      setDialogue(prev => [
+        ...prev,
+        { id, type: 'loading' },
+      ]);
+      setTimeout(() => {
+        setDialogue(prev => prev.map(entry =>
+          entry.id === id
+            ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
         ));
       }, 1200);
@@ -217,6 +266,21 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
                 <AaplLargeTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__CUSTOMER_SERVICE_SMALL_TEMPLATE__' ? (
+                <CustomerServiceSmallTemplate
+                  key={entry.id}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__CUSTOMER_SERVICE_MEDIUM_TEMPLATE__' ? (
+                <CustomerServiceMediumTemplate
+                  key={entry.id}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__CUSTOMER_SERVICE_LARGE_TEMPLATE__' ? (
+                <CustomerServiceLargeTemplate
+                  key={entry.id}
                   query={entry.query ?? ''}
                 />
               ) : (

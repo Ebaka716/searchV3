@@ -39,6 +39,24 @@ Templates are modular components for rendering different types of search/researc
 - Props: `query: string`, `answer: string`, `size: string`
 - Usage: Renders results for financial question queries (e.g., What is a stock split?).
 
+## CustomerServiceLargeTemplate
+- Location: `src/components/templates/CustomerServiceLargeTemplate.tsx`
+- Used for broad queries about debit card delivery (e.g., "debit card", "card delivery").
+- Provides general information about debit card delivery timelines and status.
+- Triggered by demoSearches entries of type 'question' and size 'large' related to debit card delivery.
+
+## CustomerServiceMediumTemplate
+- Location: `src/components/templates/CustomerServiceMediumTemplate.tsx`
+- Used for more refined queries about late or missing debit card delivery (e.g., "my debit card delivery is late").
+- Provides focused troubleshooting and next steps if the delivery date has passed.
+- Triggered by demoSearches entries of type 'question' and size 'medium' related to debit card delivery.
+
+## CustomerServiceSmallTemplate
+- Location: `src/components/templates/CustomerServiceSmallTemplate.tsx`
+- Used for specific queries requesting escalation to a live associate (e.g., "talk to a live associate about my debit card", "speak with rep").
+- Provides direct contact options for customer support.
+- Triggered by demoSearches entries of type 'question' and size 'small' related to debit card delivery.
+
 ---
 
 ## Integration
