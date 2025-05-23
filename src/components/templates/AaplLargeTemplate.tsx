@@ -23,15 +23,12 @@ const AaplLargeTemplate: React.FC<AaplLargeTemplateProps> = ({ headerRef, query 
     preamble={
       "A quick overview and key insights for Apple Inc. (AAPL) based on your query."
     }
-    cards={[
-      <TickerOverviewCard key="ticker-overview" />,
-      <StackedConversationCard key="stacked-convo" />,
-      <CandlestickCard key="candlestick" />,
-      <DetailedQuoteCard key="detailed-quote" />,
-      <MarketNewsCard key="market-news" />,
-      <ClassicSearchResultsCard key="classic-search-results" />,
+    rows={[
+      { type: "thirds", cards: [<TickerOverviewCard key="ticker-overview" />, <StackedConversationCard key="stacked-convo" />] },
+      { type: "full", cards: [<CandlestickCard key="candlestick" />] },
+      { type: "half", cards: [<DetailedQuoteCard key="detailed-quote" />, <MarketNewsCard key="market-news" />] },
+      { type: "full", cards: [<ClassicSearchResultsCard key="classic-search-results" query={query} />] },
     ]}
-    cardGridVariant="big-template"
   />
 );
 

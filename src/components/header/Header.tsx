@@ -179,32 +179,14 @@ export function Header({
       {variant === "full" && bottomRow}
       {showTextStrings && (
         <Dialog open={showTextStrings} onOpenChange={setShowTextStrings}>
-          <DialogContent>
+          <DialogContent className="max-h-[70vh] overflow-y-auto">
             <DialogHeader>
-              <DialogTitle>Working AAPL Text Strings</DialogTitle>
+              <DialogTitle>Acceptable Strings</DialogTitle>
               <DialogDescription>
-                Here are the working AAPL text strings for each template size:
+                These are the accepted queries/aliases that will trigger each AAPL template size:
               </DialogDescription>
             </DialogHeader>
             <div className="space-y-4">
-              <div>
-                <div className="font-semibold">AAPL Small Template:</div>
-                <ul className="list-disc pl-6">
-                  <li>What was Apple&apos;s closing price last year?</li>
-                  <li>apple closing price last year</li>
-                  <li>aapl last year close</li>
-                  <li>apple stock last year</li>
-                </ul>
-              </div>
-              <div>
-                <div className="font-semibold">AAPL Medium Template:</div>
-                <ul className="list-disc pl-6">
-                  <li>Apple stock price</li>
-                  <li>apple price</li>
-                  <li>aapl price</li>
-                  <li>apple stock</li>
-                </ul>
-              </div>
               <div>
                 <div className="font-semibold">AAPL Large Template:</div>
                 <ul className="list-disc pl-6">
@@ -221,6 +203,52 @@ export function Header({
                   <li>applr</li>
                   <li>applw</li>
                   <li>appl3</li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold">AAPL Small Template:</div>
+                <ul className="list-disc pl-6">
+                  <li>My dividends for Apple last month</li>
+                  <li>apple dividends last month</li>
+                  <li>aapl dividends last month</li>
+                  <li>dividends from apple last month</li>
+                  <li>last month apple dividends</li>
+                  <li>last month aapl dividends</li>
+                  <li>show me my apple dividends for last month</li>
+                  <li>show my aapl dividends last month</li>
+                  <li>apple dividend payments last month</li>
+                  <li>aapl dividend history last month</li>
+                  <li>dividends received from apple last month</li>
+                  <li>dividends paid by aapl last month</li>
+                  <li>recent apple dividends</li>
+                  <li>recent aapl dividends</li>
+                  <li>apple dividends june 2024</li>
+                  <li>aapl dividends june 2024</li>
+                  <li>my apple dividend income last month</li>
+                  <li>my aapl dividend income last month</li>
+                </ul>
+              </div>
+              <div>
+                <div className="font-semibold">AAPL Medium Template:</div>
+                <ul className="list-disc pl-6">
+                  <li>apple dividends and earnings</li>
+                  <li>aapl dividends and earnings</li>
+                  <li>dividends & earnings for apple</li>
+                  <li>dividends & earnings for aapl</li>
+                  <li>apple earnings and dividends</li>
+                  <li>aapl earnings and dividends</li>
+                  <li>dividends and earnings apple</li>
+                  <li>dividends and earnings aapl</li>
+                  <li>apple dividends earnings</li>
+                  <li>aapl dividends earnings</li>
+                  <li>show me apple dividends and earnings</li>
+                  <li>show aapl dividends and earnings</li>
+                  <li>apple earnings dividends</li>
+                  <li>aapl earnings dividends</li>
+                  <li>dividends plus earnings apple</li>
+                  <li>dividends plus earnings aapl</li>
+                  <li>dividends earnings june 2024 apple</li>
+                  <li>dividends earnings june 2024 aapl</li>
                 </ul>
               </div>
             </div>

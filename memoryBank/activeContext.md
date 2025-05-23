@@ -3,18 +3,18 @@
 _This document tracks the current work focus, recent changes, next steps, and important decisions._
 
 ## Recent Major Changes (June 2024)
-- **Sidebar Offset Refactor:** Sidebar now uses a hardcoded 52px top offset for robust SSR and Vercel compatibility. No dynamic headerHeight measurement is used.
-- **Expand/Collapse Button:** The sidebar expand/collapse button now always uses the PanelLeftIcon for both states, with no custom SVG or fill logic. Button is centered when collapsed and right-aligned when expanded.
-- **HeaderHeight Prop Removed:** All logic and props related to dynamic headerHeight have been removed from AppSidebar and MainLayout.
-- **Linter/Build Fixes:** Removed unused imports, props, and type logic. Fixed all linter and build errors related to sidebar and layout.
-- **Build/Deploy Workflow:** Confirmed clean builds locally and on Vercel. Merged dev to main after all fixes.
-- **Card System Overhaul:** All major UI cards (e.g., TickerOverviewCard, StackedConversationCard) are now modular, compact, and use shadcn/ui components for structure and buttons. ConversationButton is a reusable, compact, shadcn/ui-based button for all stacked/conversation actions. Dialogue entry spacing increased for clarity. Placeholder cards are being replaced by real, styled components in all templates.
+- **Row-Based Card Grid Refactor:** Migrated all template layouts (AaplLarge, AaplMedium, AaplSmall, AaplBig, SmallTemplate) to a new row-based card grid system. Each template now declares its card rows declaratively, supporting `full`, `half`, and `thirds` row types for maximum flexibility and maintainability.
+- **ClassicSearchResultsCard Improvements:** Refactored ClassicSearchResultsCard to accept a `query` prop (for dynamic headings) and a `results` prop (for custom result sets). All usages now display the current query in the heading, ensuring a responsive, context-aware search experience.
+- **EarningsCard & ConversationButton:** Added a robust EarningsCard component, compressed its table for clarity, and standardized all action buttons to use ConversationButton for consistent UX.
+- **Build & Lint Clean:** Removed all legacy card/variant props, updated all template usages, and confirmed the app builds cleanly with no linter or type errors.
 
 ## Current Focus & Next Steps
+- Continue to ensure all new cards/components use shadcn/ui primitives, Recharts for data viz, and ConversationButton for conversational actions.
 - Maintain robust, SSR-safe layout patterns for all shared UI (header/sidebar/main).
-- Continue to ensure all UI logic is production-safe and deployable without layout shift or SSR bugs.
-- Continue replacing all placeholder cards in templates with real, styled card components.
-- Ensure all new cards/components use shadcn/ui primitives for consistency and accessibility.
+- Continue replacing all placeholder cards in templates with real, styled, interactive card components.
+- Implement scroll/snap-to-top behavior for new dialogue entries in the dialogue flow.
+- Ensure the initial query (from URL or first input) appears in the dialogue flow.
+- Add persistent dialogue history so that previous sessions/queries are retained across reloads or navigation.
 
 - Project scaffolded with Next.js and shadcn/ui
 - Routing and component folders set up as described

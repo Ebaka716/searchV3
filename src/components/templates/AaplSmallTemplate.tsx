@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import BigTemplate from "./BigTemplate";
+import DividendsLastMonthCard from "../common/DividendsLastMonthCard";
 
 interface AaplSmallTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
@@ -11,13 +12,10 @@ const AaplSmallTemplate: React.FC<AaplSmallTemplateProps> = ({ headerRef, query 
   <BigTemplate
     headerRef={headerRef}
     header={query}
-    preamble={"Apple Inc. (AAPL) is trading at $175.23 (+1.2%)"}
-    cards={[
-      "Price: $175.23",
-      "Change: +1.2%",
-      "Market Cap: $2.8T",
+    preamble={"Here's a summary of your recent Apple (AAPL) dividend activity for the last month."}
+    rows={[
+      { type: "full", cards: [<DividendsLastMonthCard key="dividends-last-month" />] },
     ]}
-    cardGridVariant="single-row"
   />
 );
 

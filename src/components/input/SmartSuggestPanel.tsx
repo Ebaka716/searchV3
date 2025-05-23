@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/command";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { demoSearches, DemoSearch } from '@/data/demoSearches';
+import { FileText, FileVideo, FileVolume, FileSymlink } from 'lucide-react';
 
 interface SmartSuggestPanelProps {
   isOpen: boolean;
@@ -106,20 +107,47 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
         {inputValue && (
           <CommandList>
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandGroup heading="Suggestions">
-              {demoSearches.map((search: DemoSearch) => (
-                <CommandItem 
-                  key={search.query} 
-                  value={search.query} 
-                  onSelect={() => {
-                    console.log("Selected:", search.query);
-                    setInputValue(search.query);
-                  }}
-                >
-                  {search.query} 
-                </CommandItem>
-              ))}
-            </CommandGroup>
+            <div className="flex min-h-[200px]">
+              <div className="w-3/5 pr-4 border-r">
+                <CommandGroup heading="Suggestions">
+                  {demoSearches.map((search: DemoSearch) => (
+                    <CommandItem 
+                      key={search.query} 
+                      value={search.query} 
+                      onSelect={() => {
+                        console.log("Selected:", search.query);
+                        setInputValue(search.query);
+                      }}
+                    >
+                      {search.query} 
+                    </CommandItem>
+                  ))}
+                </CommandGroup>
+                <CommandGroup heading="Resources">
+                  <CommandItem onSelect={() => console.log('Resource: Document 1')}>
+                    <FileText className="mr-2 h-4 w-4" />
+                    <span>Document Title 1</span>
+                  </CommandItem>
+                  <CommandItem onSelect={() => console.log('Resource: Video 1')}>
+                    <FileVideo className="mr-2 h-4 w-4" />
+                    <span>Video Title 1</span>
+                  </CommandItem>
+                  <CommandItem onSelect={() => console.log('Resource: Podcast 1')}>
+                    <FileVolume className="mr-2 h-4 w-4" />
+                    <span>Podcast Episode 1</span>
+                  </CommandItem>
+                  <CommandItem onSelect={() => console.log('Resource: Site Page 1')}>
+                    <FileSymlink className="mr-2 h-4 w-4" />
+                    <span>Helpful Site Page</span>
+                  </CommandItem>
+                </CommandGroup>
+              </div>
+              <div className="w-2/5 pl-4">
+                {/* Answer content will go here. For now, a placeholder. */}
+                {/* This div ensures the space is reserved. Content might be conditional. */}
+                {/* <p className="text-sm text-muted-foreground">Answer will appear here.</p> */}
+              </div>
+            </div>
           </CommandList>
         )}
       </Command>

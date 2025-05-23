@@ -3,13 +3,17 @@ import React from "react";
 import TemplateContainer from "./TemplateContainer";
 import CardGrid from "./CardGrid";
 
+interface BigTemplateRow {
+  type: "full" | "half" | "thirds";
+  cards: React.ReactNode[];
+}
+
 interface BigTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
   header?: string;
   preamble?: string;
   thinking?: React.ReactNode;
-  cards?: React.ReactNode[];
-  cardGridVariant?: "big-template" | "2x2" | "single-row";
+  rows?: BigTemplateRow[];
 }
 
 const BigTemplate: React.FC<BigTemplateProps> = ({
@@ -21,15 +25,12 @@ const BigTemplate: React.FC<BigTemplateProps> = ({
       <span className="font-semibold">Thinking:</span> This is a placeholder for the model&apos;s reasoning or process. (Optional)
     </div>
   ),
-  cards = [
-    "Card 1 (2/3)",
-    "Card 2 (1/3)",
-    "Big Card (Full Width)",
-    "Card 3 (1/2)",
-    "Card 4 (1/2)",
-    "Big Card (Full Width)",
+  rows = [
+    { type: "thirds", cards: ["Card 1 (2/3)", "Card 2 (1/3)"] },
+    { type: "full", cards: ["Big Card (Full Width)"] },
+    { type: "half", cards: ["Card 3 (1/2)", "Card 4 (1/2)"] },
+    { type: "full", cards: ["Big Card (Full Width)"] },
   ],
-  cardGridVariant = "big-template",
 }) => (
   <TemplateContainer
     headerRef={headerRef}
@@ -37,7 +38,7 @@ const BigTemplate: React.FC<BigTemplateProps> = ({
     preamble={preamble}
     thinking={thinking}
   >
-    <CardGrid variant={cardGridVariant} cards={cards} />
+    <CardGrid rows={rows} />
   </TemplateContainer>
 );
 

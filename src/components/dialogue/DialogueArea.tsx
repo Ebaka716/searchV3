@@ -6,6 +6,9 @@ import LoadingSpinner from "@/components/common/LoadingSpinner";
 import AaplSmallTemplate from "../templates/AaplSmallTemplate";
 import AaplMediumTemplate from "../templates/AaplMediumTemplate";
 import AaplLargeTemplate from "../templates/AaplLargeTemplate";
+import CustomerServiceSmallTemplate from "../templates/CustomerServiceSmallTemplate";
+import CustomerServiceMediumTemplate from "../templates/CustomerServiceMediumTemplate";
+import CustomerServiceLargeTemplate from "../templates/CustomerServiceLargeTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
 
 /**
@@ -74,6 +77,30 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         setValue("");
         return;
       }
+      // Customer Service: Debit Card Delivery
+      if (
+        match &&
+        match.type === 'question' &&
+        (match.query.toLowerCase().includes('debit card') ||
+          match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
+      ) {
+        const id = getNextDialogueId();
+        setDialogue(prev => [
+          ...prev,
+          { id, type: 'loading' },
+        ]);
+        setTimeout(() => {
+          setDialogue(prev => prev.map(entry =>
+            entry.id === id
+              ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+              : entry
+          ));
+          setReadyForInput(true);
+        }, 1200);
+        hasHandledQueryParamRef.current = true;
+        setValue("");
+        return;
+      }
       // Fallback: add as plain text
       const id = getNextDialogueId();
       setDialogue(prev => [
@@ -100,8 +127,8 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
   }, [searchParams.get("reset")]);
 
   // Handle EnhancedInput send (only user input, never pre-filled)
-  const handleSend = () => {
-    const trimmed = value.trim();
+  const handleSend = (inputValue?: string) => {
+    const trimmed = (inputValue ?? value).trim();
     if (!trimmed) return;
     const match = findDemoSearchMatch(trimmed);
     if (
@@ -119,6 +146,28 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         setDialogue(prev => prev.map(entry =>
           entry.id === id
             ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+            : entry
+        ));
+      }, 1200);
+      setValue("");
+      return;
+    }
+    // Customer Service: Debit Card Delivery
+    if (
+      match &&
+      match.type === 'question' &&
+      (match.query.toLowerCase().includes('debit card') ||
+        match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
+    ) {
+      const id = getNextDialogueId();
+      setDialogue(prev => [
+        ...prev,
+        { id, type: 'loading' },
+      ]);
+      setTimeout(() => {
+        setDialogue(prev => prev.map(entry =>
+          entry.id === id
+            ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
         ));
       }, 1200);
@@ -167,6 +216,18 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
     }
   };
 
+  // Listen for custom event to programmatically add input
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const custom = e as CustomEvent<{ value: string }>;
+      if (custom.detail && typeof custom.detail.value === 'string') {
+        handleSend(custom.detail.value);
+      }
+    };
+    window.addEventListener('add-to-floating-input', handler as EventListener);
+    return () => window.removeEventListener('add-to-floating-input', handler as EventListener);
+  }, [handleSend]);
+
   return (
     <div className="w-full h-full flex flex-col flex-1 relative" style={{ minHeight: '100vh' }}>
       {/* Scrollable content area */}
@@ -203,6 +264,24 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
                 />
               ) : entry.type === '__AAPL_LARGE_TEMPLATE__' ? (
                 <AaplLargeTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__CUSTOMER_SERVICE_SMALL_TEMPLATE__' ? (
+                <CustomerServiceSmallTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__CUSTOMER_SERVICE_MEDIUM_TEMPLATE__' ? (
+                <CustomerServiceMediumTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__CUSTOMER_SERVICE_LARGE_TEMPLATE__' ? (
+                <CustomerServiceLargeTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}

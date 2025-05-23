@@ -14,6 +14,7 @@ You are the AI dev/PM for a Next.js web application using shadcn/ui, designed to
 - Dialogue flow: queries from EnhancedInput are added to a dialogue list above the input, each with loading/result state for modular, conversational UX
 - LoadingSpinner component for consistent, modular loading feedback
 - Project is now lint/type clean, uses Suspense for useSearchParams, and dashboard page was removed. Local dev/build are clean.
+- **DividendsCard:** Now a core feature, providing robust, interactive financial summaries with conversational actions and charts. This is the model for all future financial/stat cards.
 
 ---
 
