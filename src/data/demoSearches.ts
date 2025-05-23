@@ -30,40 +30,40 @@ export type DemoSearch = {
   aliases: string[];
   type: 'ticker' | 'term' | 'question';
   size: 'small' | 'medium' | 'large';
-  answer: string;
   resources?: ResourceItem[]; // Added resources field
 };
 
 export const demoSearches: DemoSearch[] = [
   // Ticker: Apple/AAPL
+  // Ticker: AAPL Confidence high
   {
     query: "What was Apple's closing price last year?",
-    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year"],
+    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year", "what"],
     type: "ticker",
     size: "small",
-    answer: "Apple Inc. (AAPL) is trading at $175.23 (+1.2%)",
     resources: [
       { id: "aapl-small-doc1", label: "Understanding Stock Prices", iconType: "document" },
-      { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "https://investor.apple.com" }
+      { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "#" }
     ]
   },
+  // Ticker: AAPL Confidence low
   {
     query: "AAPL",
     aliases: [
-      "aapl", "apple", "appl", "aple", "aaple", "aappl", "appel", "applle", "aapll", "applr", "applw", "appl3"
+      "aapl", "apple", "appl", "aple", "aaple", "aappl", "appel", "applle", "aapll", "applr", "applw", "appl3", "aap"
     ],
     type: "ticker",
     size: "large",
-    answer: "Apple Inc. (AAPL) closed at $157.65 on December 31st last year. This reflects a strong year for the company, driven by robust iPhone sales and growth in services.",
     resources: [
       { id: "aapl-large-site-investments", label: "Digging in on AI-related investments", iconType: "sitePage" },
       { id: "aapl-large-site-vid-caps", label: "On the hunt for small- and mid-caps", iconType: "video" },
-      { id: "aapl-large-doc-give", label: "Apple Investor Relations Page", iconType: "sitePage", link: "#" },
-      { id: "aapl-large-site-ir", label: "Apple Investor Relations Page", iconType: "sitePage", link: "#" },
-      { id: "aapl-large-vid-services", label: "Video: Apple's Services Growth", iconType: "video" },
-      { id: "aapl-large-site-ir", label: "Apple Investor Relations Page", iconType: "sitePage", link: "#" }
+      { id: "aapl-large-doc-give", label: "Don't give up on tech stocks", iconType: "sitePage", link: "#" },
+      { id: "aapl-large-site-ir2", label: "Let the AI revolution begin", iconType: "sitePage", link: "#" },
+      { id: "aapl-large-vid-services", label: "Video: Stock ideas for 2025", iconType: "video" },
+      { id: "aapl-large-site-ir", label: "Trading FAQs: Getting started", iconType: "sitePage", link: "#" }
     ]
   },
+  // Ticker: AAPL Confidence medium
   {
     query: "Apple stock price",
     aliases: [
@@ -88,10 +88,11 @@ export const demoSearches: DemoSearch[] = [
     ],
     type: "ticker",
     size: "medium",
-    answer: "Apple Inc. (AAPL) is currently trading at $175.23, up 1.2% today. The company remains a leader in consumer electronics and services.",
     resources: [
       { id: "aapl-medium-doc-chart", label: "Interactive Stock Chart Guide", iconType: "document" },
-      { id: "aapl-medium-podcast-analysis", label: "Podcast: AAPL Price Analysis", iconType: "podcast" }
+      { id: "aapl-medium-podcast-analysis", label: "Podcast: AAPL Price Analysis", iconType: "podcast" },
+      { id: "aapl-medium-site-news", label: "Latest Apple News", iconType: "sitePage", link: "#" },
+      { id: "aapl-medium-video-earnings", label: "Earnings Call Highlights", iconType: "video" }
     ]
   },
 
@@ -101,7 +102,6 @@ export const demoSearches: DemoSearch[] = [
     aliases: ["rmd", "required minimum distribution"],
     type: "term",
     size: "small",
-    answer: "RMD stands for Required Minimum Distribution, a mandatory withdrawal from retirement accounts.",
     resources: [
       { id: "rmd-small-doc-irs", label: "IRS Publication 590-B", iconType: "document" },
       { id: "rmd-small-site-faq", label: "RMD FAQs", iconType: "sitePage" }
@@ -112,7 +112,6 @@ export const demoSearches: DemoSearch[] = [
     aliases: ["what is rmd", "explain rmd", "rmd meaning"],
     type: "term",
     size: "medium",
-    answer: "An RMD (Required Minimum Distribution) is the minimum amount you must withdraw from your retirement accounts each year after reaching a certain age.",
     resources: [
       { id: "rmd-medium-video-explain", label: "Video: Understanding RMDs", iconType: "video" },
       { id: "rmd-medium-podcast-details", label: "Podcast: Deep Dive into RMDs", iconType: "podcast" }
@@ -123,7 +122,6 @@ export const demoSearches: DemoSearch[] = [
     aliases: ["my rmd last year", "rmd last year amount", "required minimum distribution last year"],
     type: "term",
     size: "large",
-    answer: "Your RMD for last year depends on your account balance and age. Please consult your financial records or advisor for the exact amount.",
     // No specific resources for this example, illustrating optionality
   },
 
@@ -131,7 +129,7 @@ export const demoSearches: DemoSearch[] = [
   // {
   //   query: "",
   //   aliases: [],
-  //   type: "question",
+  //   type: "transaction",
   //   size: "small",
   //   answer: "",
   // },
