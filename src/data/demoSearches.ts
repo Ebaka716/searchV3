@@ -127,9 +127,23 @@ export const demoSearches: DemoSearch[] = [
   {
     query: "my debit card delivery is late",
     aliases: [
-      "debit card delivery date passed",
-      "my card was supposed to arrive by now",
-      "debit card hasn't arrived"
+      "track my card",
+      "where is my debit card",
+      "where is my card",
+      "card delivery status",
+      "check card delivery",
+      "card shipping status",
+      "is my card shipped",
+      "has my card shipped",
+      "when will my card arrive",
+      "debit card tracking",
+      "find my debit card",
+      "delivery status for my card",
+      "card order status",
+      "card in the mail",
+      "card not arrived",
+      "card delayed",
+      "waiting for debit card"
     ],
     type: "question",
     size: "medium",

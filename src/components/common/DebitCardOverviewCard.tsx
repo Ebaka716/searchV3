@@ -25,6 +25,10 @@ const DebitCardOverviewCard: React.FC = () => (
       </div>
     </CardHeader>
     <CardContent>
+      <div className="flex items-center gap-2 mb-4 p-3 rounded-md bg-blue-100 border border-blue-300 text-blue-900">
+        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12c0 4.97-4.03 9-9 9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" /></svg>
+        <span className="text-sm font-medium">Notice: Due to a change in our debit card provider, you may experience delivery delays. We appreciate your patience!</span>
+      </div>
       <p className="mb-4 text-zinc-700">
         Your new debit card is on its way! Most cards arrive within 7–10 business days after ordering. Below you can track the typical delivery process and see what to expect.
       </p>
@@ -41,10 +45,10 @@ const DebitCardOverviewCard: React.FC = () => (
                 </div>
                 {idx < deliveryStages.length - 1 && (
                   idx === 0 ? (
-                    // Half-filled connector after 'Ordered'
+                    // Mostly-filled connector after 'Ordered' (90% green, 10% gray)
                     <div className="flex-1 h-1 mx-1 relative">
-                      <div className="absolute left-0 top-0 h-1 w-1/2 bg-green-400 rounded-l" />
-                      <div className="absolute right-0 top-0 h-1 w-1/2 bg-zinc-200 rounded-r" />
+                      <div className="absolute left-0 top-0 h-1 w-[90%] bg-green-400 rounded-l" />
+                      <div className="absolute right-0 top-0 h-1 w-[10%] bg-zinc-200 rounded-r" />
                     </div>
                   ) : (
                     <div className={`flex-1 h-1 mx-1 ${idx < currentStage ? 'bg-green-400' : 'bg-zinc-200'}`}></div>
@@ -56,8 +60,8 @@ const DebitCardOverviewCard: React.FC = () => (
           {/* Below progress bar: delivery information section */}
           <div className="w-full flex flex-col items-start mt-4 space-y-1 text-sm bg-zinc-50 rounded-md p-3 border border-zinc-100">
             <div className="font-semibold text-zinc-700 mb-3">Delivery Information</div>
-            <div><span className="font-medium text-zinc-700">Order date:</span> <span className="text-zinc-600">2024-06-20</span></div>
-            <div><span className="font-medium text-zinc-700">Name:</span> <span className="text-zinc-600">Clark Kent</span></div>
+            <div><span className="font-medium text-zinc-700">Order date:</span> <span className="text-zinc-600">05-23-2025</span></div>
+            <div><span className="font-medium text-zinc-700">Name on card:</span> <span className="text-zinc-600">Clark Kent</span></div>
             <div><span className="font-medium text-zinc-700">Address:</span> <span className="text-zinc-600">344 Clinton St, Apt 3B, Metropolis, NY 10001</span></div>
             <div><span className="font-medium text-zinc-700">Account:</span> <span className="font-bold text-zinc-700">**1234</span></div>
           </div>
@@ -65,8 +69,10 @@ const DebitCardOverviewCard: React.FC = () => (
       </div>
     </CardContent>
     <CardFooter className="flex gap-4 justify-end">
-      <Button variant="outline">Track My Card</Button>
-      <Button variant="default">Contact Support</Button>
+      <Button variant="outline" onClick={() => window.dispatchEvent(
+        new CustomEvent('add-to-floating-input', { detail: { value: "track my card" } })
+      )}>Track my card</Button>
+      <Button variant="default">Contact support</Button>
     </CardFooter>
   </Card>
 );
