@@ -30,7 +30,8 @@ export type DemoSearch = {
   aliases: string[];
   type: 'ticker' | 'term' | 'question';
   size: 'small' | 'medium' | 'large';
-  resources?: ResourceItem[]; // Added resources field
+  resources?: ResourceItem[];
+  answer: string;
 };
 
 export const demoSearches: DemoSearch[] = [
@@ -44,7 +45,8 @@ export const demoSearches: DemoSearch[] = [
     resources: [
       { id: "aapl-small-doc1", label: "Understanding Stock Prices", iconType: "document" },
       { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "#" }
-    ]
+    ],
+    answer: "Apple's closing price last year was $157.65. See resources for more details."
   },
   // Ticker: AAPL Confidence low
   {
@@ -61,7 +63,8 @@ export const demoSearches: DemoSearch[] = [
       { id: "aapl-large-site-ir2", label: "Let the AI revolution begin", iconType: "sitePage", link: "#" },
       { id: "aapl-large-vid-services", label: "Video: Stock ideas for 2025", iconType: "video" },
       { id: "aapl-large-site-ir", label: "Trading FAQs: Getting started", iconType: "sitePage", link: "#" }
-    ]
+    ],
+    answer: "Apple Inc. (AAPL) closed at $157.65 on December 31st last year. This reflects a strong year for the company, driven by robust iPhone sales and growth in services."
   },
   // Ticker: AAPL Confidence medium
   {
@@ -93,7 +96,8 @@ export const demoSearches: DemoSearch[] = [
       { id: "aapl-medium-podcast-analysis", label: "Podcast: AAPL Price Analysis", iconType: "podcast" },
       { id: "aapl-medium-site-news", label: "Latest Apple News", iconType: "sitePage", link: "#" },
       { id: "aapl-medium-video-earnings", label: "Earnings Call Highlights", iconType: "video" }
-    ]
+    ],
+    answer: "Apple Inc. (AAPL) is currently trading at $175.23, up 1.2% today. The company remains a leader in consumer electronics and services."
   },
 
   // Term: RMD
@@ -105,7 +109,8 @@ export const demoSearches: DemoSearch[] = [
     resources: [
       { id: "rmd-small-doc-irs", label: "IRS Publication 590-B", iconType: "document" },
       { id: "rmd-small-site-faq", label: "RMD FAQs", iconType: "sitePage" }
-    ]
+    ],
+    answer: "RMD stands for Required Minimum Distribution, a mandatory withdrawal from retirement accounts."
   },
   {
     query: "What is an RMD",
@@ -115,7 +120,8 @@ export const demoSearches: DemoSearch[] = [
     resources: [
       { id: "rmd-medium-video-explain", label: "Video: Understanding RMDs", iconType: "video" },
       { id: "rmd-medium-podcast-details", label: "Podcast: Deep Dive into RMDs", iconType: "podcast" }
-    ]
+    ],
+    answer: "An RMD (Required Minimum Distribution) is the minimum amount you must withdraw from your retirement accounts each year after reaching a certain age."
   },
   {
     query: "What was my RMD from last year?",
