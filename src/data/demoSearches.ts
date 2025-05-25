@@ -122,7 +122,58 @@ export const demoSearches: DemoSearch[] = [
     aliases: ["my rmd last year", "rmd last year amount", "required minimum distribution last year"],
     type: "term",
     size: "large",
-    // No specific resources for this example, illustrating optionality
+    answer: "Your RMD for last year depends on your account balance and age. Please consult your financial records or advisor for the exact amount.",
+  },
+
+  // Customer Service: Debit Card Delivery
+  {
+    query: "debit card",
+    aliases: [
+      "debit card delivery",
+      "where is my debit card",
+      "card delivery"
+    ],
+    type: "question",
+    size: "large",
+    answer: "Debit cards are typically delivered within 7-10 business days after approval. If you recently requested a new card, you can check your delivery status in your account dashboard or contact support for more information.",
+  },
+  {
+    query: "my debit card delivery is late",
+    aliases: [
+      "track my card",
+      "where is my debit card",
+      "where is my card",
+      "card delivery status",
+      "check card delivery",
+      "card shipping status",
+      "is my card shipped",
+      "has my card shipped",
+      "when will my card arrive",
+      "debit card tracking",
+      "find my debit card",
+      "delivery status for my card",
+      "card order status",
+      "card in the mail",
+      "card not arrived",
+      "card delayed",
+      "waiting for debit card"
+    ],
+    type: "question",
+    size: "medium",
+    answer: "If your debit card delivery date has passed, please verify your shipping address and check for any delivery notifications. You may also track your card status online or request assistance from our support team.",
+  },
+  {
+    query: "talk to a live associate about my debit card",
+    aliases: [
+      "connect me to support for my missing debit card",
+      "I need help from a person about my debit card",
+      "speak to customer service about debit card",
+      "speak with rep",
+      "talk to person"
+    ],
+    type: "question",
+    size: "small",
+    answer: "To speak with a live associate about your debit card delivery, please call our customer service line or use the live chat option below. We're here to help you resolve your issue as quickly as possible.",
   },
 
   // Question: Placeholder (to be filled in later)
