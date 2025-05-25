@@ -29,7 +29,7 @@ const CardGrid: React.FC<CardGridProps> = ({ rows }) => {
         }
         if (row.type === "half") {
           return (
-            <div key={idx} className="flex w-full gap-6 mb-1">
+            <div key={idx} className="flex w-full gap-6 mb-1 items-stretch">
               <div className="flex-1 basis-1/2 min-h-[120px]">
                 {isRealCard(row.cards[0]) ? row.cards[0] : null}
               </div>
