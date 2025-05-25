@@ -2,6 +2,13 @@
 
 _This document tracks the current work focus, recent changes, next steps, and important decisions._
 
+## [2025-05-23] Customer Service Template Scroll Anchor Bug & Fix
+- **Problem:** Customer service (CS) templates in the dialogue area were not scrolling their header/preamble into view correctly, often being hidden behind the fixed main page header. AAPL templates did not have this issue.
+- **Root Cause:** In `DialogueArea.tsx`, AAPL templates were passed a `headerRef` prop (for scroll anchoring), but CS templates were not. The scroll logic relies on this ref to anchor the scroll position to the template's main header.
+- **Fix:** Updated the rendering of all CS templates to pass `headerRef={...}` exactly as is done for AAPL templates. This ensures the scroll anchor is set on the main template header for both types.
+- **Result:** After the fix, both AAPL and CS templates scroll the header and preamble into perfect view, just below the fixed main page header. The user experience is now consistent and robust for all template types.
+- **Other:** Merged dev and main branches, resolved all merge conflicts, and pushed all changes to remote. Installed missing dependencies (e.g., `cmdk`).
+
 ## Recent Major Changes (June 2024)
 - **Row-Based Card Grid Refactor:** Migrated all template layouts (AaplLarge, AaplMedium, AaplSmall, AaplBig, SmallTemplate) to a new row-based card grid system. Each template now declares its card rows declaratively, supporting `full`, `half`, and `thirds` row types for maximum flexibility and maintainability.
 - **ClassicSearchResultsCard Improvements:** Refactored ClassicSearchResultsCard to accept a `query` prop (for dynamic headings) and a `results` prop (for custom result sets). All usages now display the current query in the heading, ensuring a responsive, context-aware search experience.
@@ -49,4 +56,20 @@ _This document tracks the current work focus, recent changes, next steps, and im
 
 - All lint, type, and Next.js Suspense issues resolved (Search page uses Suspense for useSearchParams)
 - Dashboard page removed as unused
-- Local dev and build are clean 
+- Local dev and build are clean
+
+## [2024-06-XX] CS Medium Template & Card System Enhancements
+- **CS Medium Template:** Implemented a new Customer Service Medium Template for debit card delivery tracking. The template now uses a modular card system.
+- **TrackingStepsCard:** Created a reusable TrackingStepsCard component (shadcn/ui) for delivery progress, key dates, and actionable CTAs. Integrated as the first row (full-width) in the CS Medium Template.
+- **DebitCardOverviewCard:** Updated and documented the DebitCardOverviewCard for use in the large template, including a blue delay notification banner and event-driven 'Track my card' button.
+- **Event-driven UX:** Standardized the use of custom events (add-to-floating-input) for buttons like 'Track my card' and 'Dividends & Earnings', ensuring consistent conversational flow.
+- **DemoSearches Aliases:** Expanded aliases in demoSearches.ts to robustly trigger the correct template for card tracking queries.
+- **UI/UX Improvements:** Refined card layouts, button alignment, headings, and callouts for clarity and accessibility. All new cards use shadcn/ui primitives.
+- **Documentation:** Added comprehensive docs for TrackingStepsCard and DebitCardOverviewCard in /docs.
+
+---
+
+## Next Steps
+- Further refine card content and interactivity based on user feedback.
+- Continue modularizing and documenting new card components.
+- Expand dynamic data support for delivery status and user info. 
