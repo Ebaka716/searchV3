@@ -2,6 +2,7 @@
 import React from "react";
 import BigTemplate from "./BigTemplate";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
+import TrackingStepsCard from "../common/TrackingStepsCard";
 
 interface CustomerServiceMediumTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
@@ -17,14 +18,7 @@ const CustomerServiceMediumTemplate: React.FC<CustomerServiceMediumTemplateProps
     }
     rows={[
       { type: "full", cards: [
-        <Card key="status">
-          <CardHeader>
-            <CardTitle>Delivery Status</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>This card will help you verify your shipping address and check for delivery notifications.</p>
-          </CardContent>
-        </Card>
+        <TrackingStepsCard key="tracking-steps" />
       ] },
       { type: "half", cards: [
         <Card key="track">
