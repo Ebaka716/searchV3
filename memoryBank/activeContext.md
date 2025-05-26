@@ -67,6 +67,11 @@ _This document tracks the current work focus, recent changes, next steps, and im
 - **UI/UX Improvements:** Refined card layouts, button alignment, headings, and callouts for clarity and accessibility. All new cards use shadcn/ui primitives.
 - **Documentation:** Added comprehensive docs for TrackingStepsCard and DebitCardOverviewCard in /docs.
 
+## [2024-06-XX] FocusedArticleCard (Article Card) Added
+- **FocusedArticleCard:** Created a new modular card component for highlighting articles, styled to match modern financial UX patterns. Features a large icon (or image), bold title, description, and article type label. The title underlines on card hover, and the card elevates for interactivity.
+- **Integration:** Used as the left card in the second row of the CustomerServiceMediumTemplate. Designed for reuse in other templates or contexts where a focused article highlight is needed.
+- **Docs:** See `/src/components/common/FocusedArticleCard.tsx` and new documentation in `/src/docs/FOCUSED_ARTICLE_CARD.md` for usage and props.
+
 ---
 
 ## Next Steps

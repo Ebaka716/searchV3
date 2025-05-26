@@ -39,6 +39,7 @@ import {
 } from "@/components/ui/dialog";
 import { ServiceAgentCard } from "./ServiceAgentCard";
 import React from "react";
+import { useDialogueHistory } from "@/context/DialogueHistoryContext";
 
 // Define a type for service agent data
 interface AgentData {
@@ -68,6 +69,7 @@ export default function AppSidebar() {
   const serviceAgentsButtonRef = React.useRef<HTMLButtonElement>(null);
   // Controls the open state of the profile dropdown menu
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const { history, restoreHistoryEntry } = useDialogueHistory();
 
   // When the Service Agents dialog closes, restore focus to the profile dropdown trigger button
   // This matches the accessibility pattern used for the Text Strings modal in the header
@@ -123,10 +125,15 @@ export default function AppSidebar() {
         {/* History Section */}
         {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1 mt-2">History</div>}
         <div className={collapsed ? 'hidden' : 'flex flex-col gap-1 pl-2 mt-2 mb-2'}>
-          <SidebarNavItem label="Retirement planning" collapsed={collapsed} className="truncate" />
-          <SidebarNavItem label="401k options" collapsed={collapsed} className="truncate" />
-          <SidebarNavItem label="Roth vs Traditional IRA" collapsed={collapsed} className="truncate" />
-          <SidebarNavItem label="IRA contribution limits" collapsed={collapsed} className="truncate" />
+          {[0,1,2,3].map(idx => (
+            <SidebarNavItem
+              key={idx}
+              label={history[idx]?.label || "(empty)"}
+              collapsed={collapsed}
+              className="truncate"
+              onClick={history[idx] ? () => restoreHistoryEntry(idx) : undefined}
+            />
+          ))}
         </div>
         {/* Projects Section */}
         {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1 mt-2">Projects</div>}

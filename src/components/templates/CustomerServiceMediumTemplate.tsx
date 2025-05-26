@@ -1,8 +1,9 @@
 "use client";
 import React from "react";
 import BigTemplate from "./BigTemplate";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import TrackingStepsCard from "../common/TrackingStepsCard";
+import FocusedArticleCard from "../common/FocusedArticleCard";
+import StackedConversationButtonsCardMedium from "../common/StackedConversationButtonsCardMedium";
 
 interface CustomerServiceMediumTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
@@ -21,22 +22,13 @@ const CustomerServiceMediumTemplate: React.FC<CustomerServiceMediumTemplateProps
         <TrackingStepsCard key="tracking-steps" />
       ] },
       { type: "half", cards: [
-        <Card key="track">
-          <CardHeader>
-            <CardTitle>Track Your Card</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>This card will provide tracking options for your debit card.</p>
-          </CardContent>
-        </Card>,
-        <Card key="help">
-          <CardHeader>
-            <CardTitle>Need More Help?</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p>This card will offer escalation options if your card still hasn&apos;t arrived.</p>
-          </CardContent>
-        </Card>
+        <FocusedArticleCard
+          key="article"
+          title="Provider Change: What to Expect With Your New Debit Card"
+          description="Your debit card provider is changing. Learn what this means for your account, how to activate your new card, and what steps to take to ensure uninterrupted access."
+          type="Article"
+        />,
+        <StackedConversationButtonsCardMedium key="questions" />
       ] }
     ]}
   />

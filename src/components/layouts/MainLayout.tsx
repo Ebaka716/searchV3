@@ -3,6 +3,7 @@
 import React, { useRef, useLayoutEffect, useState } from "react";
 import Header from "@/components/header/Header";
 import { SmartSuggestPanel } from "@/components/input/SmartSuggestPanel";
+import { DialogueHistoryProvider } from "@/context/DialogueHistoryContext";
 
 export type MainLayoutProps = {
   headerVariant: "full" | "short";
@@ -33,24 +34,26 @@ export default function MainLayout({
   }, []);
 
   return (
-    <div className="h-screen flex flex-col">
-      <div ref={headerRef} className="fixed top-0 left-0 w-full z-40">
-        <Header 
-          variant={headerVariant} 
-          onLogout={() => {}} 
-          onSmartSuggestOpen={() => setIsSmartSuggestOpen(true)}
+    <DialogueHistoryProvider>
+      <div className="h-screen flex flex-col">
+        <div ref={headerRef} className="fixed top-0 left-0 w-full z-40">
+          <Header 
+            variant={headerVariant} 
+            onLogout={() => {}} 
+            onSmartSuggestOpen={() => setIsSmartSuggestOpen(true)}
+          />
+        </div>
+        <SmartSuggestPanel 
+          isOpen={isSmartSuggestOpen} 
+          onClose={() => setIsSmartSuggestOpen(false)} 
+          top={headerHeight / 2}
         />
+        <div id="maincontentarea" className="flex flex-1 h-full min-h-0" style={{ marginTop: headerHeight }}>{/* dynamic header height */}
+          {leftSidebar}
+          <main className="flex-1 h-full min-h-0 bg-white">{children}</main>
+          {rightSidebar}
+        </div>
       </div>
-      <SmartSuggestPanel 
-        isOpen={isSmartSuggestOpen} 
-        onClose={() => setIsSmartSuggestOpen(false)} 
-        top={headerHeight / 2}
-      />
-      <div id="maincontentarea" className="flex flex-1 h-full min-h-0" style={{ marginTop: headerHeight }}>{/* dynamic header height */}
-        {leftSidebar}
-        <main className="flex-1 h-full min-h-0 bg-white">{children}</main>
-        {rightSidebar}
-      </div>
-    </div>
+    </DialogueHistoryProvider>
   );
 } 

@@ -10,6 +10,7 @@ import CustomerServiceSmallTemplate from "../templates/CustomerServiceSmallTempl
 import CustomerServiceMediumTemplate from "../templates/CustomerServiceMediumTemplate";
 import CustomerServiceLargeTemplate from "../templates/CustomerServiceLargeTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
+import { useDialogueHistory } from "@/context/DialogueHistoryContext";
 
 /**
  * DialogueArea.tsx
@@ -34,7 +35,6 @@ import { findDemoSearchMatch } from "@/data/demoSearches";
 export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: number }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
-  const [dialogue, setDialogue] = useState<{ id: number; type: string; text?: string; query?: string }[]>([]);
   const dialogueIdRef = useRef(1);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastBigTemplateHeaderRef = useRef<HTMLDivElement>(null);
@@ -43,6 +43,17 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
   const hasHandledQueryParamRef = useRef(false);
   const [readyForInput, setReadyForInput] = useState(false);
   const router = useRouter();
+
+  // Use context for dialogue state
+  const { currentDialogue, setCurrentDialogue, addHistoryEntry } = useDialogueHistory();
+  const dialogue = currentDialogue;
+  const setDialogue = setCurrentDialogue;
+
+  // Ref to always have the latest dialogue state
+  const latestDialogueRef = useRef(dialogue);
+  useEffect(() => {
+    latestDialogueRef.current = dialogue;
+  }, [dialogue]);
 
   const getNextDialogueId = () => dialogueIdRef.current++;
 
@@ -59,19 +70,18 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         (match.query.toLowerCase().includes('aapl') ||
           match.aliases.some(alias => alias.toLowerCase().includes('aapl')))
       ) {
-        // Add the correct AAPL template based on size
         const id = getNextDialogueId();
-        setDialogue(prev => [
-          ...prev,
-          { id, type: 'loading' },
-        ]);
+        setDialogue([...dialogue, { id, type: 'loading' }]);
         setTimeout(() => {
-          setDialogue(prev => prev.map(entry =>
+          setDialogue(latestDialogueRef.current.map(entry =>
             entry.id === id
               ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
               : entry
           ));
           setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
         }, 1200);
         hasHandledQueryParamRef.current = true;
         setValue("");
@@ -85,17 +95,17 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
           match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
       ) {
         const id = getNextDialogueId();
-        setDialogue(prev => [
-          ...prev,
-          { id, type: 'loading' },
-        ]);
+        setDialogue([...dialogue, { id, type: 'loading' }]);
         setTimeout(() => {
-          setDialogue(prev => prev.map(entry =>
+          setDialogue(latestDialogueRef.current.map(entry =>
             entry.id === id
               ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
               : entry
           ));
           setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
         }, 1200);
         hasHandledQueryParamRef.current = true;
         setValue("");
@@ -103,17 +113,17 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       }
       // Fallback: add as plain text
       const id = getNextDialogueId();
-      setDialogue(prev => [
-        ...prev,
-        { id, type: 'text', text: trimmed },
-      ]);
+      setDialogue([...dialogue, { id, type: 'text', text: trimmed }]);
       hasHandledQueryParamRef.current = true;
       setValue("");
       setReadyForInput(true);
+      addHistoryEntry(trimmed, [
+        { id, type: 'text', text: trimmed }
+      ]);
     } else if (!query) {
       setReadyForInput(true);
     }
-  }, [searchParams, dialogue.length]);
+  }, [searchParams, dialogue]);
 
   // Reset dialogue and input when the 'reset' query param changes
   useEffect(() => {
@@ -138,16 +148,18 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         match.aliases.some(alias => alias.toLowerCase().includes('aapl')))
     ) {
       const id = getNextDialogueId();
-      setDialogue(prev => [
-        ...prev,
-        { id, type: 'loading' },
-      ]);
+      setDialogue([...dialogue, { id, type: 'loading' }]);
       setTimeout(() => {
-        setDialogue(prev => prev.map(entry =>
+        setDialogue(latestDialogueRef.current.map(entry =>
           entry.id === id
             ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
         ));
+        if (dialogue.length === 0) {
+          addHistoryEntry(trimmed, [
+            { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
+        }
       }, 1200);
       setValue("");
       return;
@@ -160,26 +172,30 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
     ) {
       const id = getNextDialogueId();
-      setDialogue(prev => [
-        ...prev,
-        { id, type: 'loading' },
-      ]);
+      setDialogue([...dialogue, { id, type: 'loading' }]);
       setTimeout(() => {
-        setDialogue(prev => prev.map(entry =>
+        setDialogue(latestDialogueRef.current.map(entry =>
           entry.id === id
             ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
         ));
+        if (dialogue.length === 0) {
+          addHistoryEntry(trimmed, [
+            { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
+        }
       }, 1200);
       setValue("");
       return;
     }
     // Fallback: add as plain text
     const id = getNextDialogueId();
-    setDialogue(prev => [
-      ...prev,
-      { id, type: 'text', text: trimmed },
-    ]);
+    setDialogue([...dialogue, { id, type: 'text', text: trimmed }]);
+    if (dialogue.length === 0) {
+      addHistoryEntry(trimmed, [
+        { id, type: 'text', text: trimmed }
+      ]);
+    }
     setValue("");
   };
 
