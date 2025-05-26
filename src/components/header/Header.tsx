@@ -240,7 +240,7 @@ export function Header({
               </TabsContent>
               <TabsContent value="cs">
                 <div className="space-y-4">
-                  {demoSearches.filter(ds => ds.type === 'question').map((ds, idx) => (
+                  {demoSearches.filter(ds => ds.type === 'question').map(ds => (
                     <div key={ds.query}>
                       <div className="font-semibold mb-1">CS {ds.size.charAt(0).toUpperCase() + ds.size.slice(1)} Template: <span className="font-normal text-zinc-500">{ds.query}</span></div>
                       <ul className="list-disc pl-6">
