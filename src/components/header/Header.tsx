@@ -13,6 +13,8 @@ import {
   DialogTitle,
   DialogDescription,
 } from "@/components/ui/dialog";
+import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
+import { demoSearches } from "@/data/demoSearches";
 
 export type HeaderProps = {
   variant: "full" | "short";
@@ -183,75 +185,74 @@ export function Header({
             <DialogHeader>
               <DialogTitle>Acceptable Strings</DialogTitle>
               <DialogDescription>
-                These are the accepted queries/aliases that will trigger each AAPL template size:
+                These are the accepted queries/aliases that will trigger each template size:
               </DialogDescription>
             </DialogHeader>
-            <div className="space-y-4">
-              <div>
-                <div className="font-semibold">AAPL Large Template:</div>
-                <ul className="list-disc pl-6">
-                  <li>AAPL</li>
-                  <li>aapl</li>
-                  <li>apple</li>
-                  <li>appl</li>
-                  <li>aple</li>
-                  <li>aaple</li>
-                  <li>aappl</li>
-                  <li>appel</li>
-                  <li>applle</li>
-                  <li>aapll</li>
-                  <li>applr</li>
-                  <li>applw</li>
-                  <li>appl3</li>
-                </ul>
-              </div>
-              <div>
-                <div className="font-semibold">AAPL Small Template:</div>
-                <ul className="list-disc pl-6">
-                  <li>My dividends for Apple last month</li>
-                  <li>apple dividends last month</li>
-                  <li>aapl dividends last month</li>
-                  <li>dividends from apple last month</li>
-                  <li>last month apple dividends</li>
-                  <li>last month aapl dividends</li>
-                  <li>show me my apple dividends for last month</li>
-                  <li>show my aapl dividends last month</li>
-                  <li>apple dividend payments last month</li>
-                  <li>aapl dividend history last month</li>
-                  <li>dividends received from apple last month</li>
-                  <li>dividends paid by aapl last month</li>
-                  <li>recent apple dividends</li>
-                  <li>recent aapl dividends</li>
-                  <li>apple dividends june 2024</li>
-                  <li>aapl dividends june 2024</li>
-                  <li>my apple dividend income last month</li>
-                  <li>my aapl dividend income last month</li>
-                </ul>
-              </div>
-              <div>
-                <div className="font-semibold">AAPL Medium Template:</div>
-                <ul className="list-disc pl-6">
-                  <li>apple dividends and earnings</li>
-                  <li>aapl dividends and earnings</li>
-                  <li>dividends & earnings for apple</li>
-                  <li>dividends & earnings for aapl</li>
-                  <li>apple earnings and dividends</li>
-                  <li>aapl earnings and dividends</li>
-                  <li>dividends and earnings apple</li>
-                  <li>dividends and earnings aapl</li>
-                  <li>apple dividends earnings</li>
-                  <li>aapl dividends earnings</li>
-                  <li>show me apple dividends and earnings</li>
-                  <li>show aapl dividends and earnings</li>
-                  <li>apple earnings dividends</li>
-                  <li>aapl earnings dividends</li>
-                  <li>dividends plus earnings apple</li>
-                  <li>dividends plus earnings aapl</li>
-                  <li>dividends earnings june 2024 apple</li>
-                  <li>dividends earnings june 2024 aapl</li>
-                </ul>
-              </div>
-            </div>
+            <Tabs defaultValue="aapl" className="w-full">
+              <TabsList className="mb-4">
+                <TabsTrigger value="aapl">AAPL Templates</TabsTrigger>
+                <TabsTrigger value="cs">CS Templates</TabsTrigger>
+              </TabsList>
+              <TabsContent value="aapl">
+                <div className="space-y-4">
+                  <div>
+                    <div className="font-semibold">AAPL Large Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>AAPL</li>
+                      <li>aapl</li>
+                      <li>apple</li>
+                      <li>appl</li>
+                      <li>aple</li>
+                      <li>aaple</li>
+                      <li>aappl</li>
+                      <li>appel</li>
+                      <li>applle</li>
+                      <li>aapll</li>
+                      <li>applr</li>
+                      <li>applw</li>
+                      <li>appl3</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-semibold">AAPL Medium Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>apple dividends and earnings</li>
+                      <li>aapl dividends and earnings</li>
+                      <li>dividends & earnings for apple</li>
+                      <li>dividends & earnings for aapl</li>
+                      <li>apple earnings and dividends</li>
+                      <li>aapl earnings and dividends</li>
+                      <li>dividends and earnings apple</li>
+                      <li>dividends and earnings aapl</li>
+                      <li>apple dividends earnings</li>
+                      <li>aapl dividends earnings</li>
+                      <li>show me apple dividends and earnings</li>
+                      <li>show aapl dividends and earnings</li>
+                      <li>apple earnings dividends</li>
+                      <li>aapl earnings dividends</li>
+                      <li>dividends plus earnings apple</li>
+                      <li>dividends plus earnings aapl</li>
+                      <li>dividends earnings june 2024 apple</li>
+                      <li>dividends earnings june 2024 aapl</li>
+                    </ul>
+                  </div>
+                </div>
+              </TabsContent>
+              <TabsContent value="cs">
+                <div className="space-y-4">
+                  {demoSearches.filter(ds => ds.type === 'question').map((ds, idx) => (
+                    <div key={ds.query}>
+                      <div className="font-semibold mb-1">CS {ds.size.charAt(0).toUpperCase() + ds.size.slice(1)} Template: <span className="font-normal text-zinc-500">{ds.query}</span></div>
+                      <ul className="list-disc pl-6">
+                        {ds.aliases.map(alias => (
+                          <li key={alias}>{alias}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              </TabsContent>
+            </Tabs>
             <Button variant="outline" onClick={() => setShowTextStrings(false)}>
               Close
             </Button>
