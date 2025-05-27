@@ -13,6 +13,7 @@ import {
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { demoSearches, DemoSearch, ResourceItem, findDemoSearchMatch } from '@/data/demoSearches';
 import { FileText, FileVideo, FileVolume, FileSymlink, X as XIcon } from 'lucide-react';
+import { useRouter } from "next/navigation";
 
 interface SmartSuggestPanelProps {
   isOpen: boolean;
@@ -75,11 +76,41 @@ function findBestPrefixMatchForResources(input: string): DemoSearch | undefined 
 function findExactDemoSearchMatch(input: string): DemoSearch | undefined { ... }
 */
 
+function getSuggestionMatches(input: string): { label: string; value: string; entry: DemoSearch }[] {
+  const normalized = input.trim().toLowerCase();
+  if (!normalized) return [];
+  const matches: { label: string; value: string; entry: DemoSearch }[] = [];
+  for (const entry of demoSearches) {
+    // Exact alias match
+    for (const alias of entry.aliases) {
+      if (alias.toLowerCase() === normalized) {
+        matches.push({ label: alias, value: alias, entry });
+        break;
+      }
+    }
+    // Substring match in alias
+    for (const alias of entry.aliases) {
+      if (alias.toLowerCase().includes(normalized) && !matches.find(m => m.value === alias)) {
+        matches.push({ label: alias, value: alias, entry });
+        if (matches.length >= 5) return matches.slice(0, 5);
+      }
+    }
+    // Substring match in query
+    if (entry.query.toLowerCase().includes(normalized) && !matches.find(m => m.value === entry.query)) {
+      matches.push({ label: entry.query, value: entry.query, entry });
+      if (matches.length >= 5) return matches.slice(0, 5);
+    }
+    if (matches.length >= 5) return matches.slice(0, 5);
+  }
+  return matches.slice(0, 5);
+}
+
 export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSuggestPanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
   const [exactMatchAnswer, setExactMatchAnswer] = useState<React.ReactNode | null>(null);
+  const router = useRouter();
 
   // Custom filter for CMDK
   const customFilter = (itemValue: string, searchValue: string): number => {
@@ -127,6 +158,12 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
     }
   }, [inputValue]);
 
+  // Handler to trigger navigation to search page with query
+  const handleSelectQuery = (query: string) => {
+    router.push(`/search?query=${encodeURIComponent(query)}`);
+    onClose();
+  };
+
   if (!isOpen) {
     return null;
   }
@@ -158,25 +195,28 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
           placeholder="What would you like to know?" 
           value={inputValue} 
           onValueChange={setInputValue} 
+          onKeyDown={e => {
+            if (e.key === 'Enter' && inputValue.trim()) {
+              handleSelectQuery(inputValue.trim());
+            }
+          }}
         />
         {inputValue && (() => {
+          const suggestionMatches = getSuggestionMatches(inputValue);
           const matchingSearches = findAllMatchingDemoSearches(inputValue);
-
           return (
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <div className="flex min-h-[200px]">
                 <div className="w-3/5 pr-4">
                   <CommandGroup heading="Suggestions">
-                    {matchingSearches.map((search: DemoSearch) => (
-                      <CommandItem 
-                        key={`${search.query}-${search.size}`}
-                        value={search.query} 
-                        onSelect={() => {
-                          setInputValue(search.query);
-                        }}
+                    {suggestionMatches.map((match, idx) => (
+                      <CommandItem
+                        key={match.value + '-' + idx}
+                        value={match.value}
+                        onSelect={() => handleSelectQuery(match.value)}
                       >
-                        {search.query} 
+                        {match.label}
                       </CommandItem>
                     ))}
                   </CommandGroup>

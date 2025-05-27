@@ -145,10 +145,29 @@ export const demoSearches: DemoSearch[] = [
     aliases: [
       "debit card delivery",
       "where is my debit card",
-      "card delivery"
+      "card delivery",
+      "where is my card",
+      "card shipping status",
+      "is my card shipped",
+      "has my card shipped",
+      "when will my card arrive",
+      "debit card tracking",
+      "find my debit card",
+      "delivery status for my card",
+      "card order status",
+      "card in the mail",
+      "card not arrived",
+      "card delayed",
+      "waiting for debit card"
     ],
     type: "question",
     size: "large",
+    resources: [
+      { id: "cs-large-doc-tracking", label: "How to Track Your Debit Card", iconType: "document" },
+      { id: "cs-large-site-support", label: "Debit Card Support Center", iconType: "sitePage", link: "#" },
+      { id: "cs-large-video-delivery", label: "Video: Card Delivery Process", iconType: "video" },
+      { id: "cs-large-podcast-help", label: "Podcast: Solving Card Delivery Issues", iconType: "podcast" }
+    ],
     answer: <DebitCardInfoAnswer />
   },
   {
@@ -170,10 +189,21 @@ export const demoSearches: DemoSearch[] = [
       "card in the mail",
       "card not arrived",
       "card delayed",
-      "waiting for debit card"
+      "waiting for debit card",
+      "debit card late",
+      "my card is late",
+      "card not delivered",
+      "card missing",
+      "card lost"
     ],
     type: "question",
     size: "medium",
+    resources: [
+      { id: "cs-medium-doc-delays", label: "What to Do If Your Card Is Delayed", iconType: "document" },
+      { id: "cs-medium-site-faq", label: "Debit Card Delivery FAQ", iconType: "sitePage", link: "#" },
+      { id: "cs-medium-video-help", label: "Video: Late Card Solutions", iconType: "video" },
+      { id: "cs-medium-podcast-support", label: "Podcast: Customer Support Stories", iconType: "podcast" }
+    ],
     answer: "If your debit card delivery date has passed, please verify your shipping address and check for any delivery notifications. You may also track your card status online or request assistance from our support team.",
   },
   {
@@ -183,10 +213,24 @@ export const demoSearches: DemoSearch[] = [
       "I need help from a person about my debit card",
       "speak to customer service about debit card",
       "speak with rep",
-      "talk to person"
+      "talk to person",
+      "live associate debit card",
+      "customer service debit card",
+      "call support debit card",
+      "contact support debit card",
+      "help with debit card",
+      "debit card help",
+      "debit card issue",
+      "debit card problem"
     ],
     type: "question",
     size: "small",
+    resources: [
+      { id: "cs-small-doc-contact", label: "How to Contact Support", iconType: "document" },
+      { id: "cs-small-site-chat", label: "Live Chat with an Associate", iconType: "sitePage", link: "#" },
+      { id: "cs-small-video-support", label: "Video: Getting Help Fast", iconType: "video" },
+      { id: "cs-small-podcast-customer", label: "Podcast: Customer Service Tips", iconType: "podcast" }
+    ],
     answer: "To speak with a live associate about your debit card delivery, please call our customer service line or use the live chat option below. We're here to help you resolve your issue as quickly as possible.",
   },
 
