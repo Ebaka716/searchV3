@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/command";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { demoSearches, DemoSearch, ResourceItem, findDemoSearchMatch } from '@/data/demoSearches';
-import { FileText, FileVideo, FileVolume, FileSymlink } from 'lucide-react';
+import { FileText, FileVideo, FileVolume, FileSymlink, X as XIcon } from 'lucide-react';
 
 interface SmartSuggestPanelProps {
   isOpen: boolean;
@@ -81,7 +81,16 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
   const [inputValue, setInputValue] = useState("");
   const [exactMatchAnswer, setExactMatchAnswer] = useState<React.ReactNode | null>(null);
 
-  // console.log("Input Value:", inputValue); // Keep for debugging if needed
+  // Custom filter for CMDK
+  const customFilter = (itemValue: string, searchValue: string): number => {
+    if (itemValue.startsWith("resource_item:")) {
+      return 1; // Always show resource items
+    }
+    // Default filtering for other items (e.g., suggestions)
+    // Show if search is not empty and item value includes search value
+    if (!searchValue) return 0; // Don't show anything if search is empty (matches cmdk default for items without alwaysRender)
+    return itemValue.toLowerCase().includes(searchValue.toLowerCase()) ? 1 : 0;
+  };
 
   useEffect(() => {
     if (!isOpen) return;
@@ -133,8 +142,17 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
       style={{ top: `${top}px` }}
       data-testid="smart-suggest-panel"
     >
-      <h3 className="text-lg font-medium mb-4">Search, chat, discover</h3>
-      <Command className="rounded-lg border shadow-sm mb-6">
+      <div className="flex justify-between items-center mb-4">
+        <h3 className="text-lg font-medium">Search, chat, discover</h3>
+        <button 
+          onClick={onClose} 
+          className="p-1 rounded-md hover:bg-gray-100" 
+          aria-label="Close panel"
+        >
+          <XIcon className="h-5 w-5 text-gray-500" />
+        </button>
+      </div>
+      <Command filter={customFilter} className="rounded-lg border shadow-sm mb-6">
         <CommandInput 
           ref={inputRef}
           placeholder="What would you like to know?" 
@@ -155,7 +173,6 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
                         key={`${search.query}-${search.size}`}
                         value={search.query} 
                         onSelect={() => {
-                          console.log("Selected Suggestion:", search.query);
                           setInputValue(search.query);
                         }}
                       >
@@ -183,7 +200,11 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
                           else if (resource.iconType === 'podcast') Icon = FileVolume;
                           else if (resource.iconType === 'sitePage') Icon = FileSymlink;
                           return (
-                            <CommandItem key={resource.id} onSelect={() => console.log('Selected Resource:', resource.label)}>
+                            <CommandItem 
+                              key={resource.id} 
+                              value={`resource_item:${resource.id}`}
+                              onSelect={() => console.log('Selected Resource:', resource.label)}
+                            >
                               <Icon className="mr-2 h-4 w-4" />
                               <span>{resource.label}</span>
                             </CommandItem>
@@ -195,7 +216,7 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
                     })()}
                   </CommandGroup>
                 </div>
-                <div className="w-2/5 pl-4">
+                <div className="w-2/5 pl-4 pt-4">
                   {exactMatchAnswer}
                 </div>
               </div>
