@@ -10,7 +10,7 @@ import {
 
 const AppleTickerInfoAnswer = () => {
   return (
-    <div className="p-3 border rounded-lg bg-white h-full flex flex-col text-xs font-sans">
+    <div className="h-full flex flex-col text-xs font-sans">
       {/* Header */}
       <div className="text-gray-500 text-[10px] mb-1">
         NasdaqGS - Nasdaq Real Time Price - USD
