@@ -73,11 +73,12 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         const id = getNextDialogueId();
         setDialogue([...dialogue, { id, type: 'loading' }]);
         setTimeout(() => {
-          setDialogue(latestDialogueRef.current.map(entry =>
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
             entry.id === id
               ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
               : entry
-          ));
+          );
+          setDialogue(updatedDialogue);
           setReadyForInput(true);
           addHistoryEntry(trimmed, [
             { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
@@ -97,11 +98,12 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         const id = getNextDialogueId();
         setDialogue([...dialogue, { id, type: 'loading' }]);
         setTimeout(() => {
-          setDialogue(latestDialogueRef.current.map(entry =>
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
             entry.id === id
               ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
               : entry
-          ));
+          );
+          setDialogue(updatedDialogue);
           setReadyForInput(true);
           addHistoryEntry(trimmed, [
             { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
@@ -125,9 +127,8 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
     }
   }, [searchParams, dialogue, addHistoryEntry, setDialogue, getNextDialogueId]);
 
-  const resetParamValue = searchParams.get("reset");
-
   // Reset dialogue and input when the 'reset' query param changes
+  const resetParamValue = searchParams.get("reset");
   useEffect(() => {
     if (resetParamValue) {
       setDialogue([]);
@@ -142,8 +143,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
     const trimmed = (inputValue ?? value).trim();
     if (!trimmed) return;
     const match = findDemoSearchMatch(trimmed);
-    
-    const currentDialogueSnapshot = latestDialogueRef.current; // Snapshot for initial add and history check
+    const currentDialogueSnapshot = latestDialogueRef.current;
     const shouldAddHistory = currentDialogueSnapshot.filter(e => e.type !== 'loading').length === 0;
 
     if (
@@ -155,9 +155,9 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       const id = getNextDialogueId();
       setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
       setTimeout(() => {
-        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) => 
-          entry.id === id 
-            ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed } 
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+          entry.id === id
+            ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
         );
         setDialogue(updatedDialogue);
@@ -180,9 +180,9 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       const id = getNextDialogueId();
       setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
       setTimeout(() => {
-        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) => 
-          entry.id === id 
-            ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed } 
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+          entry.id === id
+            ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
         );
         setDialogue(updatedDialogue);

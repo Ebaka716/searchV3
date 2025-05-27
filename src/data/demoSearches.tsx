@@ -40,6 +40,7 @@ import AppleClosingPriceAnswer from '@/components/answers/AppleClosingPriceAnswe
 import RmdInfoAnswer from '@/components/answers/RmdInfoAnswer';
 import DebitCardInfoAnswer from '@/components/answers/DebitCardInfoAnswer';
 import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
+import AppleTickerInfoAnswer from '@/components/answers/AppleTickerInfoAnswer';
 
 export const demoSearches: DemoSearch[] = [
   // Ticker: Apple/AAPL
@@ -71,7 +72,7 @@ export const demoSearches: DemoSearch[] = [
       { id: "aapl-large-vid-services", label: "Video: Stock ideas for 2025", iconType: "video" },
       { id: "aapl-large-site-ir", label: "Trading FAQs: Getting started", iconType: "sitePage", link: "#" }
     ],
-    answer: <AppleClosingPriceAnswer />
+    answer: <AppleTickerInfoAnswer />
   },
   // Ticker: AAPL Confidence medium
   {
