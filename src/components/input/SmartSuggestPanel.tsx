@@ -11,7 +11,7 @@ import {
   CommandItem 
 } from "@/components/ui/command";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
-import { demoSearches, DemoSearch, ResourceItem } from '@/data/demoSearches';
+import { demoSearches, DemoSearch, ResourceItem, findDemoSearchMatch } from '@/data/demoSearches';
 import { FileText, FileVideo, FileVolume, FileSymlink } from 'lucide-react';
 
 interface SmartSuggestPanelProps {
@@ -77,7 +77,9 @@ function findExactDemoSearchMatch(input: string): DemoSearch | undefined { ... }
 
 export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSuggestPanelProps) {
   const panelRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
   const [inputValue, setInputValue] = useState("");
+  const [exactMatchAnswer, setExactMatchAnswer] = useState<React.ReactNode | null>(null);
 
   // console.log("Input Value:", inputValue); // Keep for debugging if needed
 
@@ -97,8 +99,24 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
   useEffect(() => {
     if (!isOpen) {
       setInputValue("");
+      setExactMatchAnswer(null);
+    } else {
+      inputRef.current?.focus();
     }
   }, [isOpen]);
+
+  useEffect(() => {
+    if (inputValue) {
+      const match = findDemoSearchMatch(inputValue);
+      if (match && typeof match.answer !== 'string') {
+        setExactMatchAnswer(match.answer);
+      } else {
+        setExactMatchAnswer(null);
+      }
+    } else {
+      setExactMatchAnswer(null);
+    }
+  }, [inputValue]);
 
   if (!isOpen) {
     return null;
@@ -118,6 +136,7 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
       <h3 className="text-lg font-medium mb-4">Search, chat, discover</h3>
       <Command className="rounded-lg border shadow-sm mb-6">
         <CommandInput 
+          ref={inputRef}
           placeholder="What would you like to know?" 
           value={inputValue} 
           onValueChange={setInputValue} 
@@ -129,7 +148,7 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
             <CommandList>
               <CommandEmpty>No results found.</CommandEmpty>
               <div className="flex min-h-[200px]">
-                <div className="w-3/5 pr-4 border-r">
+                <div className="w-3/5 pr-4">
                   <CommandGroup heading="Suggestions">
                     {matchingSearches.map((search: DemoSearch) => (
                       <CommandItem 
@@ -177,9 +196,7 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
                   </CommandGroup>
                 </div>
                 <div className="w-2/5 pl-4">
-                  {/* Answer content will go here. For now, a placeholder. */}
-                  {/* This div ensures the space is reserved. Content might be conditional. */}
-                  {/* <p className="text-sm text-muted-foreground">Answer will appear here.</p> */}
+                  {exactMatchAnswer}
                 </div>
               </div>
             </CommandList>

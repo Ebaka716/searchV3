@@ -1,5 +1,6 @@
+import React from 'react';
 /**
- * demoSearches.ts
+ * demoSearches.tsx
  *
  * This file defines the array of demo search templates used throughout the conversational search app.
  *
@@ -31,22 +32,28 @@ export type DemoSearch = {
   type: 'ticker' | 'term' | 'question';
   size: 'small' | 'medium' | 'large';
   resources?: ResourceItem[];
-  answer: string;
+  answer: string | React.ReactNode;
 };
+
+// Import the new answer components
+import AppleClosingPriceAnswer from '@/components/answers/AppleClosingPriceAnswer';
+import RmdInfoAnswer from '@/components/answers/RmdInfoAnswer';
+import DebitCardInfoAnswer from '@/components/answers/DebitCardInfoAnswer';
+import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
 
 export const demoSearches: DemoSearch[] = [
   // Ticker: Apple/AAPL
   // Ticker: AAPL Confidence high
   {
     query: "What was Apple's closing price last year?",
-    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year", "what"],
+    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year", "closing price"],
     type: "ticker",
     size: "small",
     resources: [
       { id: "aapl-small-doc1", label: "Understanding Stock Prices", iconType: "document" },
       { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "#" }
     ],
-    answer: "Apple's closing price last year was $157.65. See resources for more details."
+    answer: <AppleClosingPriceAnswer />
   },
   // Ticker: AAPL Confidence low
   {
@@ -64,11 +71,11 @@ export const demoSearches: DemoSearch[] = [
       { id: "aapl-large-vid-services", label: "Video: Stock ideas for 2025", iconType: "video" },
       { id: "aapl-large-site-ir", label: "Trading FAQs: Getting started", iconType: "sitePage", link: "#" }
     ],
-    answer: "Apple Inc. (AAPL) closed at $157.65 on December 31st last year. This reflects a strong year for the company, driven by robust iPhone sales and growth in services."
+    answer: <AppleClosingPriceAnswer />
   },
   // Ticker: AAPL Confidence medium
   {
-    query: "Apple stock price",
+    query: "Apple dividends",
     aliases: [
       "apple dividends and earnings",
       "aapl dividends and earnings",
@@ -97,7 +104,7 @@ export const demoSearches: DemoSearch[] = [
       { id: "aapl-medium-site-news", label: "Latest Apple News", iconType: "sitePage", link: "#" },
       { id: "aapl-medium-video-earnings", label: "Earnings Call Highlights", iconType: "video" }
     ],
-    answer: "Apple Inc. (AAPL) is currently trading at $175.23, up 1.2% today. The company remains a leader in consumer electronics and services."
+    answer: <AppleDividendsAnswer />
   },
 
   // Term: RMD
@@ -110,7 +117,7 @@ export const demoSearches: DemoSearch[] = [
       { id: "rmd-small-doc-irs", label: "IRS Publication 590-B", iconType: "document" },
       { id: "rmd-small-site-faq", label: "RMD FAQs", iconType: "sitePage" }
     ],
-    answer: "RMD stands for Required Minimum Distribution, a mandatory withdrawal from retirement accounts."
+    answer: <RmdInfoAnswer />
   },
   {
     query: "What is an RMD",
@@ -141,7 +148,7 @@ export const demoSearches: DemoSearch[] = [
     ],
     type: "question",
     size: "large",
-    answer: "Debit cards are typically delivered within 7-10 business days after approval. If you recently requested a new card, you can check your delivery status in your account dashboard or contact support for more information.",
+    answer: <DebitCardInfoAnswer />
   },
   {
     query: "my debit card delivery is late",
