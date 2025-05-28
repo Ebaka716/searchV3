@@ -62,9 +62,38 @@ export const demoSearches: DemoSearch[] = [
     answer: <AppleTickerInfoAnswer />
   },
 
-
-
-
+  // Ticker: AAPL Small - My dividends for Apple last month
+  {
+    query: "My dividends for Apple last month",
+    aliases: [
+      "my dividends for apple last month",
+      "apple dividends last month",
+      "aapl dividends last month",
+      "dividends from apple last month",
+      "last month apple dividends",
+      "last month aapl dividends",
+      "show me my apple dividends for last month",
+      "show my aapl dividends last month",
+      "apple dividend payments last month",
+      "aapl dividend history last month",
+      "dividends received from apple last month",
+      "dividends paid by aapl last month",
+      "recent apple dividends",
+      "recent aapl dividends",
+      "apple dividends june 2024",
+      "aapl dividends june 2024",
+      "my apple dividend income last month",
+      "my aapl dividend income last month"
+    ],
+    type: "ticker",
+    size: "small",
+    resources: [
+      { id: "aapl-small-resource-1", label: "Apple Dividend History", iconType: "document", link: "#" },
+      { id: "aapl-small-resource-2", label: "Dividend Statements", iconType: "document", link: "#" },
+      { id: "aapl-small-resource-3", label: "How Dividends Work", iconType: "sitePage", link: "#" }
+    ],
+    answer: <AppleDividendsAnswer />
+  },
 
   // Ticker: AAPL Confidence high
   {
