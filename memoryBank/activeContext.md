@@ -104,3 +104,10 @@ The Smart Suggest Panel is an interactive, context-aware suggestion panel that a
 - All code is modular, documented, and ready for further extension.
 
 ---
+
+## [2024-06-XX] AAPL Template Flow & Notification Bar Improvements
+- **AAPL Template Flow:** The AAPL templates now guide users through a staged flow (large → medium → small) using blue notification bars that suggest the next query/alias to try, improving discoverability and UX.
+- **Blue Notification Bar:** The blue bar at the bottom of the medium template now matches the style of the DebitCardOverviewCard, using a Lucide Info icon for visual consistency and clarity.
+- **Smart Suggest Small Template:** The small AAPL template for "my dividends for apple last month" has been restored and expanded with comprehensive aliases and placeholder resources, ensuring robust matching and guidance for users seeking recent dividend info.
+- **Acceptable Strings Modal:** The AAPL small template aliases are now included in the Acceptable Strings modal for easy reference and QA.
+- **Merge & Memory Hygiene:** All recent changes from dev have been merged into main, and the memory bank is fully up to date with the latest system patterns, flows, and documentation.

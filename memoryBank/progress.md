@@ -85,6 +85,12 @@ _This document tracks what works, what's left to build, current status, known is
 - Result: After the fix, both AAPL and CS templates scroll the header and preamble into perfect view, just below the fixed main page header. The user experience is now consistent and robust for all template types.
 - Other: Merged dev and main branches, resolved all merge conflicts, and pushed all changes to remote. Installed missing dependencies (e.g., `cmdk`).
 
+## [2024-06-XX] AAPL Template Flow, Notification Bar, and Memory Bank Updates
+- Enhanced the AAPL template flow to guide users through large → medium → small queries using blue notification bars with Lucide Info icons.
+- Restored and expanded the AAPL small template for recent dividends, with comprehensive aliases and resources.
+- Updated Acceptable Strings modal to include all small template aliases for QA and discoverability.
+- Ensured all changes from dev are merged into main and memory bank is fully up to date.
+
 ---
 
 > See also: [src/docs/SMART_SUGGEST_PANEL.md] for comprehensive technical and UX documentation of the Smart Suggest Panel feature.
