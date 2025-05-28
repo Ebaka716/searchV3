@@ -141,12 +141,49 @@ const CustomerServiceSmallTemplate: React.FC<CustomerServiceSmallTemplateProps> 
             </div>
           </CardContent>
         </Card>,
-        <Card key="phone">
+        <Card key="phone" className="h-full flex flex-col">
           <CardHeader>
-            <CardTitle>Call Us</CardTitle>
+            <CardTitle>Recent Account Activity</CardTitle>
           </CardHeader>
-          <CardContent>
-            <p>This card will display the customer service phone number and hours.</p>
+          <CardContent className="flex-1 flex flex-col justify-between">
+            <div className="space-y-4">
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span className="font-medium">Recent Stock Trade</span>
+                  <span className="text-xs text-muted-foreground">Bought 10 shares of AAPL on 06/24</span>
+                </div>
+                <Button variant="outline" size="sm">Get Help</Button>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span className="font-medium">IRA Contribution</span>
+                  <span className="text-xs text-muted-foreground">$2,000 contributed to IRA on 06/22</span>
+                </div>
+                <Button variant="outline" size="sm">Get Help</Button>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span className="font-medium">Wire Transfer Sent</span>
+                  <span className="text-xs text-muted-foreground">$8,500 sent to external account on 06/20</span>
+                </div>
+                <Button variant="outline" size="sm">Get Help</Button>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span className="font-medium">401(k) Rollover</span>
+                  <span className="text-xs text-muted-foreground">Rollover initiated on 06/19</span>
+                </div>
+                <Button variant="outline" size="sm">Get Help</Button>
+              </div>
+              <div className="flex items-center justify-between">
+                <div className="flex flex-col">
+                  <span className="font-medium">Large Deposit Received</span>
+                  <span className="text-xs text-muted-foreground">$15,000 deposited on 06/18</span>
+                </div>
+                <Button variant="outline" size="sm">Get Help</Button>
+              </div>
+            </div>
+            <div className="pt-2" /> {/* Spacer to help match height visually */}
           </CardContent>
         </Card>
       ] }

@@ -49,7 +49,14 @@ const TrackingStepsCard: React.FC = () => (
       </ul>
       <div className="flex gap-2 mt-6 justify-end w-full">
         <Button variant="outline">Sign up for notifications</Button>
-        <Button variant="default">Contact support</Button>
+        <Button 
+          variant="default"
+          onClick={() => window.dispatchEvent(
+            new CustomEvent('add-to-floating-input', { detail: { value: "contact support" } })
+          )}
+        >
+          Contact support
+        </Button>
       </div>
     </CardContent>
   </Card>

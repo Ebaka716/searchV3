@@ -263,7 +263,8 @@ export const demoSearches: DemoSearch[] = [
       "help with debit card",
       "debit card help",
       "debit card issue",
-      "debit card problem"
+      "debit card problem",
+      "contact support"
     ],
     type: "question",
     size: "small",
