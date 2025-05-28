@@ -12,7 +12,7 @@ import {
 } from "@/components/ui/command";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 import { demoSearches, DemoSearch, ResourceItem, findDemoSearchMatch } from '@/data/demoSearches';
-import { FileText, FileVideo, FileVolume, FileSymlink, X as XIcon } from 'lucide-react';
+import { FileText, FileVideo, FileVolume, FileSymlink, X as XIcon, Lightbulb, Info } from 'lucide-react';
 import { useRouter } from "next/navigation";
 
 interface SmartSuggestPanelProps {
@@ -29,15 +29,10 @@ interface DefaultCardItem {
 interface DefaultCardData {
   title: string;
   items: DefaultCardItem[];
+  type?: 'default' | 'notices'; // Added to distinguish card types
 }
 
 const defaultPanelCards: DefaultCardData[] = [
-  {
-    title: "Popular quotes",
-    items: [
-      { label: "NVDA" }, { label: "LCID" }, { label: "LLY" }, { label: "AMZN" }, { label: "PG" },
-    ],
-  },
   {
     title: "Popular searches",
     items: [
@@ -47,6 +42,7 @@ const defaultPanelCards: DefaultCardData[] = [
       { label: "Transfer assets to [Brokerage]" },
       { label: "Research stocks" },
     ],
+    type: 'default',
   },
   {
     title: "Recent searches",
@@ -57,6 +53,16 @@ const defaultPanelCards: DefaultCardData[] = [
       { label: "Can I trade options in my IRA?" },
       { label: "Where can I find tax documents?" },
     ],
+    type: 'default',
+  },
+  {
+    title: "Notices",
+    items: [
+      // Placeholder items, will be replaced by custom rendering logic
+      { label: "Did you know? (2)" }, 
+      { label: "Insights (5)" }
+    ],
+    type: 'notices', // Special type for the new card
   },
 ];
 
@@ -273,13 +279,48 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
                 <CardTitle className="text-base font-semibold">{cardData.title}</CardTitle>
               </CardHeader>
               <CardContent className="px-4 pb-4">
-                <ul className="space-y-1">
-                  {cardData.items.map((item) => (
-                    <li key={item.label} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">
-                      {item.label}
-                    </li>
-                  ))}
-                </ul>
+                {cardData.type === 'notices' ? (
+                  // Custom rendering for Notices card
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between p-3 border rounded-md bg-blue-50 border-blue-200">
+                      <div className="flex items-center">
+                        <div className="mr-3 flex-shrink-0">
+                          <div className="bg-blue-700 rounded-full p-1.5">
+                            <Lightbulb className="h-4 w-4 text-white" />
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-sm text-blue-700">Did you know?</h4>
+                          <p className="text-xs text-blue-600">Helpful features to get the most from your assistant.</p>
+                        </div>
+                      </div>
+                      <span className="text-xl font-bold text-blue-700">2</span>
+                    </div>
+                    <div className="flex items-center justify-between p-3 border rounded-md bg-orange-50 border-orange-200">
+                      <div className="flex items-center">
+                        <div className="mr-3 flex-shrink-0">
+                          <div className="bg-orange-700 rounded-full p-1.5">
+                            <Info className="h-4 w-4 text-white" />
+                          </div>
+                        </div>
+                        <div>
+                          <h4 className="font-semibold text-sm text-orange-700">Insights</h4>
+                          <p className="text-xs text-orange-600">Summaries and trends from your account activities.</p>
+                        </div>
+                      </div>
+                      <span className="text-xl font-bold text-orange-700">5</span>
+                    </div>
+                  </div>
+                ) : (
+                  // Default rendering for other cards
+                  <ul className="space-y-1">
+                    {cardData.items.map((item) => (
+                      <li key={item.label} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">
+                        {item.label}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </CardContent>
             </Card>
           ))}

@@ -16,6 +16,9 @@ This file defines the array of demo search templates used throughout the convers
 - Add new templates by extending the array and providing appropriate `query`, `aliases`, `type`, `size`, and `answer` fields.
 - Update the matching logic in `findDemoSearchMatch` if new matching rules are needed.
 
+## SmartSuggest logic for displaying Suggestions, Resources and Answers
+- Resources count should go from max to min the more characters entered. Max is all, Min is 3.
+
 ## See Also
 - `src/components/dialogue/DialogueArea.tsx`
 - `src/components/input/EnhancedInput.tsx`
