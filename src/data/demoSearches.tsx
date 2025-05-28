@@ -43,19 +43,6 @@ import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
 import AppleTickerInfoAnswer from '@/components/answers/AppleTickerInfoAnswer';
 
 export const demoSearches: DemoSearch[] = [
-  // Ticker: Apple/AAPL
-  // Ticker: AAPL Confidence high
-  {
-    query: "What was Apple's closing price last year?",
-    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year", "closing price"],
-    type: "ticker",
-    size: "small",
-    resources: [
-      { id: "aapl-small-doc1", label: "Understanding Stock Prices", iconType: "document" },
-      { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "#" }
-    ],
-    answer: <AppleClosingPriceAnswer />
-  },
   // Ticker: AAPL Confidence low
   {
     query: "AAPL",
@@ -74,6 +61,54 @@ export const demoSearches: DemoSearch[] = [
     ],
     answer: <AppleTickerInfoAnswer />
   },
+
+  // Ticker: AAPL Small - My dividends for Apple last month
+  {
+    query: "My dividends for Apple last month",
+    aliases: [
+      "my dividends from last month",
+      "my dividends for apple last month",
+      "apple dividends last month",
+      "aapl dividends last month",
+      "dividends from apple last month",
+      "last month apple dividends",
+      "last month aapl dividends",
+      "show me my apple dividends for last month",
+      "show my aapl dividends last month",
+      "apple dividend payments last month",
+      "aapl dividend history last month",
+      "dividends received from apple last month",
+      "dividends paid by aapl last month",
+      "recent apple dividends",
+      "recent aapl dividends",
+      "apple dividends june 2024",
+      "aapl dividends june 2024",
+      "my apple dividend income last month",
+      "my aapl dividend income last month"
+    ],
+    type: "ticker",
+    size: "small",
+    resources: [
+      { id: "aapl-small-resource-1", label: "Apple Dividend History", iconType: "document", link: "#" },
+      { id: "aapl-small-resource-2", label: "Dividend Statements", iconType: "document", link: "#" },
+      { id: "aapl-small-resource-3", label: "How Dividends Work", iconType: "sitePage", link: "#" }
+    ],
+    answer: <AppleDividendsAnswer />
+  },
+
+  // Ticker: AAPL Confidence high
+  {
+    query: "What was Apple's closing price last year?",
+    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year", "closing price"],
+    type: "ticker",
+    size: "small",
+    resources: [
+      { id: "aapl-small-doc1", label: "Understanding Stock Prices", iconType: "document" },
+      { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "#" }
+    ],
+    answer: <AppleClosingPriceAnswer />
+  },
+ 
   // Ticker: AAPL Confidence medium
   {
     query: "Apple dividends",

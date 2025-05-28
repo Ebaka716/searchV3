@@ -46,6 +46,10 @@ const AppleDividendsAnswer = () => {
         <StrengthBar label="AAPL" percentage="0.53%" color="bg-blue-500" />
         <StrengthBar label="Market Median" percentage="3.01%" color="bg-gray-400" marketMedian />
       </div>
+
+      <div className="mt-4 bg-blue-100 border-l-4 border-blue-500 text-blue-900 p-3 rounded">
+        <span className="font-medium">Want to see your recent dividend payments?</span> Try asking: <span className="font-mono bg-blue-200 px-1 py-0.5 rounded">my dividends for apple last month</span>
+      </div>
     </div>
   );
 };
