@@ -1,5 +1,5 @@
 "use client";
-import React, { useRef, useState, useEffect } from "react";
+import React, { useRef, useState, useEffect, useCallback } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
 import { EnhancedInput } from "@/components/input/EnhancedInput";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
@@ -10,6 +10,7 @@ import CustomerServiceSmallTemplate from "../templates/CustomerServiceSmallTempl
 import CustomerServiceMediumTemplate from "../templates/CustomerServiceMediumTemplate";
 import CustomerServiceLargeTemplate from "../templates/CustomerServiceLargeTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
+import { useDialogueHistory, DialogueEntry } from "@/context/DialogueHistoryContext";
 
 /**
  * DialogueArea.tsx
@@ -34,7 +35,6 @@ import { findDemoSearchMatch } from "@/data/demoSearches";
 export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: number }) {
   const [value, setValue] = useState("");
   const [mode, setMode] = useState<'search' | 'research'>("search");
-  const [dialogue, setDialogue] = useState<{ id: number; type: string; text?: string; query?: string }[]>([]);
   const dialogueIdRef = useRef(1);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastBigTemplateHeaderRef = useRef<HTMLDivElement>(null);
@@ -44,7 +44,18 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
   const [readyForInput, setReadyForInput] = useState(false);
   const router = useRouter();
 
-  const getNextDialogueId = () => dialogueIdRef.current++;
+  // Use context for dialogue state
+  const { currentDialogue, setCurrentDialogue, addHistoryEntry } = useDialogueHistory();
+  const dialogue = currentDialogue;
+  const setDialogue = setCurrentDialogue;
+
+  // Ref to always have the latest dialogue state
+  const latestDialogueRef = useRef(dialogue);
+  useEffect(() => {
+    latestDialogueRef.current = dialogue;
+  }, [dialogue]);
+
+  const getNextDialogueId = useCallback(() => dialogueIdRef.current++, []);
 
   // On mount or when query param changes, trigger template if query is present and dialogue is empty
   useEffect(() => {
@@ -59,19 +70,19 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         (match.query.toLowerCase().includes('aapl') ||
           match.aliases.some(alias => alias.toLowerCase().includes('aapl')))
       ) {
-        // Add the correct AAPL template based on size
         const id = getNextDialogueId();
-        setDialogue(prev => [
-          ...prev,
-          { id, type: 'loading' },
-        ]);
+        setDialogue([...dialogue, { id, type: 'loading' }]);
         setTimeout(() => {
-          setDialogue(prev => prev.map(entry =>
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
             entry.id === id
               ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
               : entry
-          ));
+          );
+          setDialogue(updatedDialogue);
           setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
         }, 1200);
         hasHandledQueryParamRef.current = true;
         setValue("");
@@ -85,17 +96,18 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
           match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
       ) {
         const id = getNextDialogueId();
-        setDialogue(prev => [
-          ...prev,
-          { id, type: 'loading' },
-        ]);
+        setDialogue([...dialogue, { id, type: 'loading' }]);
         setTimeout(() => {
-          setDialogue(prev => prev.map(entry =>
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
             entry.id === id
               ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
               : entry
-          ));
+          );
+          setDialogue(updatedDialogue);
           setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
         }, 1200);
         hasHandledQueryParamRef.current = true;
         setValue("");
@@ -103,34 +115,37 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
       }
       // Fallback: add as plain text
       const id = getNextDialogueId();
-      setDialogue(prev => [
-        ...prev,
-        { id, type: 'text', text: trimmed },
-      ]);
+      setDialogue([...dialogue, { id, type: 'text', text: trimmed }]);
       hasHandledQueryParamRef.current = true;
       setValue("");
       setReadyForInput(true);
+      addHistoryEntry(trimmed, [
+        { id, type: 'text', text: trimmed }
+      ]);
     } else if (!query) {
       setReadyForInput(true);
     }
-  }, [searchParams, dialogue.length]);
+  }, [searchParams, dialogue, addHistoryEntry, setDialogue, getNextDialogueId]);
 
   // Reset dialogue and input when the 'reset' query param changes
+  const resetParamValue = searchParams.get("reset");
   useEffect(() => {
-    const resetParam = searchParams.get("reset");
-    if (resetParam) {
+    if (resetParamValue) {
       setDialogue([]);
       setValue("");
       setReadyForInput(true);
       hasHandledQueryParamRef.current = false; // allow query param logic to run again if needed
     }
-  }, [searchParams.get("reset")]);
+  }, [resetParamValue, setDialogue]);
 
   // Handle EnhancedInput send (only user input, never pre-filled)
-  const handleSend = (inputValue?: string) => {
+  const handleSend = useCallback((inputValue?: string) => {
     const trimmed = (inputValue ?? value).trim();
     if (!trimmed) return;
     const match = findDemoSearchMatch(trimmed);
+    const currentDialogueSnapshot = latestDialogueRef.current;
+    const shouldAddHistory = currentDialogueSnapshot.filter(e => e.type !== 'loading').length === 0;
+
     if (
       match &&
       match.type === 'ticker' &&
@@ -138,16 +153,19 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         match.aliases.some(alias => alias.toLowerCase().includes('aapl')))
     ) {
       const id = getNextDialogueId();
-      setDialogue(prev => [
-        ...prev,
-        { id, type: 'loading' },
-      ]);
+      setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
       setTimeout(() => {
-        setDialogue(prev => prev.map(entry =>
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
           entry.id === id
             ? { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
-        ));
+        );
+        setDialogue(updatedDialogue);
+        if (shouldAddHistory) {
+          addHistoryEntry(trimmed, [
+            { id, type: `__AAPL_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
+        }
       }, 1200);
       setValue("");
       return;
@@ -160,28 +178,33 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
         match.aliases.some(alias => alias.toLowerCase().includes('debit card')))
     ) {
       const id = getNextDialogueId();
-      setDialogue(prev => [
-        ...prev,
-        { id, type: 'loading' },
-      ]);
+      setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
       setTimeout(() => {
-        setDialogue(prev => prev.map(entry =>
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
           entry.id === id
             ? { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
             : entry
-        ));
+        );
+        setDialogue(updatedDialogue);
+        if (shouldAddHistory) {
+          addHistoryEntry(trimmed, [
+            { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
+        }
       }, 1200);
       setValue("");
       return;
     }
     // Fallback: add as plain text
     const id = getNextDialogueId();
-    setDialogue(prev => [
-      ...prev,
-      { id, type: 'text', text: trimmed },
-    ]);
+    setDialogue([...currentDialogueSnapshot, { id, type: 'text', text: trimmed }]);
+    if (shouldAddHistory) {
+      addHistoryEntry(trimmed, [
+        { id, type: 'text', text: trimmed }
+      ]);
+    }
     setValue("");
-  };
+  }, [value, getNextDialogueId, setDialogue, latestDialogueRef, addHistoryEntry]);
 
   // Scroll behavior for chat/results area
   useEffect(() => {

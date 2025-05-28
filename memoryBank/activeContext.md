@@ -67,9 +67,40 @@ _This document tracks the current work focus, recent changes, next steps, and im
 - **UI/UX Improvements:** Refined card layouts, button alignment, headings, and callouts for clarity and accessibility. All new cards use shadcn/ui primitives.
 - **Documentation:** Added comprehensive docs for TrackingStepsCard and DebitCardOverviewCard in /docs.
 
+## [2024-06-XX] FocusedArticleCard (Article Card) Added
+- **FocusedArticleCard:** Created a new modular card component for highlighting articles, styled to match modern financial UX patterns. Features a large icon (or image), bold title, description, and article type label. The title underlines on card hover, and the card elevates for interactivity.
+- **Integration:** Used as the left card in the second row of the CustomerServiceMediumTemplate. Designed for reuse in other templates or contexts where a focused article highlight is needed.
+- **Docs:** See `/src/components/common/FocusedArticleCard.tsx` and new documentation in `/src/docs/FOCUSED_ARTICLE_CARD.md` for usage and props.
+
 ---
 
 ## Next Steps
 - Further refine card content and interactivity based on user feedback.
 - Continue modularizing and documenting new card components.
-- Expand dynamic data support for delivery status and user info. 
+- Expand dynamic data support for delivery status and user info.
+
+# Smart Suggest Panel – Feature Overview & Status
+
+## What is the Smart Suggest Panel?
+The Smart Suggest Panel is an interactive, context-aware suggestion panel that appears when the user focuses on the main search input (HeaderInput) or clicks the search icon. It is designed to:
+- Provide instant, relevant suggestions based on user input
+- Display a default state with popular/recent searches and quotes before typing
+- Dynamically update to show three content zones (Answer, Wayfinding, Conversation) as the user types, adapting to input type and length
+- Support rapid prototyping of conversational search flows, with logic driven by demo search scenarios and intent detection
+
+## Logic & Implementation
+- **Default State:** Shows three cards (Popular Quotes, Popular Searches, Recent Searches) in a single row, using static data for now.
+- **Active State:** As the user types, the panel uses matching logic (see `findAllMatchingDemoSearches`, `getSuggestionMatches`) to:
+  - Suggest queries and aliases from the demo search array
+  - Show resource links and contextually relevant actions
+  - Display an "exact match" answer if the input matches a known scenario
+- **Content Zones:** The panel is designed to eventually support three distinct content zones (Answer, Wayfinding, Conversation), with display rules based on intent (Symbol, Term, Question) and input length (Short, Medium, Long). See `/assets/documents/ss_panel.txt` for detailed rules.
+- **UI/UX:** The panel is full-width, fixed below the header, and uses shadcn/ui primitives for cards, lists, and command menu. It closes on outside click or when a suggestion is selected.
+
+## Current Status
+- The panel is implemented as `SmartSuggestPanel.tsx` and integrated into the main layout and header input.
+- Default and active states are functional, with dynamic suggestions and resource links.
+- The full three-zone logic (Answer, Wayfinding, Conversation) is partially implemented; further refinement is planned to match the detailed rules in `ss_panel.txt`.
+- All code is modular, documented, and ready for further extension.
+
+---

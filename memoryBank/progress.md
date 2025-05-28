@@ -65,6 +65,15 @@ _This document tracks what works, what's left to build, current status, known is
 - Refactored ClassicSearchResultsCard to accept a `query` prop for dynamic headings and a `results` prop for custom result sets. All usages now display the current query in the heading.
 - Compressed EarningsCard table, standardized all action buttons to ConversationButton, and confirmed all builds clean.
 
+## [2024-06-XX] Smart Suggest Panel Implementation
+- Implemented the Smart Suggest Panel as a context-aware, full-width suggestion panel triggered by the main search input (HeaderInput) or search icon.
+- Default state displays three cards: Popular Quotes, Popular Searches, Recent Searches.
+- As the user types, the panel dynamically suggests queries, aliases, and resource links using demo search logic.
+- Panel is modular, uses shadcn/ui primitives, and closes on outside click or selection.
+- Three-zone logic (Answer, Wayfinding, Conversation) is partially implemented; further refinement planned per `ss_panel.txt`.
+- Integrated into MainLayout and HeaderInput for seamless UX.
+- Next: Complete the three-zone logic, refine intent detection, and expand resource/action suggestions.
+
 ## Current Status
 - App builds and deploys cleanly on Vercel.
 - Layout is robust and SSR-safe.
@@ -76,4 +85,6 @@ _This document tracks what works, what's left to build, current status, known is
 - Result: After the fix, both AAPL and CS templates scroll the header and preamble into perfect view, just below the fixed main page header. The user experience is now consistent and robust for all template types.
 - Other: Merged dev and main branches, resolved all merge conflicts, and pushed all changes to remote. Installed missing dependencies (e.g., `cmdk`).
 
---- 
+---
+
+> See also: [src/docs/SMART_SUGGEST_PANEL.md] for comprehensive technical and UX documentation of the Smart Suggest Panel feature.

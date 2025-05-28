@@ -28,4 +28,11 @@ _This document describes the system architecture, key technical decisions, and d
 
 - Research page: right panel (canvas area) is now resizable by dragging from the left, with smooth transition and min/max width. EnhancedInput spacing improved with padding. Layout is more fluid and user-friendly.
 - **DividendsCard Pattern:** DividendsCard is a modular, array-driven card component using shadcn/ui and Recharts for robust, interactive financial/stat displays. It features a stat row with plus-bubble actions, interactive bar/pie/line charts, and a bottom row of ConversationButton actions for conversational UX. This pattern is now the standard for all new financial/stat cards.
+- **Smart Suggest Panel Pattern (2024):**
+  - Modular, context-aware suggestion panel triggered by search input focus or icon click.
+  - Default state shows popular/recent searches and quotes in card layout.
+  - As user types, panel updates with suggestions, resource links, and (planned) three content zones: Answer, Wayfinding, Conversation.
+  - Uses array-driven matching logic for demo search scenarios and intent detection.
+  - Designed for rapid prototyping and extensibility; all UI built with shadcn/ui primitives.
+  - See `/assets/documents/ss_panel.txt` for detailed display rules and logic.
 - (Add your system architecture and design patterns here) 
