@@ -236,6 +236,29 @@ export function Header({
                       <li>dividends earnings june 2024 aapl</li>
                     </ul>
                   </div>
+                  <div>
+                    <div className="font-semibold">AAPL Small Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>my dividends for apple last month</li>
+                      <li>apple dividends last month</li>
+                      <li>aapl dividends last month</li>
+                      <li>dividends from apple last month</li>
+                      <li>last month apple dividends</li>
+                      <li>last month aapl dividends</li>
+                      <li>show me my apple dividends for last month</li>
+                      <li>show my aapl dividends last month</li>
+                      <li>apple dividend payments last month</li>
+                      <li>aapl dividend history last month</li>
+                      <li>dividends received from apple last month</li>
+                      <li>dividends paid by aapl last month</li>
+                      <li>recent apple dividends</li>
+                      <li>recent aapl dividends</li>
+                      <li>apple dividends june 2024</li>
+                      <li>aapl dividends june 2024</li>
+                      <li>my apple dividend income last month</li>
+                      <li>my aapl dividend income last month</li>
+                    </ul>
+                  </div>
                 </div>
               </TabsContent>
               <TabsContent value="cs">
