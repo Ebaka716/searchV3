@@ -2,14 +2,11 @@ import React from 'react';
 
 const RmdInfoAnswer = () => {
   return (
-    <div className="p-4 border rounded-lg bg-gray-50 h-full">
-      <h4 className="font-semibold text-md mb-2">Required Minimum Distribution (RMD) Info</h4>
-      <p className="text-sm text-gray-700">
-        This section would display detailed information about Required Minimum Distributions (RMDs).
-        It could include rules, calculation methods, deadlines, and links to relevant IRS publications.
-      </p>
-      <p className="text-sm text-gray-700 mt-2">
-        For instance, RMDs are generally required from age 73 (or 72 if you reached age 72 before January 1, 2023).
+    <div className="h-full">
+      <h4 className="font-semibold text-md mb-2">Required Minimum Distribution (RMD)</h4>
+      <p className="text-sm text-gray-700 mb-2">
+      A required minimum distribution (RMD) is the minimum amount that must be withdrawn annually from certain tax-deferred retirement accounts, such as traditional IRAs, 401(k)s, and similar employer-sponsored plans, once the account holder reaches age 73.</p> 
+      <p className="text-sm text-gray-700">The purpose of RMDs is to ensure that individuals do not defer paying taxes on their retirement savings indefinitely. The amount of each RMD is calculated by dividing the prior year-end account balance by a life expectancy factor provided by the IRS.
       </p>
       {/* Placeholder for more dynamic content or calculators */}
     </div>

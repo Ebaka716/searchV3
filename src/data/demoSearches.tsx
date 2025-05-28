@@ -38,6 +38,7 @@ export type DemoSearch = {
 // Import the new answer components
 import AppleClosingPriceAnswer from '@/components/answers/AppleClosingPriceAnswer';
 import RmdInfoAnswer from '@/components/answers/RmdInfoAnswer';
+import RmdMyLastYearInfoAnswer from '@/components/answers/RmdMyLastYearInfoAnswer';
 import DebitCardInfoAnswer from '@/components/answers/DebitCardInfoAnswer';
 import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
 import AppleTickerInfoAnswer from '@/components/answers/AppleTickerInfoAnswer';
@@ -161,8 +162,10 @@ export const demoSearches: DemoSearch[] = [
     type: "term",
     size: "medium",
     resources: [
-      { id: "rmd-medium-video-explain", label: "Video: Understanding RMDs", iconType: "video" },
-      { id: "rmd-medium-podcast-details", label: "Podcast: Deep Dive into RMDs", iconType: "podcast" }
+      { id: "rmd-medium-video-explain1", label: "Video: Understanding RMDs", iconType: "video" },
+      { id: "rmd-medium-podcast-podcast1", label: "Podcast: Deep Dive into RMDs", iconType: "podcast" },
+      { id: "rmd-medium-video-explain2", label: "Video: Getting started with RMDs", iconType: "video" },
+      { id: "rmd-medium-podcast-podcast2", label: "Podcast: RMDs for beginners", iconType: "podcast" }
     ],
     answer: "An RMD (Required Minimum Distribution) is the minimum amount you must withdraw from your retirement accounts each year after reaching a certain age."
   },
@@ -171,7 +174,11 @@ export const demoSearches: DemoSearch[] = [
     aliases: ["my rmd last year", "rmd last year amount", "required minimum distribution last year"],
     type: "term",
     size: "large",
-    answer: "Your RMD for last year depends on your account balance and age. Please consult your financial records or advisor for the exact amount.",
+    resources: [
+        { id: "rmd-large-site1", label: "How to calculate your RMD", iconType: "sitePage", link: "#" },
+        { id: "rmd-large-site2", label: "Setting up recurring distributions", iconType: "sitePage", link: "#" }
+      ],
+      answer: <RmdMyLastYearInfoAnswer />
   },
 
   // Customer Service: Debit Card Delivery
