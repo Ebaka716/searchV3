@@ -5,6 +5,7 @@ import DividendsCard from "../common/DividendsCard";
 import EarningsCard from "../common/EarningsCard";
 import ClassicSearchResultsCard from "../common/ClassicSearchResultsCard";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
+import { Info } from "lucide-react";
 
 interface AaplMediumTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
@@ -53,7 +54,7 @@ const AaplMediumTemplate: React.FC<AaplMediumTemplateProps> = ({ headerRef, quer
       { type: "full", cards: [
         <div key="blue-bar" className="w-full mt-2">
           <div className="flex items-center gap-2 mb-4 p-3 rounded-md bg-blue-100 border border-blue-300 text-blue-900">
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01M21 12c0 4.97-4.03-9-9-9s-9-4.03-9-9 4.03-9 9-9 9 4.03 9 9z" /></svg>
+            <Info className="h-5 w-5 text-blue-600" />
             <span className="text-sm font-medium">Want to see your recent dividend payments? Try asking: <span className="font-mono bg-blue-200 px-1 py-0.5 rounded">my dividends for apple last month</span></span>
           </div>
         </div>
