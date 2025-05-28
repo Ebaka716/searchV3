@@ -111,3 +111,9 @@ The Smart Suggest Panel is an interactive, context-aware suggestion panel that a
 - **Smart Suggest Small Template:** The small AAPL template for "my dividends for apple last month" has been restored and expanded with comprehensive aliases and placeholder resources, ensuring robust matching and guidance for users seeking recent dividend info.
 - **Acceptable Strings Modal:** The AAPL small template aliases are now included in the Acceptable Strings modal for easy reference and QA.
 - **Merge & Memory Hygiene:** All recent changes from dev have been merged into main, and the memory bank is fully up to date with the latest system patterns, flows, and documentation.
+
+## [2024-06-XX] Speak with Rep Template, RMD Smart Suggest, and UI Consistency
+- **Customer Service Small Template (Speak with Rep):** Overhauled with a new, user-centric support channel layout. Live Chat is visually dominant and marked as recommended, with context-aware details and a typewriter effect. Other channels (Schedule a Call Back, Email Us) and branch map are included. All action buttons now use shadcn/ui outline or default variants for consistency and accessibility.
+- **Smart Suggest & RMD Matching:** Expanded and improved RMD queries/aliases in `demoSearches.tsx` for better Smart Suggest matching. Logic for intent detection and alias matching is more robust.
+- **UI Consistency:** All secondary action buttons across templates now use the shadcn/ui outline variant, matching the style of the medium template's notification button.
+- **Branch Hygiene:** Merged main and dev, resolved all conflicts, and pushed updates to remote.

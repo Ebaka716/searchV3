@@ -91,6 +91,12 @@ _This document tracks what works, what's left to build, current status, known is
 - Updated Acceptable Strings modal to include all small template aliases for QA and discoverability.
 - Ensured all changes from dev are merged into main and memory bank is fully up to date.
 
+## [2024-06-XX] Speak with Rep Template, RMD Smart Suggest, and UI Consistency
+- Overhauled Customer Service Small Template (Speak with Rep) with new, user-focused support channel layout, map placeholder, and consistent button styling.
+- Expanded RMD queries/aliases and improved Smart Suggest matching logic for better user experience.
+- All secondary action buttons now use shadcn/ui outline variant for visual and UX consistency.
+- Merged main and dev branches, resolved conflicts, and pushed all updates to remote.
+
 ---
 
 > See also: [src/docs/SMART_SUGGEST_PANEL.md] for comprehensive technical and UX documentation of the Smart Suggest Panel feature.

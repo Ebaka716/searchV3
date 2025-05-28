@@ -41,6 +41,7 @@ The Smart Suggest Panel is a modular, context-aware suggestion panel designed to
   - Exact and substring matches against demo search queries and aliases
   - Resource links are deduplicated and grouped by type
   - Suggestions are capped for clarity (e.g., max 5 per group)
+  - **RMD queries and aliases have been expanded in demoSearches.tsx for improved Smart Suggest matching. The panel now more robustly detects and suggests RMD-related queries and resources.**
 - **Panel Behavior:**
   - Opens on input focus or search icon click
   - Closes on outside click or when a suggestion is selected
