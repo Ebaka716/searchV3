@@ -4,7 +4,6 @@ import BigTemplate from "./BigTemplate";
 import DividendsCard from "../common/DividendsCard";
 import EarningsCard from "../common/EarningsCard";
 import ClassicSearchResultsCard from "../common/ClassicSearchResultsCard";
-import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Info } from "lucide-react";
 
 interface AaplMediumTemplateProps {

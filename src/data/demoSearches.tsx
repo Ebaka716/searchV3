@@ -66,6 +66,7 @@ export const demoSearches: DemoSearch[] = [
   {
     query: "My dividends for Apple last month",
     aliases: [
+      "my dividends from last month",
       "my dividends for apple last month",
       "apple dividends last month",
       "aapl dividends last month",

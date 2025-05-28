@@ -239,6 +239,7 @@ export function Header({
                   <div>
                     <div className="font-semibold">AAPL Small Template:</div>
                     <ul className="list-disc pl-6">
+                      <li>my dividends from last month</li>
                       <li>my dividends for apple last month</li>
                       <li>apple dividends last month</li>
                       <li>aapl dividends last month</li>
