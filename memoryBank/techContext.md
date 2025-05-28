@@ -17,6 +17,7 @@ _This document lists the technologies used, development setup, technical constra
 - DividendsCard is the reference implementation for shadcn/ui + Recharts + ConversationButton integration.
 - **Row-Based Card Grid (2024):** All templates now use a declarative, row-based card grid system for layout. This is the new standard for all future template work.
 - **Dynamic Search Results Headings:** ClassicSearchResultsCard now accepts a `query` prop for dynamic headings and a `results` prop for custom result sets, supporting tailored search experiences.
+- **Smart Suggest Panel:** Modular, context-aware suggestion panel using shadcn/ui primitives. Matching logic is array-driven and extensible. Integrated with HeaderInput and MainLayout for seamless UX. Designed for rapid prototyping and future extension of content zones and resource types.
 
 ---
 
