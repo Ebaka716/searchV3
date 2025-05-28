@@ -43,19 +43,6 @@ import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
 import AppleTickerInfoAnswer from '@/components/answers/AppleTickerInfoAnswer';
 
 export const demoSearches: DemoSearch[] = [
-  // Ticker: Apple/AAPL
-  // Ticker: AAPL Confidence high
-  {
-    query: "What was Apple's closing price last year?",
-    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year", "closing price"],
-    type: "ticker",
-    size: "small",
-    resources: [
-      { id: "aapl-small-doc1", label: "Understanding Stock Prices", iconType: "document" },
-      { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "#" }
-    ],
-    answer: <AppleClosingPriceAnswer />
-  },
   // Ticker: AAPL Confidence low
   {
     query: "AAPL",
@@ -74,6 +61,24 @@ export const demoSearches: DemoSearch[] = [
     ],
     answer: <AppleTickerInfoAnswer />
   },
+
+
+
+
+
+  // Ticker: AAPL Confidence high
+  {
+    query: "What was Apple's closing price last year?",
+    aliases: ["apple closing price last year", "aapl last year close", "apple stock last year", "closing price"],
+    type: "ticker",
+    size: "small",
+    resources: [
+      { id: "aapl-small-doc1", label: "Understanding Stock Prices", iconType: "document" },
+      { id: "aapl-small-site1", label: "Apple Investor Relations", iconType: "sitePage", link: "#" }
+    ],
+    answer: <AppleClosingPriceAnswer />
+  },
+ 
   // Ticker: AAPL Confidence medium
   {
     query: "Apple dividends",
