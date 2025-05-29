@@ -1,6 +1,6 @@
 "use client";
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { useSearchParams, useRouter } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { EnhancedInput } from "@/components/input/EnhancedInput";
 import LoadingSpinner from "@/components/common/LoadingSpinner";
 import AaplSmallTemplate from "../templates/AaplSmallTemplate";
@@ -32,24 +32,19 @@ import { useDialogueHistory, DialogueEntry } from "@/context/DialogueHistoryCont
  *   - src/components/input/EnhancedInput.tsx
  *   - src/app/search/page.tsx
  */
-export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: number }) {
+export default function DialogueArea({ headerHeight = 0, mode = 'search', onModeChange }: { headerHeight?: number, mode?: 'search' | 'research', onModeChange?: (m: 'search' | 'research') => void }) {
+  // All hooks must be called unconditionally at the top
   const [value, setValue] = useState("");
-  const [mode, setMode] = useState<'search' | 'research'>("search");
   const dialogueIdRef = useRef(1);
   const scrollAreaRef = useRef<HTMLDivElement>(null);
   const lastBigTemplateHeaderRef = useRef<HTMLDivElement>(null);
   const lastLoadingRef = useRef<HTMLDivElement>(null);
-  const searchParams = useSearchParams();
+  const searchParams = useSearchParams(); // Always call, but only use if mode === 'search'
   const hasHandledQueryParamRef = useRef(false);
   const [readyForInput, setReadyForInput] = useState(false);
-  const router = useRouter();
-
-  // Use context for dialogue state
   const { currentDialogue, setCurrentDialogue, addHistoryEntry } = useDialogueHistory();
   const dialogue = currentDialogue;
   const setDialogue = setCurrentDialogue;
-
-  // Ref to always have the latest dialogue state
   const latestDialogueRef = useRef(dialogue);
   useEffect(() => {
     latestDialogueRef.current = dialogue;
@@ -57,8 +52,10 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
 
   const getNextDialogueId = useCallback(() => dialogueIdRef.current++, []);
 
-  // On mount or when query param changes, trigger template if query is present and dialogue is empty
+  // On mount or when query param changes, trigger template if query is present and dialogue is empty (search mode only)
   useEffect(() => {
+    if (mode !== 'search') return;
+    if (!searchParams) return;
     if (hasHandledQueryParamRef.current) return;
     const query = searchParams.get("query") || "";
     if (query && dialogue.length === 0) {
@@ -125,18 +122,18 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
     } else if (!query) {
       setReadyForInput(true);
     }
-  }, [searchParams, dialogue, addHistoryEntry, setDialogue, getNextDialogueId]);
+  }, [searchParams, dialogue, addHistoryEntry, setDialogue, getNextDialogueId, mode]);
 
-  // Reset dialogue and input when the 'reset' query param changes
-  const resetParamValue = searchParams.get("reset");
+  // Reset dialogue and input when the 'reset' query param changes (search mode only)
+  const resetParamValue = mode === 'search' && searchParams ? searchParams.get("reset") : undefined;
   useEffect(() => {
-    if (resetParamValue) {
-      setDialogue([]);
-      setValue("");
-      setReadyForInput(true);
-      hasHandledQueryParamRef.current = false; // allow query param logic to run again if needed
-    }
-  }, [resetParamValue, setDialogue]);
+    if (mode !== 'search') return;
+    if (!resetParamValue) return;
+    setDialogue([]);
+    setValue("");
+    setReadyForInput(true);
+    hasHandledQueryParamRef.current = false; // allow query param logic to run again if needed
+  }, [resetParamValue, setDialogue, mode]);
 
   // Handle EnhancedInput send (only user input, never pre-filled)
   const handleSend = useCallback((inputValue?: string) => {
@@ -231,12 +228,10 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
 
   // Add a handler that updates mode and navigates
   const handleModeChange = (newMode: 'search' | 'research') => {
-    setMode(newMode);
-    if (newMode === 'research') {
-      router.push('/research');
-    } else {
-      router.push('/search');
+    if (onModeChange) {
+      onModeChange(newMode);
     }
+    // Optionally, handle navigation if needed, or leave to parent
   };
 
   // Listen for custom event to programmatically add input
@@ -251,12 +246,19 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
     return () => window.removeEventListener('add-to-floating-input', handler as EventListener);
   }, [handleSend]);
 
+  // In research mode, always set readyForInput to true on mount
+  useEffect(() => {
+    if (mode === 'research') {
+      setReadyForInput(true);
+    }
+  }, [mode]);
+
   return (
-    <div className="w-full h-full flex flex-col flex-1 relative" style={{ minHeight: '100vh' }}>
+    <div className={"w-full h-full flex flex-col flex-1 relative"}>
       {/* Scrollable content area */}
       <div
         ref={scrollAreaRef}
-        className="overflow-y-auto h-full w-full pb-48"
+        className="overflow-y-auto h-full w-full pb-48 flex-1"
         style={{}}
       >
         <div className="max-w-[984px] mx-auto w-full px-8">
@@ -325,10 +327,22 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
           )}
         </div>
       </div>
-      {/* Fixed input bar at the bottom, centered and sized to green area */}
+      {/* Input bar: conditional positioning based on mode */}
       {readyForInput && (
-        <div className="fixed bottom-0 left-0 w-full z-30 pointer-events-none pb-4">
-          <div className="pointer-events-auto w-full max-w-[884px] mx-auto px-8">
+        mode === 'search' ? (
+          <div className="fixed bottom-0 left-0 w-full z-30 pointer-events-none pb-4">
+            <div className="pointer-events-auto w-full max-w-[884px] mx-auto px-8">
+              <EnhancedInput
+                value={value}
+                onChange={e => setValue(e.target.value)}
+                onSend={handleSend}
+                mode={mode}
+                onModeChange={handleModeChange}
+              />
+            </div>
+          </div>
+        ) : (
+          <div className="absolute left-0 bottom-0 w-full z-10 pointer-events-auto px-8 pb-4 bg-white">
             <EnhancedInput
               value={value}
               onChange={e => setValue(e.target.value)}
@@ -337,7 +351,7 @@ export default function DialogueArea({ headerHeight = 0 }: { headerHeight?: numb
               onModeChange={handleModeChange}
             />
           </div>
-        </div>
+        )
       )}
     </div>
   );

@@ -1,9 +1,10 @@
 "use client";
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, Suspense } from "react";
 import MainLayout from "@/components/layouts/MainLayout";
 import AppSidebar from "@/components/sidebar/AppSidebar";
-import { EnhancedInput } from "@/components/input/EnhancedInput";
 import { useRouter } from "next/navigation";
+import DialogueArea from '@/components/dialogue/DialogueArea';
+import LoadingSpinner from "@/components/common/LoadingSpinner";
 
 function ResearchCanvas() {
   return (
@@ -17,24 +18,18 @@ function ResearchCanvas() {
   );
 }
 
-function ResearchRightPanel({ width, value, setValue, mode, handleModeChange }: { width: number, value: string, setValue: (v: string) => void, mode: 'search' | 'research', handleModeChange: (m: 'search' | 'research') => void }) {
+function ResearchRightPanel({ width, handleModeChange }: { width: number, handleModeChange: (m: 'search' | 'research') => void }) {
   return (
     <aside
-      className="h-full border-l bg-white flex flex-col p-0 transition-all duration-500 relative"
+      className="h-full border-l bg-white flex flex-col p-0 transition-all duration-500 relative overflow-hidden"
       style={{ width }}
     >
-      <div className="flex flex-col h-full flex-1">
-        <div className="flex-1 w-full flex flex-col items-center pt-4">
-          {/* Dialogue area could go here */}
-        </div>
-        <div className="w-full flex flex-col gap-2 items-center mb-8 max-w-2xl mx-auto px-4">
-          <EnhancedInput
-            value={value}
-            onChange={e => setValue(e.target.value)}
-            onSend={() => alert("Send: " + value)}
-            mode={mode}
-            onModeChange={handleModeChange}
-          />
+      <div className="flex flex-col h-full flex-1 relative overflow-hidden">
+        {/* Scrollable chat area and input bar */}
+        <div className="flex flex-col h-full min-h-0 relative">
+          <div className="flex-1 min-h-0 overflow-y-auto">
+            <DialogueArea mode="research" onModeChange={handleModeChange} />
+          </div>
         </div>
       </div>
     </aside>
@@ -43,8 +38,6 @@ function ResearchRightPanel({ width, value, setValue, mode, handleModeChange }: 
 
 export default function ResearchPage() {
   const router = useRouter();
-  const [value, setValue] = useState("");
-  const [mode, setMode] = useState<'search' | 'research'>("research");
   // Resizable right panel state
   const minWidth = 320; // px
   const maxWidth = 800; // px
@@ -77,7 +70,7 @@ export default function ResearchPage() {
 
   // Set initial width on mount (client only)
   React.useEffect(() => {
-    setRightPanelWidth(Math.max(minWidth, Math.min(maxWidth, window.innerWidth * 0.3)));
+    setRightPanelWidth(Math.max(minWidth, Math.min(maxWidth, window.innerWidth / 2)));
   }, []);
 
   const handleDragStart = (e: React.MouseEvent) => {
@@ -86,12 +79,7 @@ export default function ResearchPage() {
   };
 
   const handleModeChange = (newMode: 'search' | 'research') => {
-    setMode(newMode);
-    if (newMode === 'research') {
-      router.push('/research');
-    } else {
-      router.push('/search');
-    }
+    router.push(newMode === 'research' ? '/research' : '/search');
   };
 
   return (
@@ -106,14 +94,13 @@ export default function ResearchPage() {
             onMouseDown={handleDragStart}
             style={{ zIndex: 10, cursor: 'col-resize' }}
           />
-          {/* Resizable right panel with EnhancedInput and dialogue */}
-          <ResearchRightPanel
-            width={rightPanelWidth}
-            value={value}
-            setValue={setValue}
-            mode={mode}
-            handleModeChange={handleModeChange}
-          />
+          {/* Resizable right panel with DialogueArea */}
+          <Suspense fallback={<div className="w-full flex justify-center pt-16"><LoadingSpinner text="Loading research..." /></div>}>
+            <ResearchRightPanel
+              width={rightPanelWidth}
+              handleModeChange={handleModeChange}
+            />
+          </Suspense>
         </div>
       </MainLayout>
     </div>
