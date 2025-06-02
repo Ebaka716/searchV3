@@ -147,7 +147,7 @@ export const demoSearches: DemoSearch[] = [
   // Term: RMD
   {
     query: "RMD",
-    aliases: ["rmd", "required minimum distribution"],
+    aliases: ["rmd", "required minimum distribution", "explain rmd", "rmd meaning"],
     type: "term",
     size: "small",
     resources: [
@@ -157,8 +157,8 @@ export const demoSearches: DemoSearch[] = [
     answer: <RmdInfoAnswer />
   },
   {
-    query: "What is an RMD",
-    aliases: ["what is rmd", "explain rmd", "rmd meaning"],
+    query: "Do I have to take an RMD",
+    aliases: ["rmd required", "rmd this year", "take rmd"],
     type: "term",
     size: "medium",
     resources: [
