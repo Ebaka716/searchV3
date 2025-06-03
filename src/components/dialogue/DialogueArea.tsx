@@ -9,6 +9,7 @@ import AaplLargeTemplate from "../templates/AaplLargeTemplate";
 import CustomerServiceSmallTemplate from "../templates/CustomerServiceSmallTemplate";
 import CustomerServiceMediumTemplate from "../templates/CustomerServiceMediumTemplate";
 import CustomerServiceLargeTemplate from "../templates/CustomerServiceLargeTemplate";
+import RmdLargeTemplate from "../templates/RmdLargeTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
 import { useDialogueHistory, DialogueEntry } from "@/context/DialogueHistoryContext";
 
@@ -110,6 +111,31 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
         setValue("");
         return;
       }
+      // RMD: Required Minimum Distribution
+      if (
+        match &&
+        match.type === 'term' &&
+        (match.query.toLowerCase().includes('rmd') ||
+          match.aliases.some(alias => alias.toLowerCase().includes('rmd')))
+      ) {
+        const id = getNextDialogueId();
+        setDialogue([...dialogue, { id, type: 'loading' }]);
+        setTimeout(() => {
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+            entry.id === id
+              ? { id, type: `__RMD_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+              : entry
+          );
+          setDialogue(updatedDialogue);
+          setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: `__RMD_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
+        }, 1200);
+        hasHandledQueryParamRef.current = true;
+        setValue("");
+        return;
+      }
       // Fallback: add as plain text
       const id = getNextDialogueId();
       setDialogue([...dialogue, { id, type: 'text', text: trimmed }]);
@@ -186,6 +212,31 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
         if (shouldAddHistory) {
           addHistoryEntry(trimmed, [
             { id, type: `__CUSTOMER_SERVICE_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+          ]);
+        }
+      }, 1200);
+      setValue("");
+      return;
+    }
+    // RMD: Required Minimum Distribution
+    if (
+      match &&
+      match.type === 'term' &&
+      (match.query.toLowerCase().includes('rmd') ||
+        match.aliases.some(alias => alias.toLowerCase().includes('rmd')))
+    ) {
+      const id = getNextDialogueId();
+      setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
+      setTimeout(() => {
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+          entry.id === id
+            ? { id, type: `__RMD_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
+            : entry
+        );
+        setDialogue(updatedDialogue);
+        if (shouldAddHistory) {
+          addHistoryEntry(trimmed, [
+            { id, type: `__RMD_${match.size.toUpperCase()}_TEMPLATE__`, query: trimmed }
           ]);
         }
       }, 1200);
@@ -307,6 +358,12 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
                 />
               ) : entry.type === '__CUSTOMER_SERVICE_LARGE_TEMPLATE__' ? (
                 <CustomerServiceLargeTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__RMD_LARGE_TEMPLATE__' ? (
+                <RmdLargeTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}

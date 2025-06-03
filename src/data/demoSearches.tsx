@@ -144,41 +144,66 @@ export const demoSearches: DemoSearch[] = [
     answer: <AppleDividendsAnswer />
   },
 
-  // Term: RMD
+  // Term: RMD Large
   {
     query: "RMD",
-    aliases: ["rmd", "required minimum distribution"],
-    type: "term",
-    size: "small",
-    resources: [
-      { id: "rmd-small-doc-irs", label: "IRS Publication 590-B", iconType: "document" },
-      { id: "rmd-small-site-faq", label: "RMD FAQs", iconType: "sitePage" }
+    aliases: [
+      "rmd",
+      "required minimum distribution",
+      "what is an rmd",
+      "rmd rules",
+      "rmd basics",
+      "explain rmd",
+      "rmd overview"
     ],
-    answer: <RmdInfoAnswer />
-  },
-  {
-    query: "What is an RMD",
-    aliases: ["what is rmd", "explain rmd", "rmd meaning"],
-    type: "term",
-    size: "medium",
-    resources: [
-      { id: "rmd-medium-video-explain1", label: "Video: Understanding RMDs", iconType: "video" },
-      { id: "rmd-medium-podcast-podcast1", label: "Podcast: Deep Dive into RMDs", iconType: "podcast" },
-      { id: "rmd-medium-video-explain2", label: "Video: Getting started with RMDs", iconType: "video" },
-      { id: "rmd-medium-podcast-podcast2", label: "Podcast: RMDs for beginners", iconType: "podcast" }
-    ],
-    answer: "An RMD (Required Minimum Distribution) is the minimum amount you must withdraw from your retirement accounts each year after reaching a certain age."
-  },
-  {
-    query: "What was my RMD from last year?",
-    aliases: ["my rmd last year", "rmd last year amount", "required minimum distribution last year"],
     type: "term",
     size: "large",
     resources: [
-        { id: "rmd-large-site1", label: "How to calculate your RMD", iconType: "sitePage", link: "#" },
-        { id: "rmd-large-site2", label: "Setting up recurring distributions", iconType: "sitePage", link: "#" }
-      ],
-      answer: <RmdMyLastYearInfoAnswer />
+      { id: "rmd-large-definition", label: "What is an RMD?", iconType: "document" },
+      { id: "rmd-large-irs-guidance", label: "IRS Guidance on RMDs", iconType: "sitePage", link: "#" },
+      { id: "rmd-large-faq", label: "RMD Frequently Asked Questions", iconType: "sitePage", link: "#" },
+      { id: "rmd-large-video", label: "Video: RMD Overview", iconType: "video" }
+    ],
+    answer: <RmdInfoAnswer />
+  },
+  // Term: RMD Medium
+  {
+    query: "Do I have to take an RMD",
+    aliases: [
+      "am I required to take an rmd",
+      "do I need to take an rmd this year",
+      "is rmd mandatory",
+      "who needs to take an rmd",
+      "rmd eligibility"
+    ],
+    type: "term",
+    size: "medium",
+    resources: [
+      { id: "rmd-medium-eligibility-check", label: "RMD Eligibility Check", iconType: "sitePage", link: "#" },
+      { id: "rmd-medium-age-calculator", label: "RMD Age Calculator", iconType: "sitePage", link: "#" },
+      { id: "rmd-medium-account-types", label: "Account Types Requiring RMDs", iconType: "document" },
+      { id: "rmd-medium-faq", label: "RMD FAQ", iconType: "sitePage", link: "#" }
+    ],
+    answer: "Eligibility for RMDs depends on your age, account type, and other factors. Use the resources below to check your requirements."
+  },
+  // Term: RMD Small
+  {
+    query: "What was my RMD from last year",
+    aliases: [
+      "last year's rmd",
+      "my rmd for 2023",
+      "previous rmd amount",
+      "how much was my rmd last year",
+      "rmd history"
+    ],
+    type: "term",
+    size: "small",
+    resources: [
+      { id: "rmd-small-account-history", label: "Account RMD History", iconType: "document" },
+      { id: "rmd-small-statement-download", label: "Download RMD Statement", iconType: "sitePage", link: "#" },
+      { id: "rmd-small-contact-support", label: "Contact Support", iconType: "sitePage", link: "#" }
+    ],
+    answer: <RmdMyLastYearInfoAnswer />
   },
 
   // Customer Service: Debit Card Delivery
