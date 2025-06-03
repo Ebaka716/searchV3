@@ -37,11 +37,11 @@ export type DemoSearch = {
 
 // Import the new answer components
 import AppleClosingPriceAnswer from '@/components/answers/AppleClosingPriceAnswer';
-import RmdInfoAnswer from '@/components/answers/RmdInfoAnswer';
 import RmdMyLastYearInfoAnswer from '@/components/answers/RmdMyLastYearInfoAnswer';
 import DebitCardInfoAnswer from '@/components/answers/DebitCardInfoAnswer';
 import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
 import AppleTickerInfoAnswer from '@/components/answers/AppleTickerInfoAnswer';
+import RmdSimpleAnswer from '@/components/answers/RmdSimpleAnswer';
 
 export const demoSearches: DemoSearch[] = [
   // Ticker: AAPL Confidence low
@@ -164,7 +164,7 @@ export const demoSearches: DemoSearch[] = [
       { id: "rmd-large-faq", label: "RMD Frequently Asked Questions", iconType: "sitePage", link: "#" },
       { id: "rmd-large-video", label: "Video: RMD Overview", iconType: "video" }
     ],
-    answer: <RmdInfoAnswer />
+    answer: <RmdSimpleAnswer />
   },
   // Term: RMD Medium
   {
