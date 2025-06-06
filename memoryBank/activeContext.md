@@ -117,3 +117,8 @@ The Smart Suggest Panel is an interactive, context-aware suggestion panel that a
 - **Smart Suggest & RMD Matching:** Expanded and improved RMD queries/aliases in `demoSearches.tsx` for better Smart Suggest matching. Logic for intent detection and alias matching is more robust.
 - **UI Consistency:** All secondary action buttons across templates now use the shadcn/ui outline variant, matching the style of the medium template's notification button.
 - **Branch Hygiene:** Merged main and dev, resolved all conflicts, and pushed updates to remote.
+
+## [2024-06-XX] RMD Templates, Source Tag Pattern, and Dialogue Area Logic
+- **RmdLargeTemplate & RmdMediumTemplate:** Created modular, row-based templates for RMD queries. Both use a first row answer with source tags (grey circles with numbers) and a right-aligned sources button for trust and clarity. The second row features a compact RMD search results card and a conversation button stack (5 for large, 3 for medium), with event-driven logic to trigger template transitions.
+- **Dialogue Area Logic:** Updated to support both RMD templates, mapping aliases and button actions to the correct template. Smart Suggest answer for RMD is now a simple paragraph, not a template.
+- **System Pattern:** Source tags and sources button are now standard for answer clarity and transparency. All linter/build issues resolved and changes pushed.

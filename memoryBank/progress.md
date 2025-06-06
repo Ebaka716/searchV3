@@ -97,6 +97,17 @@ _This document tracks what works, what's left to build, current status, known is
 - All secondary action buttons now use shadcn/ui outline variant for visual and UX consistency.
 - Merged main and dev branches, resolved conflicts, and pushed all updates to remote.
 
+## [2024-06-XX] RMD Template System, Dialogue Logic, and UI/UX Overhaul
+- Implemented three RMD templates (large, medium, small), each triggered by specific queries/aliases for robust, modular conversational search.
+- Large template: full-width answer with tan background, transparent card, source tags, and right-aligned sources button; second row with left search results (7 RMD results) and right conversation button stack (5 RMD topics).
+- Medium template: similar structure, with a large "Yes" heading, eligibility answer, 4 source tags, and a sources button; second row with 5 search results and 3 conversation buttons.
+- Small template: covers personal RMD history (details in activeContext.md).
+- All answer components use consistent font sizes, spacing, and source tag patterns. Source tags are grey circles with numbers, and the sources button is always right-aligned with a count.
+- Conversation buttons are event-driven: clicking a button (e.g., "Do I have to take an RMD?") triggers the appropriate template, using the same event-driven logic as the AAPL template flow.
+- Smart Suggest answer is now a simple, paragraph-style component, not a template. Dialogue area logic supports both large and medium RMD templates, mapping aliases and button actions to the correct template.
+- UI/UX: All answer components and templates are modular, lint/type clean, and production-ready. Dialogue area only renders templates, not answer components. All builds and tests confirmed clean.
+- Memory bank and documentation updated to reflect new RMD templates, source tag pattern, and dialogue area logic.
+
 ---
 
 > See also: [src/docs/SMART_SUGGEST_PANEL.md] for comprehensive technical and UX documentation of the Smart Suggest Panel feature.

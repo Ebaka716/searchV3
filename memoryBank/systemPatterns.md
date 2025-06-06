@@ -35,4 +35,12 @@ _This document describes the system architecture, key technical decisions, and d
   - Uses array-driven matching logic for demo search scenarios and intent detection.
   - Designed for rapid prototyping and extensibility; all UI built with shadcn/ui primitives.
   - See `/assets/documents/ss_panel.txt` for detailed display rules and logic.
+- **RMD Template System (2024):**
+  - Three RMD templates: large (general info), medium (eligibility), small (personal history), each triggered by specific queries/aliases.
+  - Large/medium templates use a row-based card grid: first row is a full-width answer (tan background, transparent card, source tags, right-aligned sources button), second row is a half layout (left: search results, right: conversation button stack).
+  - Source tags are grey circles with numbers, and the sources button is always right-aligned with a count.
+  - Conversation buttons are event-driven: clicking a button triggers the appropriate template, using the same event-driven logic as the AAPL template flow.
+  - Dialogue area logic maps aliases and button actions to the correct template, supporting robust, modular conversational flows.
+  - Smart Suggest answer is a simple, paragraph-style component, not a template. Dialogue area only renders templates, not answer components.
+  - All answer components and templates use consistent font sizes, spacing, and source tag patterns. UI is modular, lint/type clean, and production-ready.
 - (Add your system architecture and design patterns here) 
