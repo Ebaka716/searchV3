@@ -205,6 +205,63 @@ export const demoSearches: DemoSearch[] = [
     ],
     answer: <RmdMyLastYearInfoAnswer />
   },
+// Transaction: Close Account Large
+{
+  query: "close account",
+  aliases: [
+    "close and account",
+    "close a account",
+    "account close",
+    "zero balance",
+    "close now"
+  ],
+  type: "term",
+  size: "large",
+  resources: [
+    { id: "close-large-definition", label: "How do I close my account?", iconType: "document" },
+    { id: "close-large-irs-guidance", label: "Closing accounts", iconType: "sitePage", link: "#" },
+    { id: "close-large-faq", label: "Zero balance accounts", iconType: "sitePage", link: "#" },
+    { id: "close-large-video", label: "Video: Close Account", iconType: "video" }
+  ],
+  answer: <RmdSimpleAnswer />
+},
+// Transaction: Close Account Medium
+{
+  query: "Can I close my account",
+  aliases: [
+    "Help closing my account",
+    "Remove my account",
+    "Opened account in error",
+    "Close now"
+  ],
+  type: "term",
+  size: "medium",
+  resources: [
+    { id: "close-medium-eligibility-check", label: "Close Account Check", iconType: "sitePage", link: "#" },
+    { id: "close-medium-age-calculator", label: "Zero balance accounts", iconType: "sitePage", link: "#" },
+    { id: "close-medium-account-types", label: "Clearing up empty accounts", iconType: "document" },
+    { id: "close-medium-faq", label: "Account FAQs", iconType: "sitePage", link: "#" }
+  ],
+  answer: "Eligibility for RMDs depends on your age, account type, and other factors. Use the resources below to check your requirements."
+},
+// Transaction: Close Account Small
+{
+  query: "What accounts have a zero balance",
+  aliases: [
+    "list of zero balance accounts",
+    "which accounts can i close",
+    "how do i delete an account",
+    "remove an account"
+  ],
+  type: "term",
+  size: "small",
+  resources: [
+    { id: "close-small-account-history", label: "Zero balance accounts", iconType: "document" },
+    { id: "close-small-statement-download", label: "Cleaning up your portfolio", iconType: "sitePage", link: "#" },
+    { id: "close-small-contact-support", label: "Self service to close accounts", iconType: "sitePage", link: "#" }
+  ],
+  answer: <RmdMyLastYearInfoAnswer />
+},
 
   // Customer Service: Debit Card Delivery
   {

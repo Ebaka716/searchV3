@@ -198,7 +198,7 @@ export function Header({
               <TabsContent value="aapl">
                 <div className="space-y-4">
                   <div>
-                    <div className="font-semibold">AAPL Large Template:</div>
+                    <div className="font-semibold">AAPL 1:</div>
                     <ul className="list-disc pl-6">
                       <li>AAPL</li>
                       <li>aapl</li>
@@ -216,7 +216,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">AAPL Medium Template:</div>
+                    <div className="font-semibold">AAPL 2:</div>
                     <ul className="list-disc pl-6">
                       <li>apple dividends and earnings</li>
                       <li>aapl dividends and earnings</li>
@@ -239,7 +239,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">AAPL Small Template:</div>
+                    <div className="font-semibold">AAPL 3:</div>
                     <ul className="list-disc pl-6">
                       <li>my dividends from last month</li>
                       <li>my dividends for apple last month</li>
@@ -267,7 +267,7 @@ export function Header({
               <TabsContent value="rmd">
                 <div className="space-y-4">
                   <div>
-                    <div className="font-semibold">RMD Large Template:</div>
+                    <div className="font-semibold">RMD 1:</div>
                     <ul className="list-disc pl-6">
                       <li>rmd</li>
                       <li>required minimum distribution</li>
@@ -279,7 +279,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Medium Template:</div>
+                    <div className="font-semibold">RMD 2:</div>
                     <ul className="list-disc pl-6">
                       <li>am I required to take an rmd</li>
                       <li>do I need to take an rmd this year</li>
@@ -289,7 +289,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Small Template:</div>
+                    <div className="font-semibold">RMD 3:</div>
                     <ul className="list-disc pl-6">
                       <li>last year's rmd</li>
                       <li>my rmd for 2023</li>
@@ -317,68 +317,31 @@ export function Header({
               <TabsContent value="close">
                 <div className="space-y-4">
                   <div>
-                    <div className="font-semibold">Close Account Large Template:</div>
+                    <div className="font-semibold">Close Account 1:</div>
                     <ul className="list-disc pl-6">
-                      <li>AAPL</li>
-                      <li>aapl</li>
-                      <li>apple</li>
-                      <li>appl</li>
-                      <li>aple</li>
-                      <li>aaple</li>
-                      <li>aappl</li>
-                      <li>appel</li>
-                      <li>applle</li>
-                      <li>aapll</li>
-                      <li>applr</li>
-                      <li>applw</li>
-                      <li>appl3</li>
+                      <li>close and account</li>
+                      <li>close a account</li>
+                      <li>account close</li>
+                      <li>zero balance</li>
+                      <li>close now</li>
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Medium Template:</div>
+                    <div className="font-semibold">Close Account 2:</div>
                     <ul className="list-disc pl-6">
-                      <li>apple dividends and earnings</li>
-                      <li>aapl dividends and earnings</li>
-                      <li>dividends & earnings for apple</li>
-                      <li>dividends & earnings for aapl</li>
-                      <li>apple earnings and dividends</li>
-                      <li>aapl earnings and dividends</li>
-                      <li>dividends and earnings apple</li>
-                      <li>dividends and earnings aapl</li>
-                      <li>apple dividends earnings</li>
-                      <li>aapl dividends earnings</li>
-                      <li>show me apple dividends and earnings</li>
-                      <li>show aapl dividends and earnings</li>
-                      <li>apple earnings dividends</li>
-                      <li>aapl earnings dividends</li>
-                      <li>dividends plus earnings apple</li>
-                      <li>dividends plus earnings aapl</li>
-                      <li>dividends earnings june 2024 apple</li>
-                      <li>dividends earnings june 2024 aapl</li>
+                      <li>Help closing my account</li>
+                      <li>Remove my account</li>
+                      <li>Opened account in error</li>
+                      <li>Close now</li>
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Small Template:</div>
+                    <div className="font-semibold">Close Account 3:</div>
                     <ul className="list-disc pl-6">
-                      <li>my dividends from last month</li>
-                      <li>my dividends for apple last month</li>
-                      <li>apple dividends last month</li>
-                      <li>aapl dividends last month</li>
-                      <li>dividends from apple last month</li>
-                      <li>last month apple dividends</li>
-                      <li>last month aapl dividends</li>
-                      <li>show me my apple dividends for last month</li>
-                      <li>show my aapl dividends last month</li>
-                      <li>apple dividend payments last month</li>
-                      <li>aapl dividend history last month</li>
-                      <li>dividends received from apple last month</li>
-                      <li>dividends paid by aapl last month</li>
-                      <li>recent apple dividends</li>
-                      <li>recent aapl dividends</li>
-                      <li>apple dividends june 2024</li>
-                      <li>aapl dividends june 2024</li>
-                      <li>my apple dividend income last month</li>
-                      <li>my aapl dividend income last month</li>
+                      <li>list of zero balance accounts</li>
+                      <li>which accounts can i close</li>
+                      <li>how do i delete an account</li>
+                      <li>remove an account</li>
                     </ul>
                   </div>
                 </div>
