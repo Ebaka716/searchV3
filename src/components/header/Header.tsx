@@ -190,8 +190,10 @@ export function Header({
             </DialogHeader>
             <Tabs defaultValue="aapl" className="w-full">
               <TabsList className="mb-4">
-                <TabsTrigger value="aapl">AAPL Templates</TabsTrigger>
-                <TabsTrigger value="cs">CS Templates</TabsTrigger>
+              <TabsTrigger value="aapl">AAPL Flow</TabsTrigger>
+              <TabsTrigger value="rmd">RMD Flow</TabsTrigger>
+              <TabsTrigger value="cs">CS Flow</TabsTrigger>
+              <TabsTrigger value="close">Close accnt Flow</TabsTrigger>
               </TabsList>
               <TabsContent value="aapl">
                 <div className="space-y-4">
@@ -262,6 +264,42 @@ export function Header({
                   </div>
                 </div>
               </TabsContent>
+              <TabsContent value="rmd">
+                <div className="space-y-4">
+                  <div>
+                    <div className="font-semibold">RMD Large Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>rmd</li>
+                      <li>required minimum distribution</li>
+                      <li>what is an rmd</li>
+                      <li>rmd rules</li>
+                      <li>rmd basics</li>
+                      <li>explain rmd</li>
+                      <li>rmd overview</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-semibold">RMD Medium Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>am I required to take an rmd</li>
+                      <li>do I need to take an rmd this year</li>
+                      <li>is rmd mandatory</li>
+                      <li>who needs to take an rmd</li>
+                      <li>rmd eligibility</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-semibold">RMD Small Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>last year's rmd</li>
+                      <li>my rmd for 2023</li>
+                      <li>previous rmd amount</li>
+                      <li>how much was my rmd last year</li>
+                      <li>rmd history</li>
+                    </ul>
+                  </div>
+                </div>
+              </TabsContent>
               <TabsContent value="cs">
                 <div className="space-y-4">
                   {demoSearches.filter(ds => ds.type === 'question').map(ds => (
@@ -274,6 +312,75 @@ export function Header({
                       </ul>
                     </div>
                   ))}
+                </div>
+              </TabsContent>
+              <TabsContent value="close">
+                <div className="space-y-4">
+                  <div>
+                    <div className="font-semibold">Close Account Large Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>AAPL</li>
+                      <li>aapl</li>
+                      <li>apple</li>
+                      <li>appl</li>
+                      <li>aple</li>
+                      <li>aaple</li>
+                      <li>aappl</li>
+                      <li>appel</li>
+                      <li>applle</li>
+                      <li>aapll</li>
+                      <li>applr</li>
+                      <li>applw</li>
+                      <li>appl3</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-semibold">RMD Medium Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>apple dividends and earnings</li>
+                      <li>aapl dividends and earnings</li>
+                      <li>dividends & earnings for apple</li>
+                      <li>dividends & earnings for aapl</li>
+                      <li>apple earnings and dividends</li>
+                      <li>aapl earnings and dividends</li>
+                      <li>dividends and earnings apple</li>
+                      <li>dividends and earnings aapl</li>
+                      <li>apple dividends earnings</li>
+                      <li>aapl dividends earnings</li>
+                      <li>show me apple dividends and earnings</li>
+                      <li>show aapl dividends and earnings</li>
+                      <li>apple earnings dividends</li>
+                      <li>aapl earnings dividends</li>
+                      <li>dividends plus earnings apple</li>
+                      <li>dividends plus earnings aapl</li>
+                      <li>dividends earnings june 2024 apple</li>
+                      <li>dividends earnings june 2024 aapl</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-semibold">RMD Small Template:</div>
+                    <ul className="list-disc pl-6">
+                      <li>my dividends from last month</li>
+                      <li>my dividends for apple last month</li>
+                      <li>apple dividends last month</li>
+                      <li>aapl dividends last month</li>
+                      <li>dividends from apple last month</li>
+                      <li>last month apple dividends</li>
+                      <li>last month aapl dividends</li>
+                      <li>show me my apple dividends for last month</li>
+                      <li>show my aapl dividends last month</li>
+                      <li>apple dividend payments last month</li>
+                      <li>aapl dividend history last month</li>
+                      <li>dividends received from apple last month</li>
+                      <li>dividends paid by aapl last month</li>
+                      <li>recent apple dividends</li>
+                      <li>recent aapl dividends</li>
+                      <li>apple dividends june 2024</li>
+                      <li>aapl dividends june 2024</li>
+                      <li>my apple dividend income last month</li>
+                      <li>my aapl dividend income last month</li>
+                    </ul>
+                  </div>
                 </div>
               </TabsContent>
             </Tabs>
