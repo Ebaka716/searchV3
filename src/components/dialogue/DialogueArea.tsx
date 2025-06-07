@@ -11,6 +11,7 @@ import CustomerServiceMediumTemplate from "../templates/CustomerServiceMediumTem
 import CustomerServiceLargeTemplate from "../templates/CustomerServiceLargeTemplate";
 import RmdLargeTemplate from "../templates/RmdLargeTemplate";
 import RmdMediumTemplate from "../templates/RmdMediumTemplate";
+import RmdSmallTemplate from "../templates/RmdSmallTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
 import { useDialogueHistory, DialogueEntry } from "@/context/DialogueHistoryContext";
 
@@ -371,6 +372,12 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
                 />
               ) : entry.type === '__RMD_MEDIUM_TEMPLATE__' ? (
                 <RmdMediumTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__RMD_SMALL_TEMPLATE__' ? (
+                <RmdSmallTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}

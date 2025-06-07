@@ -1,8 +1,8 @@
 import React from "react";
 import BigTemplate from "./BigTemplate";
 import RmdLargeAnswerRow from "../common/RmdLargeAnswerRow";
-import RmdSearchResultsCard from "../common/RmdSearchResultsCard";
-import RmdConversationButtonsCard from "../common/RmdConversationButtonsCard";
+import ClassicSearchResultsCard from "../common/ClassicSearchResultsCard";
+// import RmdSearchResultsCard from "../common/RmdSearchResultsCard"; // No longer needed
 
 interface RmdLargeTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
@@ -62,14 +62,13 @@ const RmdLargeTemplate: React.FC<RmdLargeTemplateProps> = ({ headerRef, query })
         ]
       },
       {
-        type: "half",
+        type: "full",
         cards: [
-          <RmdSearchResultsCard
-            key="rmd-search-results"
+          <ClassicSearchResultsCard
+            key="rmd-classic-search-results"
             query={query}
             results={placeholderResults}
-          />,
-          <RmdConversationButtonsCard key="rmd-convo-buttons" />
+          />
         ]
       }
     ]}
