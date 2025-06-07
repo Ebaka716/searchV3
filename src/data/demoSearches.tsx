@@ -42,6 +42,9 @@ import DebitCardInfoAnswer from '@/components/answers/DebitCardInfoAnswer';
 import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
 import AppleTickerInfoAnswer from '@/components/answers/AppleTickerInfoAnswer';
 import RmdSimpleAnswer from '@/components/answers/RmdSimpleAnswer';
+import CloseAccountLargeAnswer from '@/components/answers/CloseAccountLargeAnswer';
+import CloseAccountMediumAnswer from '@/components/answers/CloseAccountMediumAnswer';
+import CloseAccountSmallAnswer from '@/components/answers/CloseAccountSmallAnswer';
 
 export const demoSearches: DemoSearch[] = [
   // Ticker: AAPL Confidence low
@@ -300,6 +303,78 @@ export const demoSearches: DemoSearch[] = [
       { id: "cs-small-podcast-customer", label: "Podcast: Customer Service Tips", iconType: "podcast" }
     ],
     answer: "To speak with a live associate about your debit card delivery, please call our customer service line or use the live chat option below. We're here to help you resolve your issue as quickly as possible.",
+  },
+
+  // Transaction: Close Account - Large
+  {
+    query: "I want to close an account",
+    aliases: [
+      "close my account",
+      "close an account",
+      "close checking account",
+      "close savings account",
+      "close brokerage account",
+      "close my checking",
+      "close my savings",
+      "close my brokerage",
+      "close account request",
+      "account closure",
+      "how do I close my account"
+    ],
+    type: "term",
+    size: "large",
+    resources: [
+      { id: "close-large-policy", label: "Account Closure Policy", iconType: "document" },
+      { id: "close-large-howto", label: "How to Close Your Account", iconType: "sitePage", link: "#" },
+      { id: "close-large-support", label: "Contact Support", iconType: "sitePage", link: "#" },
+      { id: "close-large-faq", label: "Account Closure FAQ", iconType: "document" }
+    ],
+    answer: <CloseAccountLargeAnswer />
+  },
+
+  // Transaction: Close Account - Medium
+  {
+    query: "Show me all my accounts",
+    aliases: [
+      "list my accounts",
+      "what accounts do I have",
+      "show accounts",
+      "my accounts",
+      "account list",
+      "display my accounts",
+      "see all accounts",
+      "view all accounts"
+    ],
+    type: "term",
+    size: "medium",
+    resources: [
+      { id: "close-medium-types", label: "Account Types", iconType: "document" },
+      { id: "close-medium-summary", label: "Account Summary", iconType: "sitePage", link: "#" },
+      { id: "close-medium-manage", label: "How to Manage Accounts", iconType: "sitePage", link: "#" }
+    ],
+    answer: <CloseAccountMediumAnswer />
+  },
+
+  // Transaction: Close Account - Small
+  {
+    query: "Close my checking account now",
+    aliases: [
+      "close checking now",
+      "close my savings now",
+      "close brokerage now",
+      "close account immediately",
+      "close my account now",
+      "confirm account closure",
+      "finalize account closure"
+    ],
+    type: "term",
+    size: "small",
+    resources: [
+      { id: "close-small-confirmation", label: "Closure Confirmation", iconType: "document" },
+      { id: "close-small-statement", label: "Download Account Statement", iconType: "sitePage", link: "#" },
+      { id: "close-small-support", label: "Contact Support", iconType: "sitePage", link: "#" }
+    ],
+    answer: <CloseAccountSmallAnswer />
   },
 
   // Question: Placeholder (to be filled in later)

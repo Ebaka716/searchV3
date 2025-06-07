@@ -108,6 +108,21 @@ _This document tracks what works, what's left to build, current status, known is
 - UI/UX: All answer components and templates are modular, lint/type clean, and production-ready. Dialogue area only renders templates, not answer components. All builds and tests confirmed clean.
 - Memory bank and documentation updated to reflect new RMD templates, source tag pattern, and dialogue area logic.
 
+## [2024-06-XX] RMD Template System Complete & UX Improvements
+- All RMD templates (large, medium, small) now use a unified, modular layout and conversational pattern.
+- Added RmdSmallTemplate for last-year RMD queries, with answer, conversation buttons, and search results.
+- Blue notification intent card in RMD medium template now reliably triggers the small template via alias matching.
+- Improved spacing and visual clarity across all RMD templates.
+- All changes build cleanly and are pushed to main.
+- See new documentation in /src/docs/ for RmdSmallTemplate and intent-driven notification card pattern.
+
+## [2024-07-XX] Close Account Flow, Notification Card UX, and Card System Consistency
+- Close Account flow: Large template with overview card, steps, and actions; overview card now matches DebitCardOverviewCard structure and style (shadcn/ui Card primitives).
+- Notification/intent cards in both AAPL and RMD templates now support clickable suggestions that inject aliases and trigger template transitions (event-driven UX).
+- All card titles standardized to `text-xl` globally for visual consistency.
+- Icon sizing and alignment above card titles standardized (w-6 h-6, Lucide icon, gray rounded-xl box, left-aligned).
+- All new/updated cards use shadcn/ui primitives and event-driven UX patterns for consistency and maintainability.
+
 ---
 
 > See also: [src/docs/SMART_SUGGEST_PANEL.md] for comprehensive technical and UX documentation of the Smart Suggest Panel feature.

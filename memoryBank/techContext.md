@@ -33,4 +33,8 @@ _This document lists the technologies used, development setup, technical constra
 - Query and reset param handling: ensures robust state transitions and clean resets.
 - Ref-based guards: prevent double-mount/double-processing issues in React Strict Mode.
 
-- (Add your technologies, setup, and constraints here) 
+- (Add your technologies, setup, and constraints here)
+
+- All CardTitle components now use `text-xl` by default for consistent card heading sizing.
+- Event-driven alias injection for notification/intent cards (using CustomEvent) is now a standard pattern for template navigation.
+- All overview cards use Lucide icons in a gray rounded-xl box, left-aligned above the title, with standardized sizing (w-6 h-6). 

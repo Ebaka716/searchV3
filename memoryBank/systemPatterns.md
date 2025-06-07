@@ -43,4 +43,7 @@ _This document describes the system architecture, key technical decisions, and d
   - Dialogue area logic maps aliases and button actions to the correct template, supporting robust, modular conversational flows.
   - Smart Suggest answer is a simple, paragraph-style component, not a template. Dialogue area only renders templates, not answer components.
   - All answer components and templates use consistent font sizes, spacing, and source tag patterns. UI is modular, lint/type clean, and production-ready.
+- **Unified Card Component Pattern (2024-07):** All major cards now use shadcn/ui Card primitives for structure, with CardTitle set to `text-xl` by default for visual consistency.
+- **Event-Driven Notification/Intent Cards (2024-07):** Notification cards in templates use event-driven alias injection (via CustomEvent 'add-to-floating-input') to trigger template transitions, supporting modular, conversational UX. This pattern is now standard in both AAPL and RMD flows.
+- **Consistent Iconography (2024-07):** All overview cards use Lucide icons in a gray rounded-xl box, left-aligned above the title, with standardized sizing (w-6 h-6) for visual clarity and brand consistency.
 - (Add your system architecture and design patterns here) 

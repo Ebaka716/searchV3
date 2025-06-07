@@ -122,3 +122,22 @@ The Smart Suggest Panel is an interactive, context-aware suggestion panel that a
 - **RmdLargeTemplate & RmdMediumTemplate:** Created modular, row-based templates for RMD queries. Both use a first row answer with source tags (grey circles with numbers) and a right-aligned sources button for trust and clarity. The second row features a compact RMD search results card and a conversation button stack (5 for large, 3 for medium), with event-driven logic to trigger template transitions.
 - **Dialogue Area Logic:** Updated to support both RMD templates, mapping aliases and button actions to the correct template. Smart Suggest answer for RMD is now a simple paragraph, not a template.
 - **System Pattern:** Source tags and sources button are now standard for answer clarity and transparency. All linter/build issues resolved and changes pushed.
+
+## [2024-06-XX] RMD Template System Overhaul & UX Improvements
+
+- **Unified RMD Template Layouts:** All RMD templates (large, medium, small) now use a consistent, modular row-based card grid system for layout and conversational flow.
+- **RmdSmallTemplate Added:** Created a new small RMD template for "how much RMD did I take last year" queries, with a clear answer, conversation buttons, and search results.
+- **Blue Notification Intent Card:** The RMD medium template now includes a blue notification card at the bottom, styled like the AAPL templates, which suggests the next logical query ("how much was my rmd last year") and triggers the small template when clicked.
+- **Alias Matching Fix:** The blue notification button now uses an alias that matches the demoSearches array, ensuring the small template is reliably triggered.
+- **UX Polish:** Improved spacing and visual separation between answer sections, conversation buttons, and search results in all RMD templates.
+- **Documentation:** To support onboarding and collaboration, new documentation has been added for the RmdSmallTemplate and the intent-driven notification card pattern.
+
+## [2024-07-XX] Card System Consistency, Notification Card UX, and Close Account Flow
+- Refactored CloseAccountOverviewCard and DebitCardOverviewCard to use shadcn/ui Card, CardHeader, CardTitle, CardContent, and CardFooter for consistent structure and style.
+- All CardTitle components now use `text-xl` globally for visual consistency across all cards.
+- Icon size above card titles reduced (w-6 h-6) for better visual balance; all overview cards use Lucide icons in a gray rounded-xl box, left-aligned above the title.
+- In AaplMediumTemplate, the blue notification card's suggestion is now clickable and injects the correct alias to the dialogue area, triggering the small Apple template (matches RMD pattern).
+- Event-driven notification/intent card pattern is now standard: notification cards in templates use CustomEvent ('add-to-floating-input') to inject aliases and trigger template transitions for seamless conversational flow.
+- All changes are committed, merged, and pushed to main.
+
+---
