@@ -140,4 +140,13 @@ The Smart Suggest Panel is an interactive, context-aware suggestion panel that a
 - Event-driven notification/intent card pattern is now standard: notification cards in templates use CustomEvent ('add-to-floating-input') to inject aliases and trigger template transitions for seamless conversational flow.
 - All changes are committed, merged, and pushed to main.
 
+## [2024-07-XX] Close Account Flow, Transaction Card, and Dialogue Area Patterns
+- **Close Account Flow:** Implemented a robust, modular Close Account flow with both large and medium templates, triggered by natural language queries and button actions.
+- **Large Template:** Features a CloseAccountOverviewCard with a transactional flow: "Get started" triggers a confirmation state (blue animated border, shadow, disclaimer, confirm/cancel buttons), and confirmation transitions to a success state (green border, "Account Closed" heading, green check, no X button). The card floats above other cards with a strong shadow, visually indicating it is an active transaction. The X button (top right, outside CardHeader) allows the user to close/remove the card at any time except in the closed state.
+- **Medium Template:** Lists all accounts (with types and balances), with the first row (Individual Account) eligible for closure. Account list uses up/down/no-change indicators for balances, with specific color assignments (e.g., Roth IRA up/green, Crypto down/red, Cash management black). The preamble clarifies eligibility. The "Show all accounts" button and aliases trigger the medium template; confirmation mode hides the input field.
+- **Event-Driven UX:** All major actions (e.g., "Show all accounts", conversation buttons) use CustomEvent ('add-to-floating-input') to inject aliases and trigger template transitions, supporting modular, conversational UX. This pattern is now standard across flows.
+- **Floating Transaction Card:** The CloseAccountOverviewCard floats above other cards (with shadow) to indicate an active transaction. When closed, the shadow is removed, and the card visually recedes. This pattern supports the "mini-app" concept: a transactional flow can be added to the dialogue area, interact with the user, and be dismissed independently.
+- **Design Decisions:** The card's border-radius is preserved by animating border-color (not border-image). The X button is flush-aligned, and the card's shadow is increased for elevation during confirmation. All UI/UX choices are documented in /src/docs/.
+- **Documentation:** Added a new doc in /src/docs/ describing the design decisions and patterns for the Close Account transaction card and mini-app pattern.
+
 ---

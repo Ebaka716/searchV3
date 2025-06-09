@@ -116,12 +116,14 @@ _This document tracks what works, what's left to build, current status, known is
 - All changes build cleanly and are pushed to main.
 - See new documentation in /src/docs/ for RmdSmallTemplate and intent-driven notification card pattern.
 
-## [2024-07-XX] Close Account Flow, Notification Card UX, and Card System Consistency
-- Close Account flow: Large template with overview card, steps, and actions; overview card now matches DebitCardOverviewCard structure and style (shadcn/ui Card primitives).
-- Notification/intent cards in both AAPL and RMD templates now support clickable suggestions that inject aliases and trigger template transitions (event-driven UX).
-- All card titles standardized to `text-xl` globally for visual consistency.
-- Icon sizing and alignment above card titles standardized (w-6 h-6, Lucide icon, gray rounded-xl box, left-aligned).
-- All new/updated cards use shadcn/ui primitives and event-driven UX patterns for consistency and maintainability.
+## [2024-07-XX] Close Account Flow, Transaction Card, and Mini-App Pattern
+- Close Account flow is fully implemented with large and medium templates, robustly triggered by natural language queries and button actions.
+- Large template features a transactional CloseAccountOverviewCard: confirmation state (blue animated border, shadow, disclaimer, confirm/cancel), success state (green border, "Account Closed", green check, no X button). Card floats above other cards with shadow for active transaction feel; shadow is removed when closed.
+- Medium template lists all accounts with eligibility, balance indicators, and color-coded changes. "Show all accounts" and aliases trigger the medium template. Confirmation mode hides the input field.
+- All major actions use event-driven UX (CustomEvent 'add-to-floating-input') to inject aliases and trigger template transitions, supporting modular, conversational flows.
+- The floating transaction card (mini-app) pattern allows a transactional flow to be added to the dialogue area, interact with the user, and be dismissed independently (X button, except in closed state).
+- All UI/UX choices (border-radius, animated border-color, shadow, X button alignment) are documented in /src/docs/.
+- All changes are committed, merged, and pushed to main. Memory bank and documentation are fully up to date.
 
 ---
 
