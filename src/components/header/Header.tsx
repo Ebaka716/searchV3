@@ -319,66 +319,45 @@ export function Header({
                   <div>
                     <div className="font-semibold">Close Account Large Template:</div>
                     <ul className="list-disc pl-6">
-                      <li>AAPL</li>
-                      <li>aapl</li>
-                      <li>apple</li>
-                      <li>appl</li>
-                      <li>aple</li>
-                      <li>aaple</li>
-                      <li>aappl</li>
-                      <li>appel</li>
-                      <li>applle</li>
-                      <li>aapll</li>
-                      <li>applr</li>
-                      <li>applw</li>
-                      <li>appl3</li>
+                      <li>I want to close an account</li>
+                      <li>close my account</li>
+                      <li>close an account</li>
+                      <li>close checking account</li>
+                      <li>close savings account</li>
+                      <li>close brokerage account</li>
+                      <li>close my checking</li>
+                      <li>close my savings</li>
+                      <li>close my brokerage</li>
+                      <li>close account request</li>
+                      <li>account closure</li>
+                      <li>how do I close my account</li>
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Medium Template:</div>
+                    <div className="font-semibold">Close Account Medium Template:</div>
                     <ul className="list-disc pl-6">
-                      <li>apple dividends and earnings</li>
-                      <li>aapl dividends and earnings</li>
-                      <li>dividends & earnings for apple</li>
-                      <li>dividends & earnings for aapl</li>
-                      <li>apple earnings and dividends</li>
-                      <li>aapl earnings and dividends</li>
-                      <li>dividends and earnings apple</li>
-                      <li>dividends and earnings aapl</li>
-                      <li>apple dividends earnings</li>
-                      <li>aapl dividends earnings</li>
-                      <li>show me apple dividends and earnings</li>
-                      <li>show aapl dividends and earnings</li>
-                      <li>apple earnings dividends</li>
-                      <li>aapl earnings dividends</li>
-                      <li>dividends plus earnings apple</li>
-                      <li>dividends plus earnings aapl</li>
-                      <li>dividends earnings june 2024 apple</li>
-                      <li>dividends earnings june 2024 aapl</li>
+                      <li>Show me all my accounts</li>
+                      <li>list my accounts</li>
+                      <li>what accounts do I have</li>
+                      <li>show accounts</li>
+                      <li>my accounts</li>
+                      <li>account list</li>
+                      <li>display my accounts</li>
+                      <li>see all accounts</li>
+                      <li>view all accounts</li>
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Small Template:</div>
+                    <div className="font-semibold">Close Account Small Template:</div>
                     <ul className="list-disc pl-6">
-                      <li>my dividends from last month</li>
-                      <li>my dividends for apple last month</li>
-                      <li>apple dividends last month</li>
-                      <li>aapl dividends last month</li>
-                      <li>dividends from apple last month</li>
-                      <li>last month apple dividends</li>
-                      <li>last month aapl dividends</li>
-                      <li>show me my apple dividends for last month</li>
-                      <li>show my aapl dividends last month</li>
-                      <li>apple dividend payments last month</li>
-                      <li>aapl dividend history last month</li>
-                      <li>dividends received from apple last month</li>
-                      <li>dividends paid by aapl last month</li>
-                      <li>recent apple dividends</li>
-                      <li>recent aapl dividends</li>
-                      <li>apple dividends june 2024</li>
-                      <li>aapl dividends june 2024</li>
-                      <li>my apple dividend income last month</li>
-                      <li>my aapl dividend income last month</li>
+                      <li>Close my checking account now</li>
+                      <li>close checking now</li>
+                      <li>close my savings now</li>
+                      <li>close brokerage now</li>
+                      <li>close account immediately</li>
+                      <li>close my account now</li>
+                      <li>confirm account closure</li>
+                      <li>finalize account closure</li>
                     </ul>
                   </div>
                 </div>
