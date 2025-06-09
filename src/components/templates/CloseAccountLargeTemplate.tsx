@@ -71,25 +71,29 @@ const CloseAccountConversationButtonsCard: React.FC = () => (
 interface CloseAccountLargeTemplateProps {
   headerRef?: React.Ref<HTMLDivElement>;
   query: string;
+  setHideInput?: (hide: boolean) => void;
 }
 
-const CloseAccountLargeTemplate: React.FC<CloseAccountLargeTemplateProps> = ({ headerRef, query }) => (
-  <BigTemplate
-    headerRef={headerRef}
-    header={query}
-    preamble={
-      "You can only close accounts with a zero balance online. If you have accounts with a balance, you will need to speak to an associate."
-    }
-    rows={[
-      { type: "full", cards: [
-        <CloseAccountOverviewCard key="close-account-overview-card" />
-      ] },
-      { type: "thirds", cards: [
-        <ClassicSearchResultsCard key="close-account-results" query="close account" results={closeAccountResults} />, 
-        <CloseAccountConversationButtonsCard key="conversation-buttons" />
-      ] }
-    ]}
-  />
-);
+const CloseAccountLargeTemplate: React.FC<CloseAccountLargeTemplateProps> = ({ headerRef, query, setHideInput }) => {
+  const handleHideInput = setHideInput;
+  return (
+    <BigTemplate
+      headerRef={headerRef}
+      header={query}
+      preamble={
+        "You can only close accounts with a zero balance online. If you have accounts with a balance, you will need to speak to an associate."
+      }
+      rows={[
+        { type: "full", cards: [
+          <CloseAccountOverviewCard key="close-account-overview-card" onConfirmingChange={handleHideInput} />
+        ] },
+        { type: "thirds", cards: [
+          <ClassicSearchResultsCard key="close-account-results" query="close account" results={closeAccountResults} />, 
+          <CloseAccountConversationButtonsCard key="conversation-buttons" />
+        ] }
+      ]}
+    />
+  );
+};
 
 export default CloseAccountLargeTemplate; 

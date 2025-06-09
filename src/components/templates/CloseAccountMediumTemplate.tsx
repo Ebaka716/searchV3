@@ -34,10 +34,10 @@ const AccountListCard: React.FC = () => {
             let balanceColor = "text-black";
             let icon = null;
             if (change === "up") {
-              balanceColor = "text-green-700 font-semibold";
+              balanceColor = "text-green-700";
               icon = <ArrowUpRight className="w-4 h-4 text-green-600 mr-1" />;
             } else if (change === "down") {
-              balanceColor = "text-red-700 font-semibold";
+              balanceColor = "text-red-700";
               icon = <ArrowDownRight className="w-4 h-4 text-red-600 mr-1" />;
             }
             return (

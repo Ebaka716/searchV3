@@ -51,6 +51,7 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
   const dialogue = currentDialogue;
   const setDialogue = setCurrentDialogue;
   const latestDialogueRef = useRef(dialogue);
+  const [hideInput, setHideInput] = useState(false);
   useEffect(() => {
     latestDialogueRef.current = dialogue;
   }, [dialogue]);
@@ -491,6 +492,7 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}
+                  setHideInput={setHideInput}
                 />
               ) : entry.type === '__CLOSE_ACCOUNT_MEDIUM_TEMPLATE__' ? (
                 <CloseAccountMediumTemplate
@@ -515,7 +517,7 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
         </div>
       </div>
       {/* Input bar: conditional positioning based on mode */}
-      {readyForInput && (
+      {readyForInput && !hideInput && (
         mode === 'search' ? (
           <div className="fixed bottom-0 left-0 w-full z-30 pointer-events-none pb-4">
             <div className="pointer-events-auto w-full max-w-[884px] mx-auto px-8">
