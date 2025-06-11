@@ -45,6 +45,9 @@ import RmdSimpleAnswer from '@/components/answers/RmdSimpleAnswer';
 import CloseAccountLargeAnswer from '@/components/answers/CloseAccountLargeAnswer';
 import CloseAccountMediumAnswer from '@/components/answers/CloseAccountMediumAnswer';
 import CloseAccountSmallAnswer from '@/components/answers/CloseAccountSmallAnswer';
+import OpenAccountLargeAnswer from '@/components/answers/OpenAccountLargeAnswer';
+import OpenAccountMediumAnswer from '@/components/answers/OpenAccountMediumAnswer';
+import OpenAccountSmallAnswer from '@/components/answers/OpenAccountSmallAnswer';
 
 export const demoSearches: DemoSearch[] = [
   // Ticker: AAPL Confidence low
@@ -375,6 +378,71 @@ export const demoSearches: DemoSearch[] = [
       { id: "close-small-support", label: "Contact Support", iconType: "sitePage", link: "#" }
     ],
     answer: <CloseAccountSmallAnswer />
+  },
+
+  // Transaction: Open Account - Large
+  {
+    query: "Open an account",
+    aliases: [
+      "open account",
+      "open a new account",
+      "start new account",
+      "begin account opening",
+      "create account",
+      "new account application",
+      "apply for account"
+    ],
+    type: "term",
+    size: "large",
+    resources: [
+      { id: "open-large-guide", label: "How to Open an Account", iconType: "document" },
+      { id: "open-large-types", label: "Account Types Overview", iconType: "sitePage", link: "#" },
+      { id: "open-large-support", label: "Contact Support", iconType: "sitePage", link: "#" },
+      { id: "open-large-faq", label: "Account Opening FAQ", iconType: "document" }
+    ],
+    answer: <OpenAccountLargeAnswer />
+  },
+
+  // Transaction: Open Account - Medium
+  {
+    query: "Open account type",
+    aliases: [
+      "choose account type",
+      "select account type",
+      "account type options",
+      "open checking account",
+      "open savings account",
+      "open investment account"
+    ],
+    type: "term",
+    size: "medium",
+    resources: [
+      { id: "open-medium-types", label: "Account Types", iconType: "document" },
+      { id: "open-medium-compare", label: "Compare Account Options", iconType: "sitePage", link: "#" },
+      { id: "open-medium-steps", label: "Steps to Open an Account", iconType: "document" }
+    ],
+    answer: <OpenAccountMediumAnswer />
+  },
+
+  // Transaction: Open Account - Small
+  {
+    query: "Start account application",
+    aliases: [
+      "start application",
+      "begin application",
+      "apply now",
+      "open account now",
+      "quick account opening",
+      "open account fast"
+    ],
+    type: "term",
+    size: "small",
+    resources: [
+      { id: "open-small-apply", label: "Apply for an Account", iconType: "sitePage", link: "#" },
+      { id: "open-small-support", label: "Contact Support", iconType: "sitePage", link: "#" },
+      { id: "open-small-faq", label: "Account Application FAQ", iconType: "document" }
+    ],
+    answer: <OpenAccountSmallAnswer />
   },
 
   // Question: Placeholder (to be filled in later)

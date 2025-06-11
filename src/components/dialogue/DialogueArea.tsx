@@ -14,6 +14,7 @@ import RmdMediumTemplate from "../templates/RmdMediumTemplate";
 import RmdSmallTemplate from "../templates/RmdSmallTemplate";
 import CloseAccountLargeTemplate from "../templates/CloseAccountLargeTemplate";
 import CloseAccountMediumTemplate from "../templates/CloseAccountMediumTemplate";
+import OpenAccountLargeTemplate from "../templates/OpenAccountLargeTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
 import { useDialogueHistory, DialogueEntry } from "@/context/DialogueHistoryContext";
 
@@ -192,6 +193,31 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
         setValue("");
         return;
       }
+      // Open Account: Large
+      if (
+        match &&
+        match.type === 'term' &&
+        (match.query.toLowerCase().includes('open account') ||
+          match.aliases.some(alias => alias.toLowerCase().includes('open account')))
+      ) {
+        const id = getNextDialogueId();
+        setDialogue([...dialogue, { id, type: 'loading' }]);
+        setTimeout(() => {
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+            entry.id === id
+              ? { id, type: `__OPEN_ACCOUNT_LARGE_TEMPLATE__`, query: trimmed }
+              : entry
+          );
+          setDialogue(updatedDialogue);
+          setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: `__OPEN_ACCOUNT_LARGE_TEMPLATE__`, query: trimmed }
+          ]);
+        }, 1200);
+        hasHandledQueryParamRef.current = true;
+        setValue("");
+        return;
+      }
       // Fallback: add as plain text
       const id = getNextDialogueId();
       setDialogue([...dialogue, { id, type: 'text', text: trimmed }]);
@@ -350,6 +376,31 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
       setValue("");
       return;
     }
+    // Open Account: Large
+    if (
+      match &&
+      match.type === 'term' &&
+      (match.query.toLowerCase().includes('open account') ||
+        match.aliases.some(alias => alias.toLowerCase().includes('open account')))
+    ) {
+      const id = getNextDialogueId();
+      setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
+      setTimeout(() => {
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+          entry.id === id
+            ? { id, type: `__OPEN_ACCOUNT_LARGE_TEMPLATE__`, query: trimmed }
+            : entry
+        );
+        setDialogue(updatedDialogue);
+        if (shouldAddHistory) {
+          addHistoryEntry(trimmed, [
+            { id, type: `__OPEN_ACCOUNT_LARGE_TEMPLATE__`, query: trimmed }
+          ]);
+        }
+      }, 1200);
+      setValue("");
+      return;
+    }
     // Fallback: add as plain text
     const id = getNextDialogueId();
     setDialogue([...currentDialogueSnapshot, { id, type: 'text', text: trimmed }]);
@@ -496,6 +547,12 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
                 />
               ) : entry.type === '__CLOSE_ACCOUNT_MEDIUM_TEMPLATE__' ? (
                 <CloseAccountMediumTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__OPEN_ACCOUNT_LARGE_TEMPLATE__' ? (
+                <OpenAccountLargeTemplate
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}
