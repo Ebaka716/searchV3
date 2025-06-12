@@ -97,6 +97,41 @@ _This document tracks what works, what's left to build, current status, known is
 - All secondary action buttons now use shadcn/ui outline variant for visual and UX consistency.
 - Merged main and dev branches, resolved conflicts, and pushed all updates to remote.
 
+## [2024-06-XX] RMD Template System, Dialogue Logic, and UI/UX Overhaul
+- Implemented three RMD templates (large, medium, small), each triggered by specific queries/aliases for robust, modular conversational search.
+- Large template: full-width answer with tan background, transparent card, source tags, and right-aligned sources button; second row with left search results (7 RMD results) and right conversation button stack (5 RMD topics).
+- Medium template: similar structure, with a large "Yes" heading, eligibility answer, 4 source tags, and a sources button; second row with 5 search results and 3 conversation buttons.
+- Small template: covers personal RMD history (details in activeContext.md).
+- All answer components use consistent font sizes, spacing, and source tag patterns. Source tags are grey circles with numbers, and the sources button is always right-aligned with a count.
+- Conversation buttons are event-driven: clicking a button (e.g., "Do I have to take an RMD?") triggers the appropriate template, using the same event-driven logic as the AAPL template flow.
+- Smart Suggest answer is now a simple, paragraph-style component, not a template. Dialogue area logic supports both large and medium RMD templates, mapping aliases and button actions to the correct template.
+- UI/UX: All answer components and templates are modular, lint/type clean, and production-ready. Dialogue area only renders templates, not answer components. All builds and tests confirmed clean.
+- Memory bank and documentation updated to reflect new RMD templates, source tag pattern, and dialogue area logic.
+
+## [2024-06-XX] RMD Template System Complete & UX Improvements
+- All RMD templates (large, medium, small) now use a unified, modular layout and conversational pattern.
+- Added RmdSmallTemplate for last-year RMD queries, with answer, conversation buttons, and search results.
+- Blue notification intent card in RMD medium template now reliably triggers the small template via alias matching.
+- Improved spacing and visual clarity across all RMD templates.
+- All changes build cleanly and are pushed to main.
+- See new documentation in /src/docs/ for RmdSmallTemplate and intent-driven notification card pattern.
+
+## [2024-07-XX] Close Account Flow, Transaction Card, and Mini-App Pattern
+- Close Account flow is fully implemented with large and medium templates, robustly triggered by natural language queries and button actions.
+- Large template features a transactional CloseAccountOverviewCard: confirmation state (blue animated border, shadow, disclaimer, confirm/cancel), success state (green border, "Account Closed", green check, no X button). Card floats above other cards with shadow for active transaction feel; shadow is removed when closed.
+- Medium template lists all accounts with eligibility, balance indicators, and color-coded changes. "Show all accounts" and aliases trigger the medium template. Confirmation mode hides the input field.
+- All major actions use event-driven UX (CustomEvent 'add-to-floating-input') to inject aliases and trigger template transitions, supporting modular, conversational flows.
+- The floating transaction card (mini-app) pattern allows a transactional flow to be added to the dialogue area, interact with the user, and be dismissed independently (X button, except in closed state).
+- All UI/UX choices (border-radius, animated border-color, shadow, X button alignment) are documented in /src/docs/.
+- All changes are committed, merged, and pushed to main. Memory bank and documentation are fully up to date.
+
+## [2024-07-XX] Open Account Small Template (Brokerage) & Card System Enhancements
+- Added Open Account Small Template for brokerage account flow, triggered by natural language queries and robust alias matching.
+- Created OpenAccountBrokerageOverviewCard: full-width, Clark Kent demo data, gray info box, clickable Account Opening Agreements, and all required policy/IRS bullet points. Two CTAs at the bottom.
+- Updated demoSearches and DialogueArea to wire up the new template and aliases.
+- All linter/type errors resolved and build confirmed clean.
+- Documentation to be added for new card and template in /docs/components/cards and /docs/templates.
+
 ---
 
 > See also: [src/docs/SMART_SUGGEST_PANEL.md] for comprehensive technical and UX documentation of the Smart Suggest Panel feature.

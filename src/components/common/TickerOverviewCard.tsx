@@ -55,7 +55,7 @@ const TickerOverviewCard: React.FC<TickerOverviewCardProps> = ({
         <CardHeader className="p-0 mb-2">
           <div className="flex items-center gap-2">
             <AppleIcon />
-            <CardTitle className="text-lg font-bold text-zinc-900">{name}</CardTitle>
+            <CardTitle className="text-xl font-semibold text-zinc-900">{name}</CardTitle>
           </div>
         </CardHeader>
         <CardContent className="p-0 flex flex-col gap-2">

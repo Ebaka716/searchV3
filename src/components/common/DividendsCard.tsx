@@ -56,7 +56,7 @@ const DividendsCard = () => {
   return (
     <Card className="rounded-xl border bg-card">
       <CardHeader className="flex flex-row items-center justify-between pb-2">
-        <CardTitle className="text-lg font-semibold">Dividends</CardTitle>
+        <CardTitle>Dividends</CardTitle>
         <Button variant="ghost" size="sm" className="text-muted-foreground">More &rarr;</Button>
       </CardHeader>
       <CardContent className="pt-0">

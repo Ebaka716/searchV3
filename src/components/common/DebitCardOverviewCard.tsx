@@ -13,12 +13,12 @@ const deliveryStages = [
 const currentStage = 0; // 0-based index, e.g., "Ordered" (green fill stops before 'Shipped')
 
 const DebitCardOverviewCard: React.FC = () => (
-  <Card>
+  <Card className="border">
     <CardHeader>
       <div className="flex flex-col items-start mb-2 w-full">
         <div className="flex items-center justify-between w-full mb-2">
           <div className="flex items-center justify-center w-12 h-12 bg-zinc-100 rounded-xl border border-zinc-200">
-            <CreditCard className="w-8 h-8 text-blue-500" />
+            <CreditCard className="w-6 h-6 text-blue-500" />
           </div>
         </div>
         <CardTitle>Debit Card Delivery Overview</CardTitle>

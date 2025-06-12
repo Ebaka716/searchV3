@@ -54,7 +54,18 @@ const AaplMediumTemplate: React.FC<AaplMediumTemplateProps> = ({ headerRef, quer
         <div key="blue-bar" className="w-full mt-2">
           <div className="flex items-center gap-2 mb-4 p-3 rounded-md bg-blue-100 border border-blue-300 text-blue-900">
             <Info className="h-5 w-5 text-blue-600" />
-            <span className="text-sm font-medium">Want to see your recent dividend payments? Try asking: <span className="font-mono bg-blue-200 px-1 py-0.5 rounded">my dividends for apple last month</span></span>
+            <span className="text-sm font-medium">
+              Want to see your recent dividend payments? Try asking: 
+              <button
+                type="button"
+                className="font-mono bg-blue-200 px-1 py-0.5 rounded underline hover:bg-blue-300 transition-colors ml-1 focus:outline-none"
+                onClick={() => window.dispatchEvent(
+                  new CustomEvent('add-to-floating-input', { detail: { value: 'my dividends for apple last month' } })
+                )}
+              >
+                my dividends for apple last month
+              </button>
+            </span>
           </div>
         </div>
       ] },

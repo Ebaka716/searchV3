@@ -14,7 +14,7 @@ const StackedConversationCard: React.FC = () => {
   return (
     <Card className="p-6">
       <CardHeader className="p-0 mb-2">
-        <CardTitle className="text-lg font-bold text-zinc-900">Research topics</CardTitle>
+        <CardTitle className="text-xl font-semibold text-zinc-900">Research topics</CardTitle>
       </CardHeader>
       <CardContent className="p-0">
         <div className="flex flex-col gap-3 items-start">

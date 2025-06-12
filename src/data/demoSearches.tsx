@@ -42,6 +42,11 @@ import DebitCardInfoAnswer from '@/components/answers/DebitCardInfoAnswer';
 import AppleDividendsAnswer from '@/components/answers/AppleDividendsAnswer';
 import AppleTickerInfoAnswer from '@/components/answers/AppleTickerInfoAnswer';
 import RmdSimpleAnswer from '@/components/answers/RmdSimpleAnswer';
+import CloseAccountLargeAnswer from '@/components/answers/CloseAccountLargeAnswer';
+import CloseAccountMediumAnswer from '@/components/answers/CloseAccountMediumAnswer';
+import CloseAccountSmallAnswer from '@/components/answers/CloseAccountSmallAnswer';
+import OpenAccountLargeAnswer from '@/components/answers/OpenAccountLargeAnswer';
+import OpenAccountSmallAnswer from '@/components/answers/OpenAccountSmallAnswer';
 
 export const demoSearches: DemoSearch[] = [
   // Ticker: AAPL Confidence low
@@ -357,6 +362,172 @@ export const demoSearches: DemoSearch[] = [
       { id: "cs-small-podcast-customer", label: "Podcast: Customer Service Tips", iconType: "podcast" }
     ],
     answer: "To speak with a live associate about your debit card delivery, please call our customer service line or use the live chat option below. We're here to help you resolve your issue as quickly as possible.",
+  },
+
+  // Transaction: Close Account - Large
+  {
+    query: "I want to close an account",
+    aliases: [
+      "close my account",
+      "close an account",
+      "close checking account",
+      "close savings account",
+      "close brokerage account",
+      "close my checking",
+      "close my savings",
+      "close my brokerage",
+      "close account request",
+      "account closure",
+      "how do I close my account"
+    ],
+    type: "term",
+    size: "large",
+    resources: [
+      { id: "close-large-policy", label: "Account Closure Policy", iconType: "document" },
+      { id: "close-large-howto", label: "How to Close Your Account", iconType: "sitePage", link: "#" },
+      { id: "close-large-support", label: "Contact Support", iconType: "sitePage", link: "#" },
+      { id: "close-large-faq", label: "Account Closure FAQ", iconType: "document" }
+    ],
+    answer: <CloseAccountLargeAnswer />
+  },
+
+  // Transaction: Close Account - Medium
+  {
+    query: "Show me all my accounts",
+    aliases: [
+      "list my accounts",
+      "what accounts do I have",
+      "show accounts",
+      "my accounts",
+      "account list",
+      "display my accounts",
+      "see all accounts",
+      "view all accounts"
+    ],
+    type: "term",
+    size: "medium",
+    resources: [
+      { id: "close-medium-types", label: "Account Types", iconType: "document" },
+      { id: "close-medium-summary", label: "Account Summary", iconType: "sitePage", link: "#" },
+      { id: "close-medium-manage", label: "How to Manage Accounts", iconType: "sitePage", link: "#" }
+    ],
+    answer: <CloseAccountMediumAnswer />
+  },
+
+  // Transaction: Close Account - Small
+  {
+    query: "Close my checking account now",
+    aliases: [
+      "close checking now",
+      "close my savings now",
+      "close brokerage now",
+      "close account immediately",
+      "close my account now",
+      "confirm account closure",
+      "finalize account closure"
+    ],
+    type: "term",
+    size: "small",
+    resources: [
+      { id: "close-small-confirmation", label: "Closure Confirmation", iconType: "document" },
+      { id: "close-small-statement", label: "Download Account Statement", iconType: "sitePage", link: "#" },
+      { id: "close-small-support", label: "Contact Support", iconType: "sitePage", link: "#" }
+    ],
+    answer: <CloseAccountSmallAnswer />
+  },
+
+  // Transaction: Open Account - Large
+  {
+    query: "Open an account",
+    aliases: [
+      "open account",
+      "open a new account",
+      "start new account",
+      "begin account opening",
+      "create account",
+      "new account application",
+      "apply for account"
+    ],
+    type: "term",
+    size: "large",
+    resources: [
+      { id: "open-large-guide", label: "How to Open an Account", iconType: "document" },
+      { id: "open-large-types", label: "Account Types Overview", iconType: "sitePage", link: "#" },
+      { id: "open-large-support", label: "Contact Support", iconType: "sitePage", link: "#" },
+      { id: "open-large-faq", label: "Account Opening FAQ", iconType: "document" }
+    ],
+    answer: <OpenAccountLargeAnswer />
+  },
+
+  // Transaction: Open Account - Medium
+  {
+    query: "Open retirement account",
+    aliases: [
+      "open a retirement account",
+      "start retirement account",
+      "apply for retirement account",
+      "retirement account options",
+      "open ira",
+      "open roth ira",
+      "open 401k rollover",
+      "open sep ira",
+      "open simple ira"
+    ],
+    type: "term",
+    size: "medium",
+    resources: [
+      { id: "retirement-guide", label: "Retirement Account Guide", iconType: "document" },
+      { id: "ira-vs-roth", label: "IRA vs Roth IRA Comparison", iconType: "sitePage", link: "#" },
+      { id: "rollover-faq", label: "401(k) Rollover FAQ", iconType: "document" },
+      { id: "retirement-support", label: "Contact Retirement Support", iconType: "sitePage", link: "#" }
+    ],
+    answer: "See available retirement account types and details below."
+  },
+
+  // Transaction: Open Account - Small
+  {
+    query: "Start account application",
+    aliases: [
+      "start application",
+      "begin application",
+      "apply now",
+      "open account now",
+      "quick account opening",
+      "open account fast"
+    ],
+    type: "term",
+    size: "small",
+    resources: [
+      { id: "open-small-apply", label: "Apply for an Account", iconType: "sitePage", link: "#" },
+      { id: "open-small-support", label: "Contact Support", iconType: "sitePage", link: "#" },
+      { id: "open-small-faq", label: "Account Application FAQ", iconType: "document" }
+    ],
+    answer: <OpenAccountSmallAnswer />
+  },
+
+  // Transaction: Open Account - Small (Brokerage)
+  {
+    query: "Open a brokerage account",
+    aliases: [
+      "open brokerage account",
+      "start brokerage account",
+      "begin brokerage account",
+      "create brokerage account",
+      "apply for brokerage account",
+      "open investment account",
+      "open trading account",
+      "brokerage account application",
+      "open a brokerage",
+      "open a new brokerage account"
+    ],
+    type: "term",
+    size: "small",
+    resources: [
+      { id: "open-brokerage-guide", label: "How to Open a Brokerage Account", iconType: "document" },
+      { id: "open-brokerage-terms", label: "Brokerage Account Terms & Conditions", iconType: "sitePage", link: "#" },
+      { id: "open-brokerage-support", label: "Contact Support", iconType: "sitePage", link: "#" }
+    ],
+    answer: <OpenAccountSmallAnswer />
   },
 
   // Question: Placeholder (to be filled in later)

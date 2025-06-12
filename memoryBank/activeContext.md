@@ -117,3 +117,43 @@ The Smart Suggest Panel is an interactive, context-aware suggestion panel that a
 - **Smart Suggest & RMD Matching:** Expanded and improved RMD queries/aliases in `demoSearches.tsx` for better Smart Suggest matching. Logic for intent detection and alias matching is more robust.
 - **UI Consistency:** All secondary action buttons across templates now use the shadcn/ui outline variant, matching the style of the medium template's notification button.
 - **Branch Hygiene:** Merged main and dev, resolved all conflicts, and pushed updates to remote.
+
+## [2024-06-XX] RMD Templates, Source Tag Pattern, and Dialogue Area Logic
+- **RmdLargeTemplate & RmdMediumTemplate:** Created modular, row-based templates for RMD queries. Both use a first row answer with source tags (grey circles with numbers) and a right-aligned sources button for trust and clarity. The second row features a compact RMD search results card and a conversation button stack (5 for large, 3 for medium), with event-driven logic to trigger template transitions.
+- **Dialogue Area Logic:** Updated to support both RMD templates, mapping aliases and button actions to the correct template. Smart Suggest answer for RMD is now a simple paragraph, not a template.
+- **System Pattern:** Source tags and sources button are now standard for answer clarity and transparency. All linter/build issues resolved and changes pushed.
+
+## [2024-06-XX] RMD Template System Overhaul & UX Improvements
+
+- **Unified RMD Template Layouts:** All RMD templates (large, medium, small) now use a consistent, modular row-based card grid system for layout and conversational flow.
+- **RmdSmallTemplate Added:** Created a new small RMD template for "how much RMD did I take last year" queries, with a clear answer, conversation buttons, and search results.
+- **Blue Notification Intent Card:** The RMD medium template now includes a blue notification card at the bottom, styled like the AAPL templates, which suggests the next logical query ("how much was my rmd last year") and triggers the small template when clicked.
+- **Alias Matching Fix:** The blue notification button now uses an alias that matches the demoSearches array, ensuring the small template is reliably triggered.
+- **UX Polish:** Improved spacing and visual separation between answer sections, conversation buttons, and search results in all RMD templates.
+- **Documentation:** To support onboarding and collaboration, new documentation has been added for the RmdSmallTemplate and the intent-driven notification card pattern.
+
+## [2024-07-XX] Card System Consistency, Notification Card UX, and Close Account Flow
+- Refactored CloseAccountOverviewCard and DebitCardOverviewCard to use shadcn/ui Card, CardHeader, CardTitle, CardContent, and CardFooter for consistent structure and style.
+- All CardTitle components now use `text-xl` globally for visual consistency across all cards.
+- Icon size above card titles reduced (w-6 h-6) for better visual balance; all overview cards use Lucide icons in a gray rounded-xl box, left-aligned above the title.
+- In AaplMediumTemplate, the blue notification card's suggestion is now clickable and injects the correct alias to the dialogue area, triggering the small Apple template (matches RMD pattern).
+- Event-driven notification/intent card pattern is now standard: notification cards in templates use CustomEvent ('add-to-floating-input') to inject aliases and trigger template transitions for seamless conversational flow.
+- All changes are committed, merged, and pushed to main.
+
+## [2024-07-XX] Close Account Flow, Transaction Card, and Dialogue Area Patterns
+- **Close Account Flow:** Implemented a robust, modular Close Account flow with both large and medium templates, triggered by natural language queries and button actions.
+- **Large Template:** Features a CloseAccountOverviewCard with a transactional flow: "Get started" triggers a confirmation state (blue animated border, shadow, disclaimer, confirm/cancel buttons), and confirmation transitions to a success state (green border, "Account Closed" heading, green check, no X button). The card floats above other cards with a strong shadow, visually indicating it is an active transaction. The X button (top right, outside CardHeader) allows the user to close/remove the card at any time except in the closed state.
+- **Medium Template:** Lists all accounts (with types and balances), with the first row (Individual Account) eligible for closure. Account list uses up/down/no-change indicators for balances, with specific color assignments (e.g., Roth IRA up/green, Crypto down/red, Cash management black). The preamble clarifies eligibility. The "Show all accounts" button and aliases trigger the medium template; confirmation mode hides the input field.
+- **Event-Driven UX:** All major actions (e.g., "Show all accounts", conversation buttons) use CustomEvent ('add-to-floating-input') to inject aliases and trigger template transitions, supporting modular, conversational UX. This pattern is now standard across flows.
+- **Floating Transaction Card:** The CloseAccountOverviewCard floats above other cards (with shadow) to indicate an active transaction. When closed, the shadow is removed, and the card visually recedes. This pattern supports the "mini-app" concept: a transactional flow can be added to the dialogue area, interact with the user, and be dismissed independently.
+- **Design Decisions:** The card's border-radius is preserved by animating border-color (not border-image). The X button is flush-aligned, and the card's shadow is increased for elevation during confirmation. All UI/UX choices are documented in /src/docs/.
+- **Documentation:** Added a new doc in /src/docs/ describing the design decisions and patterns for the Close Account transaction card and mini-app pattern.
+
+## [2024-07-XX] Open Account Small Template (Brokerage) & Card System Enhancements
+- **Open Account Small Template:** Added a new template for the brokerage account opening flow, triggered by queries/aliases like "open brokerage account". Uses a single full-width card row for a focused, transactional experience.
+- **OpenAccountBrokerageOverviewCard:** Created a robust, modular card for the brokerage flow. Features Clark Kent demo data, a gray user info box, and a detailed "Important documents and confirmation" section with clickable Account Opening Agreements and all required policy/IRS bullet points. Two CTAs at the bottom: secondary (Close) and primary (Open Account).
+- **Dialogue & DemoSearches Wiring:** Updated demoSearches.tsx and DialogueArea.tsx to robustly trigger the new template for all relevant aliases. Ensured correct template rendering and event-driven transitions.
+- **UI/UX:** Card is now truly full-width, visually consistent, and production-ready. Clickable doc section styled for interactivity. All linter/type errors resolved and build confirmed clean.
+- **Docs:** Robust documentation to be added for the new card and template in /docs/components/cards and /docs/templates.
+
+---
