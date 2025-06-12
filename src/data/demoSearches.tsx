@@ -209,7 +209,7 @@ export const demoSearches: DemoSearch[] = [
 {
   query: "close account",
   aliases: [
-    "close and account",
+    "close an account",
     "close a account",
     "account close",
     "zero balance",
