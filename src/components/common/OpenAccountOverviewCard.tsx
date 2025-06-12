@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, CardHeader, CardTitle, CardFooter } from "../ui/card";
+import { Card, CardTitle } from "../ui/card";
 import { Button } from "../ui/button";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
 import { Checkbox } from "../ui/checkbox";
@@ -125,10 +125,18 @@ const OpenAccountOverviewCard: React.FC = () => {
         </RadioGroup>
       </div>
       {/* Table */}
-      <div className="flex-1 pr-5 py-6 overflow-x-auto relative" style={{ height: '790px' }}>
-        <CardHeader className="flex flex-col items-start mb-2">
-          <CardTitle className="text-xl">Select Account Types to Open</CardTitle>
-        </CardHeader>
+      <div className="flex-1 pr-5 py-6 overflow-x-auto relative" style={{ height: '725px' }}>
+        <div className="flex items-center justify-between mb-6 gap-4">
+          <CardTitle className="text-xl flex-1 truncate">Select Account Types to Open</CardTitle>
+          <Button
+            variant="default"
+            size="lg"
+            disabled={selectedAccounts.length === 0}
+            onClick={handleOpenAccount}
+          >
+            Open Account{selectedAccounts.length > 1 ? "s" : ""}
+          </Button>
+        </div>
         <Table>
           <TableHeader>
             <TableRow>
@@ -162,16 +170,6 @@ const OpenAccountOverviewCard: React.FC = () => {
             )}
           </TableBody>
         </Table>
-        <CardFooter className="absolute bottom-6 right-6 px-0 pb-0">
-          <Button
-            variant="default"
-            size="lg"
-            disabled={selectedAccounts.length === 0}
-            onClick={handleOpenAccount}
-          >
-            Open Account{selectedAccounts.length > 1 ? "s" : ""}
-          </Button>
-        </CardFooter>
       </div>
     </Card>
   );

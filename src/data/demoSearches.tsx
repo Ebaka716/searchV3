@@ -46,7 +46,6 @@ import CloseAccountLargeAnswer from '@/components/answers/CloseAccountLargeAnswe
 import CloseAccountMediumAnswer from '@/components/answers/CloseAccountMediumAnswer';
 import CloseAccountSmallAnswer from '@/components/answers/CloseAccountSmallAnswer';
 import OpenAccountLargeAnswer from '@/components/answers/OpenAccountLargeAnswer';
-import OpenAccountMediumAnswer from '@/components/answers/OpenAccountMediumAnswer';
 import OpenAccountSmallAnswer from '@/components/answers/OpenAccountSmallAnswer';
 
 export const demoSearches: DemoSearch[] = [
@@ -405,23 +404,27 @@ export const demoSearches: DemoSearch[] = [
 
   // Transaction: Open Account - Medium
   {
-    query: "Open account type",
+    query: "Open retirement account",
     aliases: [
-      "choose account type",
-      "select account type",
-      "account type options",
-      "open checking account",
-      "open savings account",
-      "open investment account"
+      "open a retirement account",
+      "start retirement account",
+      "apply for retirement account",
+      "retirement account options",
+      "open ira",
+      "open roth ira",
+      "open 401k rollover",
+      "open sep ira",
+      "open simple ira"
     ],
     type: "term",
     size: "medium",
     resources: [
-      { id: "open-medium-types", label: "Account Types", iconType: "document" },
-      { id: "open-medium-compare", label: "Compare Account Options", iconType: "sitePage", link: "#" },
-      { id: "open-medium-steps", label: "Steps to Open an Account", iconType: "document" }
+      { id: "retirement-guide", label: "Retirement Account Guide", iconType: "document" },
+      { id: "ira-vs-roth", label: "IRA vs Roth IRA Comparison", iconType: "sitePage", link: "#" },
+      { id: "rollover-faq", label: "401(k) Rollover FAQ", iconType: "document" },
+      { id: "retirement-support", label: "Contact Retirement Support", iconType: "sitePage", link: "#" }
     ],
-    answer: <OpenAccountMediumAnswer />
+    answer: "See available retirement account types and details below."
   },
 
   // Transaction: Open Account - Small
@@ -441,6 +444,31 @@ export const demoSearches: DemoSearch[] = [
       { id: "open-small-apply", label: "Apply for an Account", iconType: "sitePage", link: "#" },
       { id: "open-small-support", label: "Contact Support", iconType: "sitePage", link: "#" },
       { id: "open-small-faq", label: "Account Application FAQ", iconType: "document" }
+    ],
+    answer: <OpenAccountSmallAnswer />
+  },
+
+  // Transaction: Open Account - Small (Brokerage)
+  {
+    query: "Open a brokerage account",
+    aliases: [
+      "open brokerage account",
+      "start brokerage account",
+      "begin brokerage account",
+      "create brokerage account",
+      "apply for brokerage account",
+      "open investment account",
+      "open trading account",
+      "brokerage account application",
+      "open a brokerage",
+      "open a new brokerage account"
+    ],
+    type: "term",
+    size: "small",
+    resources: [
+      { id: "open-brokerage-guide", label: "How to Open a Brokerage Account", iconType: "document" },
+      { id: "open-brokerage-terms", label: "Brokerage Account Terms & Conditions", iconType: "sitePage", link: "#" },
+      { id: "open-brokerage-support", label: "Contact Support", iconType: "sitePage", link: "#" }
     ],
     answer: <OpenAccountSmallAnswer />
   },

@@ -15,6 +15,8 @@ import RmdSmallTemplate from "../templates/RmdSmallTemplate";
 import CloseAccountLargeTemplate from "../templates/CloseAccountLargeTemplate";
 import CloseAccountMediumTemplate from "../templates/CloseAccountMediumTemplate";
 import OpenAccountLargeTemplate from "../templates/OpenAccountLargeTemplate";
+import OpenAccountMediumTemplate from "../templates/OpenAccountMediumTemplate";
+import OpenAccountSmallTemplate from "../templates/OpenAccountSmallTemplate";
 import { findDemoSearchMatch } from "@/data/demoSearches";
 import { useDialogueHistory, DialogueEntry } from "@/context/DialogueHistoryContext";
 
@@ -142,6 +144,32 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
         setValue("");
         return;
       }
+      // Open Account: Medium
+      if (
+        match &&
+        match.type === 'term' &&
+        match.size === 'medium' &&
+        (match.query.toLowerCase().includes('retirement account') ||
+          match.aliases.some(alias => alias.toLowerCase().includes('retirement account')))
+      ) {
+        const id = getNextDialogueId();
+        setDialogue([...dialogue, { id, type: 'loading' }]);
+        setTimeout(() => {
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+            entry.id === id
+              ? { id, type: '__OPEN_ACCOUNT_MEDIUM_TEMPLATE__', query: trimmed }
+              : entry
+          );
+          setDialogue(updatedDialogue);
+          setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: '__OPEN_ACCOUNT_MEDIUM_TEMPLATE__', query: trimmed }
+          ]);
+        }, 1200);
+        hasHandledQueryParamRef.current = true;
+        setValue("");
+        return;
+      }
       // Close Account: Medium
       if (
         match &&
@@ -212,6 +240,32 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
           setReadyForInput(true);
           addHistoryEntry(trimmed, [
             { id, type: `__OPEN_ACCOUNT_LARGE_TEMPLATE__`, query: trimmed }
+          ]);
+        }, 1200);
+        hasHandledQueryParamRef.current = true;
+        setValue("");
+        return;
+      }
+      // Open Account: Small (Brokerage)
+      if (
+        match &&
+        match.type === 'term' &&
+        match.size === 'small' &&
+        (match.query.toLowerCase().includes('brokerage account') ||
+          match.aliases.some(alias => alias.toLowerCase().includes('brokerage account')))
+      ) {
+        const id = getNextDialogueId();
+        setDialogue([...dialogue, { id, type: 'loading' }]);
+        setTimeout(() => {
+          const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+            entry.id === id
+              ? { id, type: '__OPEN_ACCOUNT_SMALL_TEMPLATE__', query: trimmed }
+              : entry
+          );
+          setDialogue(updatedDialogue);
+          setReadyForInput(true);
+          addHistoryEntry(trimmed, [
+            { id, type: '__OPEN_ACCOUNT_SMALL_TEMPLATE__', query: trimmed }
           ]);
         }, 1200);
         hasHandledQueryParamRef.current = true;
@@ -325,6 +379,32 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
       setValue("");
       return;
     }
+    // Open Account: Medium
+    if (
+      match &&
+      match.type === 'term' &&
+      match.size === 'medium' &&
+      (match.query.toLowerCase().includes('retirement account') ||
+        match.aliases.some(alias => alias.toLowerCase().includes('retirement account')))
+    ) {
+      const id = getNextDialogueId();
+      setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
+      setTimeout(() => {
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+          entry.id === id
+            ? { id, type: '__OPEN_ACCOUNT_MEDIUM_TEMPLATE__', query: trimmed }
+            : entry
+        );
+        setDialogue(updatedDialogue);
+        if (shouldAddHistory) {
+          addHistoryEntry(trimmed, [
+            { id, type: '__OPEN_ACCOUNT_MEDIUM_TEMPLATE__', query: trimmed }
+          ]);
+        }
+      }, 1200);
+      setValue("");
+      return;
+    }
     // Close Account: Medium
     if (
       match &&
@@ -395,6 +475,32 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
         if (shouldAddHistory) {
           addHistoryEntry(trimmed, [
             { id, type: `__OPEN_ACCOUNT_LARGE_TEMPLATE__`, query: trimmed }
+          ]);
+        }
+      }, 1200);
+      setValue("");
+      return;
+    }
+    // Open Account: Small (Brokerage)
+    if (
+      match &&
+      match.type === 'term' &&
+      match.size === 'small' &&
+      (match.query.toLowerCase().includes('brokerage account') ||
+        match.aliases.some(alias => alias.toLowerCase().includes('brokerage account')))
+    ) {
+      const id = getNextDialogueId();
+      setDialogue([...currentDialogueSnapshot, { id, type: 'loading' }]);
+      setTimeout(() => {
+        const updatedDialogue = latestDialogueRef.current.map((entry: DialogueEntry) =>
+          entry.id === id
+            ? { id, type: '__OPEN_ACCOUNT_SMALL_TEMPLATE__', query: trimmed }
+            : entry
+        );
+        setDialogue(updatedDialogue);
+        if (shouldAddHistory) {
+          addHistoryEntry(trimmed, [
+            { id, type: '__OPEN_ACCOUNT_SMALL_TEMPLATE__', query: trimmed }
           ]);
         }
       }, 1200);
@@ -556,6 +662,18 @@ export default function DialogueArea({ headerHeight = 0, mode = 'search', onMode
                   key={entry.id}
                   headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
                   query={entry.query ?? ''}
+                />
+              ) : entry.type === '__OPEN_ACCOUNT_MEDIUM_TEMPLATE__' ? (
+                <OpenAccountMediumTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? ''}
+                />
+              ) : entry.type === '__OPEN_ACCOUNT_SMALL_TEMPLATE__' ? (
+                <OpenAccountSmallTemplate
+                  key={entry.id}
+                  headerRef={idx === dialogue.length - 1 ? lastBigTemplateHeaderRef : undefined}
+                  query={entry.query ?? 'Open a brokerage account'}
                 />
               ) : (
                 <div
