@@ -125,6 +125,13 @@ _This document tracks what works, what's left to build, current status, known is
 - All UI/UX choices (border-radius, animated border-color, shadow, X button alignment) are documented in /src/docs/.
 - All changes are committed, merged, and pushed to main. Memory bank and documentation are fully up to date.
 
+## [2024-07-XX] Open Account Small Template (Brokerage) & Card System Enhancements
+- Added Open Account Small Template for brokerage account flow, triggered by natural language queries and robust alias matching.
+- Created OpenAccountBrokerageOverviewCard: full-width, Clark Kent demo data, gray info box, clickable Account Opening Agreements, and all required policy/IRS bullet points. Two CTAs at the bottom.
+- Updated demoSearches and DialogueArea to wire up the new template and aliases.
+- All linter/type errors resolved and build confirmed clean.
+- Documentation to be added for new card and template in /docs/components/cards and /docs/templates.
+
 ---
 
 > See also: [src/docs/SMART_SUGGEST_PANEL.md] for comprehensive technical and UX documentation of the Smart Suggest Panel feature.
