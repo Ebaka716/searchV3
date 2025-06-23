@@ -194,6 +194,7 @@ export function Header({
               <TabsTrigger value="rmd">RMD Flow</TabsTrigger>
               <TabsTrigger value="cs">CS Flow</TabsTrigger>
               <TabsTrigger value="close">Close accnt Flow</TabsTrigger>
+              <TabsTrigger value="open">Open Account</TabsTrigger>
               </TabsList>
               <TabsContent value="aapl">
                 <div className="space-y-4">
@@ -358,6 +359,54 @@ export function Header({
                       <li>close my account now</li>
                       <li>confirm account closure</li>
                       <li>finalize account closure</li>
+                    </ul>
+                  </div>
+                </div>
+              </TabsContent>
+              <TabsContent value="open">
+                <div className="space-y-4">
+                  <div>
+                    <div className="font-semibold">Open Account Large Template:</div>
+                    <div className="text-zinc-500 mb-1">Query: <span className="font-normal">Open an account</span></div>
+                    <ul className="list-disc pl-6">
+                      <li>open account</li>
+                      <li>open a new account</li>
+                      <li>start new account</li>
+                      <li>begin account opening</li>
+                      <li>create account</li>
+                      <li>new account application</li>
+                      <li>apply for account</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-semibold">Open Account Medium Template:</div>
+                    <div className="text-zinc-500 mb-1">Query: <span className="font-normal">Open retirement account</span></div>
+                    <ul className="list-disc pl-6">
+                      <li>open a retirement account</li>
+                      <li>start retirement account</li>
+                      <li>apply for retirement account</li>
+                      <li>retirement account options</li>
+                      <li>open ira</li>
+                      <li>open roth ira</li>
+                      <li>open 401k rollover</li>
+                      <li>open sep ira</li>
+                      <li>open simple ira</li>
+                    </ul>
+                  </div>
+                  <div>
+                    <div className="font-semibold">Open Account Small Template (Brokerage):</div>
+                    <div className="text-zinc-500 mb-1">Query: <span className="font-normal">Open a brokerage account</span></div>
+                    <ul className="list-disc pl-6">
+                      <li>open brokerage account</li>
+                      <li>start brokerage account</li>
+                      <li>begin brokerage account</li>
+                      <li>create brokerage account</li>
+                      <li>apply for brokerage account</li>
+                      <li>open investment account</li>
+                      <li>open trading account</li>
+                      <li>brokerage account application</li>
+                      <li>open a brokerage</li>
+                      <li>open a new brokerage account</li>
                     </ul>
                   </div>
                 </div>
