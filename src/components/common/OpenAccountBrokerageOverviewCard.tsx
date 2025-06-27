@@ -59,8 +59,8 @@ const OpenAccountBrokerageOverviewCard: React.FC = () => (
         <ul className="list-disc pl-5 text-sm text-zinc-700 space-y-1 mb-2">
           <li>Received, understand, and agree to the Account Opening Agreements</li>
           <li>Confirm that your personal information is correct</li>
-          <li>Agree to conduct business with Product Company electronically and to the electronic delivery of all documents and communications for all your Product Company accounts as detailed in the Electronic Delivery Agreement</li>
-          <li>Consent to Product Company use of your email and/or mobile number to message, call or text you to help secure your account, provide transactional alerts, and deliver other communications. Message and data rates apply; frequency may vary. For help with texts, reply HELP.</li>
+          <li>Agree to conduct business with Financial company electronically and to the electronic delivery of all documents and communications for all your Financial company accounts as detailed in the Electronic Delivery Agreement</li>
+          <li>Consent to Financial company use of your email and/or mobile number to message, call or text you to help secure your account, provide transactional alerts, and deliver other communications. Message and data rates apply; frequency may vary. For help with texts, reply HELP.</li>
         </ul>
         <ul className="list-disc pl-5 text-sm space-y-1">
           <li className="font-bold text-zinc-900">Understand your Account is governed by the mandatory arbitration clause contained in the Customer Agreement</li>

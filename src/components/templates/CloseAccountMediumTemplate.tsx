@@ -125,7 +125,7 @@ const CloseAccountMediumTemplate: React.FC<CloseAccountMediumTemplateProps> = ({
   <BigTemplate
     headerRef={headerRef}
     header={query}
-    preamble={"You have 5 accounts with Product company, only your individual account is eligible for closure with a zero balance."}
+    preamble={"You have 5 accounts with Financial company, only your individual account is eligible for closure with a zero balance."}
     rows={[
       { type: "full", cards: [<AccountListCard key="account-list-card" />] },
       { type: "thirds", cards: [
