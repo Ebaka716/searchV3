@@ -199,7 +199,7 @@ export function Header({
               <TabsContent value="aapl">
                 <div className="space-y-4">
                   <div>
-                    <div className="font-semibold">AAPL Large Template:</div>
+                    <div className="font-semibold">AAPL 1:</div>
                     <ul className="list-disc pl-6">
                       <li>AAPL</li>
                       <li>aapl</li>
@@ -217,7 +217,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">AAPL Medium Template:</div>
+                    <div className="font-semibold">AAPL 2:</div>
                     <ul className="list-disc pl-6">
                       <li>apple dividends and earnings</li>
                       <li>aapl dividends and earnings</li>
@@ -240,7 +240,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">AAPL Small Template:</div>
+                    <div className="font-semibold">AAPL 3:</div>
                     <ul className="list-disc pl-6">
                       <li>my dividends from last month</li>
                       <li>my dividends for apple last month</li>
@@ -268,7 +268,7 @@ export function Header({
               <TabsContent value="rmd">
                 <div className="space-y-4">
                   <div>
-                    <div className="font-semibold">RMD Large Template:</div>
+                    <div className="font-semibold">RMD 1:</div>
                     <ul className="list-disc pl-6">
                       <li>rmd</li>
                       <li>required minimum distribution</li>
@@ -280,7 +280,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Medium Template:</div>
+                    <div className="font-semibold">RMD 2:</div>
                     <ul className="list-disc pl-6">
                       <li>am I required to take an rmd</li>
                       <li>do I need to take an rmd this year</li>
@@ -290,7 +290,7 @@ export function Header({
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">RMD Small Template:</div>
+                    <div className="font-semibold">RMD 3:</div>
                     <ul className="list-disc pl-6">
                       <li>last year&apos;s rmd</li>
                       <li>my rmd for 2023</li>
@@ -318,47 +318,31 @@ export function Header({
               <TabsContent value="close">
                 <div className="space-y-4">
                   <div>
-                    <div className="font-semibold">Close Account Large Template:</div>
+                    <div className="font-semibold">Close Account 1:</div>
                     <ul className="list-disc pl-6">
-                      <li>I want to close an account</li>
-                      <li>close my account</li>
-                      <li>close an account</li>
-                      <li>close checking account</li>
-                      <li>close savings account</li>
-                      <li>close brokerage account</li>
-                      <li>close my checking</li>
-                      <li>close my savings</li>
-                      <li>close my brokerage</li>
-                      <li>close account request</li>
-                      <li>account closure</li>
-                      <li>how do I close my account</li>
+                      <li>close and account</li>
+                      <li>close a account</li>
+                      <li>account close</li>
+                      <li>zero balance</li>
+                      <li>close now</li>
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">Close Account Medium Template:</div>
+                    <div className="font-semibold">Close Account 2:</div>
                     <ul className="list-disc pl-6">
-                      <li>Show me all my accounts</li>
-                      <li>list my accounts</li>
-                      <li>what accounts do I have</li>
-                      <li>show accounts</li>
-                      <li>my accounts</li>
-                      <li>account list</li>
-                      <li>display my accounts</li>
-                      <li>see all accounts</li>
-                      <li>view all accounts</li>
+                      <li>Help closing my account</li>
+                      <li>Remove my account</li>
+                      <li>Opened account in error</li>
+                      <li>Close now</li>
                     </ul>
                   </div>
                   <div>
-                    <div className="font-semibold">Close Account Small Template:</div>
+                    <div className="font-semibold">Close Account 3:</div>
                     <ul className="list-disc pl-6">
-                      <li>Close my checking account now</li>
-                      <li>close checking now</li>
-                      <li>close my savings now</li>
-                      <li>close brokerage now</li>
-                      <li>close account immediately</li>
-                      <li>close my account now</li>
-                      <li>confirm account closure</li>
-                      <li>finalize account closure</li>
+                      <li>list of zero balance accounts</li>
+                      <li>which accounts can i close</li>
+                      <li>how do i delete an account</li>
+                      <li>remove an account</li>
                     </ul>
                   </div>
                 </div>

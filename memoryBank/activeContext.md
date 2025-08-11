@@ -149,4 +149,11 @@ The Smart Suggest Panel is an interactive, context-aware suggestion panel that a
 - **Design Decisions:** The card's border-radius is preserved by animating border-color (not border-image). The X button is flush-aligned, and the card's shadow is increased for elevation during confirmation. All UI/UX choices are documented in /src/docs/.
 - **Documentation:** Added a new doc in /src/docs/ describing the design decisions and patterns for the Close Account transaction card and mini-app pattern.
 
+## [2024-07-XX] Open Account Small Template (Brokerage) & Card System Enhancements
+- **Open Account Small Template:** Added a new template for the brokerage account opening flow, triggered by queries/aliases like "open brokerage account". Uses a single full-width card row for a focused, transactional experience.
+- **OpenAccountBrokerageOverviewCard:** Created a robust, modular card for the brokerage flow. Features Clark Kent demo data, a gray user info box, and a detailed "Important documents and confirmation" section with clickable Account Opening Agreements and all required policy/IRS bullet points. Two CTAs at the bottom: secondary (Close) and primary (Open Account).
+- **Dialogue & DemoSearches Wiring:** Updated demoSearches.tsx and DialogueArea.tsx to robustly trigger the new template for all relevant aliases. Ensured correct template rendering and event-driven transitions.
+- **UI/UX:** Card is now truly full-width, visually consistent, and production-ready. Clickable doc section styled for interactivity. All linter/type errors resolved and build confirmed clean.
+- **Docs:** Robust documentation to be added for the new card and template in /docs/components/cards and /docs/templates.
+
 ---
