@@ -123,17 +123,62 @@ export default function AppSidebar() {
         <SidebarNavItem icon={<Plus size={20} />} label="New Search" collapsed={collapsed} onClick={() => router.push(`/search?reset=${Date.now()}`)} />
         <SidebarNavItem icon={<FilePlus size={20} />} label="New Research Project" collapsed={collapsed} onClick={() => router.push('/research')} />
         {/* History Section */}
-        {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1 mt-2">History</div>}
+        {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1 mt-2">Recent history</div>}
         <div className={collapsed ? 'hidden' : 'flex flex-col gap-1 pl-2 mt-2 mb-2'}>
-          {[0,1,2,3].map(idx => (
-            <SidebarNavItem
-              key={idx}
-              label={history[idx]?.label || "(empty)"}
-              collapsed={collapsed}
-              className="truncate"
-              onClick={history[idx] ? () => restoreHistoryEntry(idx) : undefined}
-            />
-          ))}
+          {/* First slot: User's actual history entry */}
+          <SidebarNavItem
+            key="history-0"
+            label={history[0]?.label || "(empty)"}
+            collapsed={collapsed}
+            className="truncate"
+            onClick={history[0] ? () => restoreHistoryEntry(0) : undefined}
+          />
+          {/* Predefined search intents for remaining slots */}
+          <SidebarNavItem
+            key="rmd-eligibility"
+            label="RMD eligibility"
+            collapsed={collapsed}
+            className="truncate"
+            onClick={() => {
+              router.push('/search');
+              // Use setTimeout to ensure navigation completes before dispatching event
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('add-to-floating-input', { 
+                  detail: { value: 'RMD eligibility' } 
+                }));
+              }, 100);
+            }}
+          />
+          <SidebarNavItem
+            key="close-account"
+            label="Close an account"
+            collapsed={collapsed}
+            className="truncate"
+            onClick={() => {
+              router.push('/search');
+              // Use setTimeout to ensure navigation completes before dispatching event
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('add-to-floating-input', { 
+                  detail: { value: 'close an account' } 
+                }));
+              }, 100);
+            }}
+          />
+          <SidebarNavItem
+            key="where-is-card"
+            label="Where is my card"
+            collapsed={collapsed}
+            className="truncate"
+            onClick={() => {
+              router.push('/search');
+              // Use setTimeout to ensure navigation completes before dispatching event
+              setTimeout(() => {
+                window.dispatchEvent(new CustomEvent('add-to-floating-input', { 
+                  detail: { value: 'where is my card' } 
+                }));
+              }, 100);
+            }}
+          />
         </div>
         {/* Projects Section */}
         {!collapsed && <div className="text-xs font-semibold text-gray-500 px-2 py-1 mt-2">Projects</div>}

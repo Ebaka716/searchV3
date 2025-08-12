@@ -45,11 +45,11 @@ const defaultPanelCards: DefaultCardData[] = [
     type: 'default',
   },
   {
-    title: "Recent searches",
+    title: "Recent history",
     items: [
-      { label: "How do I fund my new account?" },
-      { label: "What are the risks of margin trading?" },
-      { label: "Compare ETFs vs mutual funds" },
+      { label: "RMD eligibility" },
+      { label: "Close an account" },
+      { label: "Where is my card?" },
       { label: "Can I trade options in my IRA?" },
       { label: "Where can I find tax documents?" },
     ],
@@ -314,11 +314,35 @@ export function SmartSuggestPanel({ isOpen, onClose, top, className }: SmartSugg
                 ) : (
                   // Default rendering for other cards
                   <ul className="space-y-1">
-                    {cardData.items.map((item) => (
-                      <li key={item.label} className="text-sm text-muted-foreground hover:text-foreground cursor-pointer">
-                        {item.label}
-                      </li>
-                    ))}
+                    {cardData.items.map((item) => {
+                      // Check if this is one of the actionable items
+                      const isActionable = [
+                        "RMD eligibility",
+                        "Close an account", 
+                        "Where is my card?"
+                      ].includes(item.label);
+                      
+                      return (
+                        <li 
+                          key={item.label} 
+                          className={`text-sm cursor-pointer ${
+                            isActionable ? 'text-muted-foreground hover:text-blue-600' : 'text-muted-foreground hover:text-foreground'
+                          }`}
+                          onClick={isActionable ? () => {
+                            router.push('/search');
+                            // Use setTimeout to ensure navigation completes before dispatching event
+                            setTimeout(() => {
+                              window.dispatchEvent(new CustomEvent('add-to-floating-input', { 
+                                detail: { value: item.label } 
+                              }));
+                            }, 100);
+                            onClose();
+                          } : undefined}
+                        >
+                          {item.label}
+                        </li>
+                      );
+                    })}
                   </ul>
                 )}
               </CardContent>
